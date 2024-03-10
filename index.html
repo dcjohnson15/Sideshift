@@ -2,38 +2,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/8a80b728dc.js" crossorigin="anonymous"></script>
     <title>SideShift Homepage</title>
-    <h1>SideShift</h1>
 </head>
-<nav>
-    <b><a href="index.html">Home</a></b>&nbsp; 
-    <b><a href="index.html">Jobs</a></b>&nbsp; 
-    <b><a href="index.html">Contact</a></b>&nbsp; 
-    <b><a href="index.html">Login</a></b>&nbsp; 
-</nav>
+
+<style>
+    .box {
+      height: 600px; /* Adjust the height as needed */
+    }
+  </style>
 
 <!-- home page -->
-
 <body>
-    <main>
-        <h10> these are just tests</h10>
-        <br>
-        <br>
-        <h9>Here's a job</h9>
-        <br>
-        <br>
-        <h9>Here's another job</h9>
+    <!-- Nav Bar -->
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="#">Sideshift</a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-end">
+              <!-- Right side -->
+              <a class="navbar-item" href="#">Log In</a>
+              <a class="navbar-item" href="#">Sign In</a>
+              <a class="navbar-item" href="#">Sign Up</a>
+              <a class="navbar-item" href="#">About Us</a>
+              <a class="navbar-item" href="#">Contact Us</a>
+            </div>
+        </div>
+      </nav>
 
+      <!-- Header -->
+      <section class="section">
+        <div class="container">
+          <h1 class="title has-text-centered is-1">
+            Sideshift
+          </h1>
+        </div>
+      </section>
 
+    <!-- Main Content -->
+  <section class="section">
+    <div class="columns">
+      <!-- Filter column -->
+      <div class="column is-one-quarter">
+        <div class="box">
+          <h2 class="title has-text-centered">Filters</h2>
+          <!-- Filter content here -->
+        </div>
+      </div>
+      
+      <!--Job Posting scolumn -->
+      <div class="column">
+        <div class="box">
+          <h2 class="title has-text-centered">Job Listings</h2>
+          <!-- Job listings content here -->
+        </div>
+      </div>
+      
+      <!--Your Information -->
+      <div class="column is-one-quarter">
+        <div class="box">
+          <h2 class="title has-text-centered">Your Information</h2>
+          <!-- Your information content here -->
+        </div>
+      </div>
+    </div>
+  </section>
 
+    <!-- Footer -->
+    <div class="footer">
+        <div class="content has-text-centered is-size-4" id="contact_nav">
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="content has-text-centered my-2 is-info">
+            <a href="https://www.facebook.com">
+                <i class="fa-brands fa-facebook fa-3x mx-5"></i>
+            </a>
+            <a href="https://www.twitter.com">
+                <i class="fa-brands fa-twitter fa-3x mx-5"></i>
+            </a>
+        </div>
+    </div>
 
-
-
-
-    </main>
-    
 </body>
-
-<footer>I am adding a footer as a test</footer>
-
 </html>
