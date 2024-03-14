@@ -11,15 +11,48 @@
           margin: 0;
           font-family: Arial, sans-serif;
         }
+
+        .navbar { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+  }
+
+  .navbar a.logo { 
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  .navbar a.logo img { 
+    width: 50px; 
+    margin-right: 10px;
+  }
+  .signup-btn {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none; 
+  }
+
         .container {
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 100%;
+          height: 100%
+          
         }
+
         .login-form {
           width: 300px;
-          padding: 20px;
+          padding: 40px;
           border: 2px solid white; /* White border */
           background-color: #007bff; /* Blue background */
           box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -42,11 +75,16 @@
           border-radius: 4px;
           cursor: pointer;
         }
-        .btn:hover {
-          background-color: #004094;
-        }
+
       </style>
       <body>
+     <!-- Nav bar -->
+        <div class="navbar">
+            <a href="Landingpage.html" class="logo">
+              <img src=" alt="Company Logo">Company Name
+            </a>
+            <a href="SignUp.html" class="signup-btn">Not a user? Sign up here.</a>
+          </div>
 
      <!-- Sign in -->
       <div class="container">
