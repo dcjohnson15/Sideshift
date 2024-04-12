@@ -16,9 +16,9 @@ function toggleSection(sectionId) {
   // Change the navbar class based on the active section
   // If on the landing page, set the navbar to be primary, otherwise info
   if (sectionId == "landing") {
-    navbar.className = "navbar is-primary";
+    navbar.className = "navbar is-info";
   } else {
-    navbar.className = "navbar is info";
+    navbar.className = "navbar is-info";
   }
 }
 
