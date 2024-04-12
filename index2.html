@@ -88,6 +88,12 @@
   width: 60%; 
   height: auto;
 }
+
+.button.is-light {
+  padding-top: 2rem; 
+  padding-bottom: 2rem; 
+  padding-right: 1rem;
+}
     </style>
   </head>
   <body>
@@ -136,24 +142,27 @@
             />
           </div>
           <div class="buttons is-centered">
-            <button class="button is-light" onclick="toggleSection('business')">
-              Business Sign-Up
-            </button>
-            <button class="button is-light" onclick="toggleSection('student')">
-              Student Sign-Up
-            </button>
-            <!-- Icon circles  -->
-            <div class="icon-circle-container">
-                <div class="icon-circle">
-                  <img src="Images/briefcase.png" alt="Business Icon" class="icon-image">
+
+                <button class="button is-light" onclick="toggleSection('business')">
+                    <span class="icon">
+                         <!-- Business icon image -->
+                      <img src="Images/briefcase.png" alt="Business Icon">
+                    </span>
+                    <span>Business Sign-Up</span>
+                  </button>
+          
+                  <!-- Student Sign-Up Button -->
+                  <button class="button is-light" onclick="toggleSection('student')">
+                    <span class="icon">
+                      <img src="Images/student.png" alt="Student Icon"> <!-- Student icon image -->
+                    </span>
+                    <span>Student Sign-Up</span>
+                  </button>
                 </div>
-                <div class="icon-circle">
-                  <img src="Images/student.png" alt="Student Icon" class="icon-image">
-                </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          
+               
+      
+  </section> 
 
     <!-- Business Sign-Up Page -->
     <section
