@@ -25,6 +25,17 @@
         background-color: #add8e6;
       }
 
+      .hero.is-fullheight-with-navbar {
+        background: linear-gradient(
+            rgba(173, 216, 230, 0.5),
+            rgba(173, 216, 230, 0.5)
+          ),
+          url("images/workers.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
       #landing .hero-body {
         padding-top: 10vh;
       }
@@ -54,6 +65,13 @@
       .logo-image {
         max-height: 70%;
       }
+
+
+.button.is-light {
+  padding-top: 2rem; 
+  padding-bottom: 2rem; 
+  padding-right: 1rem;
+}
     </style>
   </head>
   <body>
@@ -96,22 +114,33 @@
         <div class="container has-text-centered">
           <div class="logo-circle">
             <img
-              src="Images/SideShift Co"
+              src="Images/SideShift Colored Logo .png"
               alt="SIDESHIFT Logo"
               class="logo-image"
             />
           </div>
           <div class="buttons is-centered">
-            <button class="button is-light" onclick="toggleSection('business')">
-              Business Sign-Up
-            </button>
-            <button class="button is-light" onclick="toggleSection('student')">
-              Student Sign-Up
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+
+                <button class="button is-light" onclick="toggleSection('business')">
+                    <span class="icon">
+                         <!-- Business icon image -->
+                      <img src="Images/briefcase.png" alt="Business Icon">
+                    </span>
+                    <span>Business Sign-Up</span>
+                  </button>
+          
+                  <!-- Student Sign-Up Button -->
+                  <button class="button is-light" onclick="toggleSection('student')">
+                    <span class="icon">
+                      <img src="Images/student.png" alt="Student Icon"> <!-- Student icon image -->
+                    </span>
+                    <span>Student Sign-Up</span>
+                  </button>
+                </div>
+          
+               
+      
+  </section> 
 
     <!-- Business Sign-Up Page -->
     <section
@@ -120,7 +149,7 @@
     >
       <div class="hero-body">
         <div class="container">
-          <img src="" alt="SIDESHIFT Logo" class="logo-image" />
+          <img src="Images/SideShift Colored Logo .png" alt="SIDESHIFT Logo" class="logo-image" />
           <form class="box">
             <div class="field">
               <label class="label">Company Name</label>
