@@ -179,86 +179,84 @@
       </div>
     </section>
 
-<!-- Student Sign in Page -->
-<section id="signin" class="hero is-info is-fullheight-with-navbar section">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <img
-          src=""
-          alt="SIDESHIFT App Logo"
-          class="logo-image"
-        />
-        <form class="box">
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-              <input
-                class="input"
-                type="email"
-                placeholder="name@example.com"
-                required
-              />
+    <!-- Student Sign in Page -->
+    <section id="signin" class="hero is-info is-fullheight-with-navbar section">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <img src="" alt="SIDESHIFT App Logo" class="logo-image" />
+          <form class="box">
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="email"
+                  placeholder="name@example.com"
+                  required
+                />
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <label class="label">Password</label>
-            <div class="control">
-              <input
-                class="input"
-                type="password"
-                placeholder="********"
-                required
-              />
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="password"
+                  placeholder="********"
+                  required
+                />
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <button class="button is-link" type="submit">Sign In</button>
+            <div class="field">
+              <div class="control">
+                <button class="button is-link" type="submit">Sign In</button>
+              </div>
             </div>
-          </div>
-          <button class="button is-light" onclick="toggleSection('landing')">
-            Back
-          </button>
-        </form>
+            <button class="button is-light" onclick="toggleSection('landing')">
+              Back
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script> -->
 
     <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script> -->
 
     <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script> -->
 
     <script>
       // TODO
       // Copy **only** your firebaseConfig from Google Firebae and add it below
 
-      const firebaseConfig = {
-      apiKey: "AIzaSyDiuKCAk9ki73_ZlbCeE5WRWIA7w9L_emw",
-      authDomain: "tastytrucks-b83d8.firebaseapp.com",
-      projectId: "tastytrucks-b83d8",
-      storageBucket: "tastytrucks-b83d8.appspot.com",
-      messagingSenderId: "221890569183",
-      appId: "1:221890569183:web:216718adc4dac1d18f5a6a",
-    };
+      //   const firebaseConfig = {
+      //     apiKey: "AIzaSyDiuKCAk9ki73_ZlbCeE5WRWIA7w9L_emw",
+      //     authDomain: "tastytrucks-b83d8.firebaseapp.com",
+      //     projectId: "tastytrucks-b83d8",
+      //     storageBucket: "tastytrucks-b83d8.appspot.com",
+      //     messagingSenderId: "221890569183",
+      //     appId: "1:221890569183:web:216718adc4dac1d18f5a6a",
+      //   };
 
       // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      // define authentication variable
-      let auth = firebase.auth();
-      let db = firebase.firestore();
+      //   firebase.initializeApp(firebaseConfig);
+      //   // define authentication variable
+      //   let auth = firebase.auth();
+      //   let db = firebase.firestore();
+      //
     </script>
-<!-- Custom Script -->
-  <script src="app.js"></script>
+    
 
-
+    <!-- Custom Script -->
+    <script src="app.js"></script>
+    
   </body>
 </html>
