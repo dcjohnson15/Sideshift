@@ -22,16 +22,38 @@
       }
 
       .hero.is-fullheight-with-navbar {
-        height: calc(100vh - 52px); /* Navbar height adjustment */
+        background-color: #add8e6;
+        
       }
+
+      #landing .hero-body {
+      padding-top: 10vh;
+    }
+
+    .button.is-primary {
+      background-color: #ffffff;
+      color: #333333;
+      border: 2px solid #add8e6;
+    }
+
+      .logo-circle {
+      background-color: white;
+      border-radius: 50%;
+      width: 250px;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      margin-bottom: 2rem;
+    }
 
       .navbar-menu {
         justify-content: flex-end;
       }
 
       .logo-image {
-        max-height: 5rem;
-        margin-bottom: 2rem;
+        max-height: 70%;
       }
     </style>
   </head>
@@ -64,7 +86,11 @@
     >
       <div class="hero-body">
         <div class="container has-text-centered">
-          <img src="/Users/dierrejohnson/Documents/Documents/Classes/IS 424/Term Project/Sideshift/Images/App Logo .png" alt="SIDESHIFT Logo" class="logo-image" />
+          <img
+            src="IS 424/Term Project/Sideshift/Images/Logo1.png"
+            alt="SIDESHIFT Logo"
+            class="logo-image"
+          />
           <div class="buttons is-centered">
             <button class="button is-light" onclick="toggleSection('business')">
               Business Sign-Up
