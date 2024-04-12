@@ -64,12 +64,21 @@
       role="navigation"
       aria-label="main navigation"
     >
+      <!-- LEFT SIDE: Home logo -->
+      <div class="navbar-brand">
+        <a class="navbar-item" onclick="toggleSection('landing')">
+          <img
+            src="Images/SideShift Colored Logo .png"
+            alt="Home"
+            style="cursor: pointer"
+          />
+        </a>
+      </div>
+
+      <!-- RIGHT SIDE: Sign In button -->
       <div class="navbar-menu">
         <div class="navbar-end">
           <div class="navbar-item">
-            <a class="button is-light" onclick="toggleSection('landing')"
-              >Home</a
-            >
             <a class="button is-light" onclick="toggleSection('signin')"
               >Current User? Sign In</a
             >
@@ -87,7 +96,7 @@
         <div class="container has-text-centered">
           <div class="logo-circle">
             <img
-              src="IS 424/Term Project/Sideshift/Images/Logo1.png"
+              src="Images/SideShift Colored Logo .png"
               alt="SIDESHIFT Logo"
               class="logo-image"
             />
