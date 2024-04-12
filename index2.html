@@ -2,9 +2,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <script src="https://kit.fontawesome.com/8a80b728dc.js" crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/8a80b728dc.js"
+      crossorigin="anonymous"
+    ></script>
     <title>SideShift</title>
+
+    <style>
+      .section {
+        display: none; /* Initially hide all sections */
+      }
+
+      .is-active {
+        display: block; /* Show the active section */
+      }
+
+      .hero.is-fullheight-with-navbar {
+        height: calc(100vh - 52px); /* Navbar height adjustment */
+      }
+
+      .navbar-menu {
+        justify-content: flex-end;
+      }
+
+      .logo-image {
+        max-height: 5rem;
+        margin-bottom: 2rem;
+      }
+    </style>
   </head>
   <body>
     <!-- Nav bar -->
@@ -255,10 +284,8 @@
       //   let db = firebase.firestore();
       //
     </script>
-    
 
     <!-- Custom Script -->
     <script src="app.js"></script>
-
   </body>
 </html>
