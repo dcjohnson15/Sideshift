@@ -33,11 +33,7 @@
     >
       <div class="hero-body">
         <div class="container has-text-centered">
-          <img
-            src=""
-            alt="SIDESHIFT Logo"
-            class="logo-image"
-          />
+          <img src="" alt="SIDESHIFT Logo" class="logo-image" />
           <div class="buttons is-centered">
             <button class="button is-light" onclick="toggleSection('business')">
               Business Sign-Up
@@ -46,6 +42,76 @@
               Student Sign-Up
             </button>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Business Sign-Up Page -->
+    <section
+      id="business"
+      class="hero is-info is-fullheight-with-navbar section"
+    >
+      <div class="hero-body">
+        <div class="container">
+          <img
+            src=""
+            alt="SIDESHIFT Logo"
+            class="logo-image"
+          />
+          <form class="box">
+            <div class="field">
+              <label class="label">Company Name</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Your company name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Company Email</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="email"
+                  placeholder="name@company.com"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="password"
+                  placeholder="********"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Confirm Password</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="password"
+                  placeholder="********"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button class="button is-link" type="submit">Sign Up</button>
+              </div>
+            </div>
+            <button class="button is-light" onclick="toggleSection('landing')">
+              Back
+            </button>
+          </form>
         </div>
       </div>
     </section>
