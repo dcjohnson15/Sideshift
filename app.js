@@ -27,3 +27,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // Initially show only show the landing page
   toggleSection("landing");
 });
+
+
+.custom-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
