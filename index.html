@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,248 +8,263 @@
     <title>SideShift Homepage</title>
 </head>
 
+
 <style>
     .box {
-      height: 900px; /* Adjust the height as needed */
+        height: 900px;
+        /* Adjust the height as needed */
     }
+
     .checkbox {
-                    display: block;
-                    margin-bottom: 0.5rem; /* Adjust spacing between checkboxes */
-                }
-  </style>
+        display: block;
+        margin-bottom: 0.5rem;
+        /* Adjust spacing between checkboxes */
+    }
+</style>
 
 <!-- home page -->
+
 <body>
     <!-- Nav Bar -->
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="#">Sideshift</a>
+            <a class="navbar-item" href="#">Sideshift</a>
         </div>
         <div class="navbar-menu">
             <div class="navbar-end">
-              <!-- Right side -->
-              <a class="navbar-item" href="#">Log In</a>
-              <a class="navbar-item" href="#">Sign In</a>
-              <a class="navbar-item" href="#">Sign Up</a>
-              <a class="navbar-item" href="#">About Us</a>
-              <a class="navbar-item" href="#">Contact Us</a>
+                <!-- Right side -->
+                <a class="navbar-item" href="#">Log In</a>
+                <a class="navbar-item" href="#">Sign In</a>
+                <a class="navbar-item" href="#">Sign Up</a>
+                <a class="navbar-item" href="#">About Us</a>
+                <a class="navbar-item" href="#">Contact Us</a>
             </div>
         </div>
-      </nav>
+    </nav>
 
-      <!-- Header -->
-      <section class="section">
+    <!-- Header -->
+    <section class="section">
         <div class="container">
-          <h1 class="title has-text-centered is-1">
-            Sideshift
-          </h1>
+            <h1 class="title has-text-centered is-1">
+                Sideshift
+            </h1>
         </div>
-      </section>
+    </section>
 
     <!-- Main Content -->
-  <section class="section">
-    <div class="columns">
-      <!-- Filter column -->
-      <!-- Filter column -->
-<div class="column is-one-quarter">
-    <div class="box">
-        <h2 class="title has-text-centered">Filters</h2>
-        <form>
-            <!-- Wage per hour filter -->
-            <div class="field">
-                <label class="label">Wage per hour</label>
-                <div class="control">
-                    <input class="input" type="number" placeholder="Min">
-                </div>
-                <div class="control">
-                    <input class="input" type="number" placeholder="Max">
-                </div>
-            </div>
-            <!-- Days of the week filter -->
-            <div class="field">
-                <label class="label">Days of the week</label>
-                <div class="control">
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Monday
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Tuesday
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Wednesday
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Thursday
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Friday
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Saturday
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Sunday
-                    </label>
+    <section class="section">
+        <div class="columns">
+            <!-- Filter column -->
+            <!-- Filter column -->
+            <div class="column is-one-quarter">
+                <div class="box">
+                    <h2 class="title has-text-centered">Filters</h2>
+                    <form>
+                        <!-- Wage per hour filter -->
+                        <div class="field">
+                            <label class="label">Wage per hour</label>
+                            <div class="control">
+                                <input class="input" type="number" placeholder="Min">
+                            </div>
+                            <div class="control">
+                                <input class="input" type="number" placeholder="Max">
+                            </div>
+                        </div>
+                        <!-- Days of the week filter -->
+                        <div class="field">
+                            <label class="label">Days of the week</label>
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Monday
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Tuesday
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Wednesday
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Thursday
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Friday
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Saturday
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Sunday
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Expected hours per week filter -->
+                        <div class="field">
+                            <label class="label">Expected hours (per week)</label>
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    less than 10
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    15
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    25
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    40+
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Company ratings filter -->
+                        <div class="field">
+                            <label class="label">Company ratings</label>
+                            <div class="control">
+                                <input class="input" type="number" placeholder="Min">
+                            </div>
+                            <div class="control">
+                                <input class="input" type="number" placeholder="Max">
+                            </div>
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="field is-grouped is-grouped-centered">
+                            <div class="control">
+                                <button class="button is-primary">Apply Filters</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 
-            <!-- Expected hours per week filter -->
-            <div class="field">
-                <label class="label">Expected hours (per week)</label>
-                <div class="control">
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        less than 10
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        15
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        25
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        40+
-                    </label>
-                </div>
-            </div>
-            <!-- Company ratings filter -->
-            <div class="field">
-                <label class="label">Company ratings</label>
-                <div class="control">
-                    <input class="input" type="number" placeholder="Min">
-                </div>
-                <div class="control">
-                    <input class="input" type="number" placeholder="Max">
+
+            <!-- Job Posting column -->
+            <div class="column">
+                <div class="box">
+                    <h2 class="title has-text-centered">Job Listings</h2>
+                    <!-- Job listings -->
+                    <div class="columns is-multiline">
+                        <!-- Job listing card 1 -->
+                        <div class="column is-full">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">Chaser's Bar and Grill: Bartender</p>
+                                            <div class="content">
+                                                Looking for a passionate employee who enjoys working in a fast-paced
+                                                environment with a team that puts customer needs first.
+                                            </div>
+                                        </div>
+                                        <div class="media-right">
+                                            <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
+                                                <img src="https://static.wixstatic.com/media/cf748f_8c1a2f4bc5b54cd6a9e4dc1427094926~mv2.png/v1/crop/x_361,y_375,w_1297,h_1254/fill/w_386,h_376,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Chasers%202_0%20PNG%20(transparent%20background).png"
+                                                    alt="Job Image">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                                <footer class="card-footer">
+                                    <a href="#" class="card-footer-item">Apply</a>
+                                </footer>
+                            </div>
+                        </div>
+                        <!-- Job listing card 2 -->
+                        <div class="column is-full">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">Colectivo Coffee State Street: Barista</p>
+                                            <div class="content">
+                                                As a coffee barista, you'll craft and serve delicious beverages while
+                                                providing exceptional customer service in a dynamic and engaging
+                                                environment.
+                                            </div>
+                                        </div>
+                                        <div class="media-right">
+                                            <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
+                                                <img src="data:image/png;base64,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"
+                                                    alt="Job Image">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                                <footer class="card-footer">
+                                    <a href="#" class="card-footer-item">Apply</a>
+                                </footer>
+                            </div>
+                        </div>
+                        <!-- Job listing card 3 -->
+                        <div class="column is-full">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">Union South: Rock Climbing Instructor</p>
+                                            <div class="content">
+                                                You'll guide and support climbers of all skill levels, ensuring safety
+                                                protocols are followed while fostering a supportive and adventurous
+                                                atmosphere.
+                                            </div>
+                                        </div>
+                                        <div class="media-right">
+                                            <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
+                                                <img src="https://d9mfr5qxp4i37.cloudfront.net/wp-content/uploads/sites/132/2023/08/WU_logo_Cmyk-800x502.png"
+                                                    alt="Job Image">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                                <footer class="card-footer">
+                                    <a href="#" class="card-footer-item">Apply</a>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Submit button -->
-            <div class="field is-grouped is-grouped-centered">
-                <div class="control">
-                    <button class="button is-primary">Apply Filters</button>
+
+            <!--Your Information -->
+            <div class="column is-one-quarter">
+                <div class="box">
+                    <h2 class="title has-text-centered">Your Information</h2>
+                    <!-- Your information content here -->
+                    <br>
+                    <div class="media-right">
+                        <figure class="image is-128x128"> <!-- Adjust size as needed -->
+                            <img src="https://media.licdn.com/dms/image/C5603AQFCyXDJi7l7AA/profile-displayphoto-shrink_400_400/0/1655996365566?e=1715817600&v=beta&t=-k3w9dGQWy_iUD0l99SJD3Q9X-sfrymp8T4cmB3OyTI"
+                                alt="Job Image" class="is-rounded">
+                        </figure>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="content">
+                        <p><strong>Name:</strong> Dierre Johnson</p>
+                        <p><strong>Age:</strong> 22</p>
+                        <p><strong>Year in school:</strong> Senior</p>
+                        <p><strong>Major:</strong> Real Estate and Information Systems</p>
+                        <p><strong>Hometown:</strong> Kansas City, MO</p>
+                        <p><strong>Desired hours:</strong> Part-time</p>
+                        <p><strong>About me:</strong> I love working with enthusiastic people and have experience in
+                            hospitality. I am looking for a part-time role with about 15 hours a week.</p>
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
-
-      
-      <!-- Job Posting column -->
-    <div class="column">
-        <div class="box">
-            <h2 class="title has-text-centered">Job Listings</h2>
-            <!-- Job listings -->
-            <div class="columns is-multiline">
-                <!-- Job listing card 1 -->
-                <div class="column is-full">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-content">
-                                    <p class="title is-4">Chaser's Bar and Grill: Bartender</p>
-                                    <div class="content">
-                                        Looking for a passionate employee who enjoys working in a fast-paced environment with a team that puts customer needs first.
-                                    </div>
-                                </div>
-                                <div class="media-right">
-                                    <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
-                                        <img src="https://static.wixstatic.com/media/cf748f_8c1a2f4bc5b54cd6a9e4dc1427094926~mv2.png/v1/crop/x_361,y_375,w_1297,h_1254/fill/w_386,h_376,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Chasers%202_0%20PNG%20(transparent%20background).png" alt="Job Image">
-                                    </figure>
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="card-footer">
-                            <a href="#" class="card-footer-item">Apply</a>
-                        </footer>
-                    </div>
-                </div>
-                <!-- Job listing card 2 -->
-                <div class="column is-full">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-content">
-                                    <p class="title is-4">Colectivo Coffee State Street: Barista</p>
-                                    <div class="content">
-                                        As a coffee barista, you'll craft and serve delicious beverages while providing exceptional customer service in a dynamic and engaging environment.
-                                    </div>
-                                </div>
-                                <div class="media-right">
-                                    <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
-                                        <img src="data:image/png;base64,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" alt="Job Image">
-                                    </figure>
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="card-footer">
-                            <a href="#" class="card-footer-item">Apply</a>
-                        </footer>
-                    </div>
-                </div>
-                <!-- Job listing card 3 -->
-                <div class="column is-full">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-content">
-                                    <p class="title is-4">Union South: Rock Climbing Instructor</p>
-                                    <div class="content">
-                                        You'll guide and support climbers of all skill levels, ensuring safety protocols are followed while fostering a supportive and adventurous atmosphere.
-                                    </div>
-                                </div>
-                                <div class="media-right">
-                                    <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
-                                        <img src="https://d9mfr5qxp4i37.cloudfront.net/wp-content/uploads/sites/132/2023/08/WU_logo_Cmyk-800x502.png" alt="Job Image">
-                                    </figure>
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="card-footer">
-                            <a href="#" class="card-footer-item">Apply</a>
-                        </footer>
-                    </div>
-                </div>
         </div>
-    </div>
-</div>
-
-      
-      <!--Your Information -->
-      <div class="column is-one-quarter">
-        <div class="box">
-            <h2 class="title has-text-centered">Your Information</h2>
-            <!-- Your information content here -->
-            <br>
-            <div class="media-right">
-                <figure class="image is-128x128"> <!-- Adjust size as needed -->
-                    <img src="https://media.licdn.com/dms/image/C5603AQFCyXDJi7l7AA/profile-displayphoto-shrink_400_400/0/1655996365566?e=1715817600&v=beta&t=-k3w9dGQWy_iUD0l99SJD3Q9X-sfrymp8T4cmB3OyTI" alt="Job Image" class="is-rounded">
-                </figure>
-            </div>
-            <br>
-            <br>            
-            <div class="content">
-                <p><strong>Name:</strong> Dierre Johnson</p>
-                <p><strong>Age:</strong> 22</p>
-                <p><strong>Year in school:</strong> Senior</p>
-                <p><strong>Major:</strong> Real Estate and Information Systems</p>
-                <p><strong>Hometown:</strong> Kansas City, MO</p>
-                <p><strong>Desired hours:</strong> Part-time</p>
-                <p><strong>About me:</strong> I love working with enthusiastic people and have experience in hospitality. I am looking for a part-time role with about 15 hours a week.</p>
-            </div>
-        </div>
-    </div>
-    </div>
-  </section>
+    </section>
 
     <!-- Footer -->
     <div class="footer">
@@ -266,4 +282,5 @@
     </div>
 
 </body>
+
 </html>

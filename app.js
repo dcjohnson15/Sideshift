@@ -29,8 +29,73 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 
-.custom-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+// .custom-centered {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// Function to handle employer sign-up
+function signUpEmployer(event) {
+  event.preventDefault();
+
+  const companyName = document.getElementById('c_name').value;
+  const companyEmail = document.getElementById('c_email').value;
+  const password = document.getElementById('c_password').value;
+  const confirmPassword = document.getElementById('c_password2').value;
+
+  // Check if passwords match
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  // Add employer data to Firestore
+  db.collection("employers").doc(companyEmail).set({
+    companyName: companyName,
+    email: companyEmail,
+    password: password
+  })
+    .then(() => {
+      console.log("Employer added successfully.");
+      // Redirect or show success message
+    })
+    .catch((error) => {
+      console.error("Error adding employer: ", error);
+    });
 }
+
+// Function to handle student sign-up
+function signUpStudent(event) {
+  event.preventDefault();
+
+  const fullName = document.getElementById('s_name').value;
+  const educationalEmail = document.getElementById('s_email').value;
+  const password = document.getElementById('s_password').value;
+  const confirmPassword = document.getElementById('s_password2').value;
+
+  // Check if passwords match
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  // Add student data to Firestore
+  db.collection("users").doc(educationalEmail).set({
+    fullName: fullName,
+    email: educationalEmail,
+    password: password
+  })
+    .then(() => {
+      console.log("Student added successfully.");
+      // Redirect or show success message
+    })
+    .catch((error) => {
+      console.error("Error adding student: ", error);
+    });
+}
+
+// Add event listeners to sign-up buttons
+document.getElementById('ssu_button').addEventListener('click', signUpStudent);
+document.getElementById('esu_button').addEventListener('click', signUpEmployer);
+
