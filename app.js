@@ -1,6 +1,8 @@
+// function to quickly select items by id
 function r_e(id) {
   return document.querySelector(`#${id}`);
 }
+
 // Function to toggle the visibility of sections based on the given section ID.
 function toggleSection(sectionId) {
   // Select all sections with the class .section
@@ -21,22 +23,40 @@ function toggleSection(sectionId) {
   if (sectionId == "landing") {
     navbar.className = "navbar is-info";
   } else {
-    navbar.className = "navbar is-info";
+    // navbar.className = "navbar is-info";
   }
 }
 
-// Call this function when the content is loaded to show active section
-document.addEventListener("DOMContentLoaded", (event) => {
-  // Initially show only show the landing page
-  toggleSection("landing");
-});
+// configure the navbar to only show certain elements when signed in/out
+function configure_navbar(user) {
+  let signedin = document.querySelectorAll(`.signedin`);
+  let signedout = document.querySelectorAll(`.signedout`);
 
+  // check user status
+  if (user) {
 
-// .custom-centered {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
+    // show all signedin links
+    signedin.forEach(link => {
+      link.classList.remove('is-hidden');
+    });
+
+    // hide all signedout links
+    signedout.forEach(link => {
+      link.classList.add('is-hidden');
+    });
+
+  } else {
+    // show all signedout links
+    signedout.forEach(link => {
+      link.classList.remove('is-hidden');
+    });
+
+    // hide all signedin links
+    signedin.forEach(link => {
+      link.classList.add('is-hidden');
+    });
+  }
+}
 
 // Function to handle employer sign-up
 function signUpEmployer(event) {
@@ -96,7 +116,26 @@ function signUpStudent(event) {
     .catch((error) => {
       console.error("Error adding student: ", error);
     });
+
+  firebase.auth().createUserWithEmailAndPassword(educationalEmail, password)
+    .then((userCredential) => {
+      // User account created successfully
+      const user = userCredential.user;
+      console.log('User created:', user);
+      // Optionally, redirect the user to a different page
+    })
+    .catch((error) => {
+      // Handle errors
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error('Error creating user:', errorMessage);
+    });
 }
+// Call this function when the content is loaded to show active section
+document.addEventListener("DOMContentLoaded", (event) => {
+  // Initially show only show the landing page
+  toggleSection("landing");
+});
 
 // Add event listeners to sign-up buttons
 document.getElementById('ssu_button').addEventListener('click', signUpStudent);
@@ -129,36 +168,47 @@ document.getElementById('employerForm').addEventListener('submit', function (eve
     });
 });
 
-// // Sign in user, and display message on mesage bar
-// r_e("si_button").addEventListener('submit', (e) => {
-//   e.preventDefault();
+// Sign in user, and display message on mesage bar
+r_e("si_form").addEventListener('submit', (e) => {
+  e.preventDefault();
 
-//   // grab email and password
-//   let email = r_e("si_email").value;
-//   let password = r_e("si_password").value;
+  // grab email and password
+  let email = r_e("si_email").value;
+  let password = r_e("si_password").value;
 
-//   // call the firebase finction to sign in user
-//   auth.signInWithEmailAndPassword(email, password).then((user) => {
+  // call the firebase function to sign in user
+  auth.signInWithEmailAndPassword(email, password).then((user) => {
 
-//     console.log("Signed In successfully");
-//     // reset form
-//     r_e("si_form").reset();
+    console.log("Signed In successfully");
+    // reset form
+    r_e("si_form").reset();
 
-//     // // close modal
-//     // r_e("signin").classList.remove(`is-active`);
+  }).catch(err => {
+    signin.querySelector('.error').innerHTML = err.message;
+  })
+})
 
-//   }).catch(err => {
-//     signin.querySelector('.error').innerHTML = err.message;
-//   })
-// })
+// Sign out user, 
+r_e('signout_nav').addEventListener('click', () => {
+  // Display a successful signout message to user
 
-// // Sign out user, 
-// r_e('signout_nav').addEventListener('click', () => {
-//   // Display a successful signout message to user
+  auth.signOut().then(() => {
+    console.log("Signed Out")
+  })
+})
 
-//   auth.signOut().then(() => {
-//     console.log("Signed Out")
-//   })
-// })
+// track user authentification status with on authstatechanged
+auth.onAuthStateChanged((user) => {
+  //check if user is signed in or out
+  if (user) {
+    toggleSection("studenthomepage")
+    // display message, configure nav bar, and toggle right section
+    console.log("User Signed In!")
+    configure_navbar(user)
 
-
+  } else {
+    console.log("User Signed Out!")
+    configure_navbar(user)
+    toggleSection("landing")
+  }
+})
