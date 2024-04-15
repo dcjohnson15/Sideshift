@@ -7,9 +7,39 @@ User Stories:
 As a user, I need to login and view all hiring employers on the main page.
 As a user, I need to browse different employers conveniently with few barriers to view
 
-Burndown Chart:Ê
-TaskCorresponding StoryÊDurationPriorityComplexityLead PersonCreate login page11 hours4lowJPCreate main page with 3-column layout featuring job openings15 hours10mid-highAndrewFill in job openings on main page with details from local employers1&22 hours5midGarrett
-Create the shell for different employer pages22 hours3lowDJ
+Burndown Chart:ï¿½
+Task
+Corresponding Storyï¿½
+Duration
+Priority
+Complexity
+Lead Person
+Create login page
+1
+1 hours
+4
+low
+JP
+Create main page with 3-column layout featuring job openings
+1
+5 hours
+10
+mid-high
+Andrew
+Fill in job openings on main page with details from local employers
+1&2
+2 hours
+5
+mid
+Garrett
+
+Create the shell for different employer pages
+2
+2 hours
+3
+low
+DJ
+
 
  INCLUDEPICTURE "https://lh7-us.googleusercontent.com/P1a9XJL4dcS1S-lDdvIOMbXj9j-IQ2P17JJEkl_omcU-Ziinxg3qnTY6N22f2yDqDzvRTy2n5ytYcan0MNZnQmPBHb0lXICXljj46AfkI6lNQkThbg73GUrr2HzTyuCOe-XNQH2QWAi5D3juPzI1qG4" \* MERGEFORMATINET 
  INCLUDEPICTURE "https://lh7-us.googleusercontent.com/eebicqf9PtRiizhhOSiIx-ZBaobhIxw70VwyGwexNIEkz8_jN8UjbI6Jaam2Hm2S76PZKB3yilY3smTjiODisY59c5Qu9VTgTaULxFAEZY7FMBuRSZh0-k8uUdTkTIRKEV_Ut-Zzuue_fGhSHLlYKtw" \* MERGEFORMATINET  
@@ -134,4 +164,92 @@ F.). Which group was invited? What are our observations/notes? Was everybody pre
 We invited Group 1 for the sprint review. The meeting was very productive, as we received constructive feedback from the group. 
 Group 1 provided insightful observations on user interface design and flow, which we plan to incorporate into our next sprint. 
 All team members from both groups were present, leading to an effective review session.
+
+Second Sprint:
+
+User Stories:
+As a user, I need to be able to search for employers and submit applications for the positions they are hiring for.
+As a user, I need to be able to post my job openings and review applicants, as well as being able to follow up on promising applications.
+
+Burndown Chart:
+
+Trello Board: https://trello.com/b/atmqnlgd/sideshift
+
+Daily Scrum Meetings:
+
+Meeting Date: 4/1/2026
+DJ
+Yesterday: Reviewed project milestones and deliverables.
+Today: Planning to begin working on javascript functionality
+Issues: None reported.
+
+Garret Larsen
+Yesterday: Updated trello board to reflect new sprint goals
+Today: Planning to create the burndown chart to prioritize tasks
+Issues: None reported.
+
+Chandler Breene
+Yesterday: Helped write user stories for the sprint.
+Today: Planning to work on polishing prototype design
+Issues: None reported.
+
+Andrew Steitzel
+Yesterday: Worked on creating the updated prototype
+Today: Planning to polish current website design
+Issues: None reported.
+
+JP Frimel
+Yesterday: Began working on the database structure
+Today: Planning to finalize database structure so implementation can be added
+Issues: None reported.
+
+Meeting Date: 4/12/2026
+DJ
+Yesterday: Stylized CSS
+Today: Planning to add buttons and other javascript functionality
+Issues: None reported.
+
+Garret Larsen
+Yesterday: Began working on employer page
+Today: Planning to finalize employer page and complete merge
+Issues: None reported.
+
+Chandler Breene
+Yesterday: Made plans to conduct sprint review with group 4
+Today: Planning to update readme doc with updated information
+Issues: None reported.
+
+Andrew Steitzel
+Yesterday: Created sign up buttons
+Today: Planning to add sign up form functionality for users and employers
+Issues: None reported.
+
+JP Frimel
+Yesterday: Built sign up form
+Today: Planning to assist with sign up form functionality
+Issues: None reported.
+
+Sprint Review:
+A.) What did we learn from doing our second sprint?
+This sprint taught us the importance of planning ahead. We put a lot of planning into our database structure and protype design,
+and as a result we were able to work cohesively as a team to create the website we wanted. Since we had a solid plan in mind,
+it was very easy for us to split up and work on different pieces as need be, since we all knew the goals we were aiming for.
+
+B.) What went well? Why?
+Our development of the the different pages for the student and employer perspective went very well. We had made a solid plan
+as to the design and functionality of these, and as such were able to create them to our liking with relative ease. Since the
+planning phase was already complete, it was very easy for us to work on them day by day, helping to keep us on track to finish
+the sprint on time.
+
+C.) What didn't go well? Why not?
+Combining the pages to make a single page app was a big of a struggle for us. We created 3 html files to create the pages that
+we wanted, and we thought it would be simple to merge this into one, but we underestimated the difficulty of doing so.
+Replacing the entire page with a new set of html proved difficult and time consuming, as making edits to the html from the app.js
+file wasn't easy, as it doesn't provide error warnings that coding in the html file itself does.
+
+D.) How can we make things better next time?
+
+E.) Are we satisfied with what we already completed?
+
+F.). Which group was invited? What are our observations/notes? Was everybody present?
 
