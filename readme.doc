@@ -171,7 +171,83 @@ User Stories:
 As a user, I need to be able to search for employers and submit applications for the positions they are hiring for.
 As a user, I need to be able to post my job openings and review applicants, as well as being able to follow up on promising applications.
 
-Burndown Chart:
+Burndown Chart: https://BurndownForTrello.com/share/k4lbtx3lcs
+Github Link: https://github.com/dcjohnson15/Sideshift
+
+
+
+Task
+Corresponding Story 
+Duration
+Priority
+Complexity
+Lead Person
+Create Landing page
+1&2
+3 hours
+4
+low
+JP
+Filtering for Student of job listings
+1
+3 hours
+1
+
+
+mid-high
+Andrew
+Filtering for employers of student applicants
+1
+3 hours
+1
+mid
+Garrett
+
+
+Create the shell for different employer pages
+2
+4 hours
+3
+low
+Garrett
+Add DB functionality to Sign in & Sign up pages
+2
+4 hours
+10
+mid-high
+Andrew
+Create firebase database
+2
+2 hours
+10
+mid
+JP
+Create collections
+2
+3 hours
+10
+mid
+Chandler
+Create Student Sign up Page
+1
+3 hours
+7
+mid
+DJ
+Create login page
+1
+3 hours
+7
+mid
+Chandler
+Create Business Sign up Page
+2
+3 hours
+7
+mid
+DJ
+
+
 
 Trello Board: https://trello.com/b/atmqnlgd/sideshift
 
@@ -231,12 +307,12 @@ Issues: None reported.
 
 Sprint Review:
 A.) What did we learn from doing our second sprint?
-This sprint taught us the importance of planning ahead. We put a lot of planning into our database structure and protype design,
+This sprint taught us the importance of planning ahead. We put a lot of planning into our database structure and prototype design,
 and as a result we were able to work cohesively as a team to create the website we wanted. Since we had a solid plan in mind,
-it was very easy for us to split up and work on different pieces as need be, since we all knew the goals we were aiming for.
+It was very easy for us to split up and work on different pieces as needed, since we all knew the goals we were aiming for.
 
 B.) What went well? Why?
-Our development of the the different pages for the student and employer perspective went very well. We had made a solid plan
+Our development of the different pages for the student and employer perspective went very well. We had made a solid plan
 as to the design and functionality of these, and as such were able to create them to our liking with relative ease. Since the
 planning phase was already complete, it was very easy for us to work on them day by day, helping to keep us on track to finish
 the sprint on time.
@@ -248,8 +324,11 @@ Replacing the entire page with a new set of html proved difficult and time consu
 file wasn't easy, as it doesn't provide error warnings that coding in the html file itself does.
 
 D.) How can we make things better next time?
+For the next sprint we anticipate having the website fully activated and ready for usage by customers. This includes finalizing the graphic user interface complete in the next week and fully solidifying the database during sprint 3. Things can go better with continued updates to the trello board and clear communication with teammates.  This includes tasks being evenly assigned and completed at various deadlines that are set.
 
 E.) Are we satisfied with what we already completed?
+Yes, we are satisfied with the current status of our project but the team knows that there is much more work to be completed in the next coming weeks. We are definitely in a comfortable position with our website but the database and other back end items must be glued together to fully piece together the project for the client. 
 
 F.). Which group was invited? What are our observations/notes? Was everybody present?
+Group 4 was invited. Everyone was present for the initial meeting and interaction. We noticed with the website that it is a single page app with the different pages in the nav bar being fully clickable. The graphic interface is very well laid out and designed -  seems the group has mastered the front end portion of the site and now just to add functionality through javascript code. Our favorite portion of the website is the booking and leave a review section of the website. 
 
