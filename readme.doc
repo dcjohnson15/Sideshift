@@ -1,15 +1,15 @@
 
 Prototype: HYPERLINK "https://cloud.justinmind.com/usernote/prototype/6ed7c2429578dd741e34c695de948cbdfcf3e9f5a6515e736b982a4a796f0856"https://cloud.justinmind.com/usernote/prototype/6ed7c2429578dd741e34c695de948cbdfcf3e9f5a6515e736b982a4a796f0856
 
-Trello Board Link: HYPERLINK "https://trello.com/b/atmqnlgd/sideshift"https://trello.com/b/atmqnlgd/sideshift�
+Trello Board Link: HYPERLINK "https://trello.com/b/atmqnlgd/sideshift"https://trello.com/b/atmqnlgd/sideshiftï¿½
 
 User Stories:
 As a user, I need to login and view all hiring employers on the main page.
 As a user, I need to browse different employers conveniently with few barriers to view
 
-Burndown Chart:�
+Burndown Chart:Ê
 Task
-Corresponding Story�
+Corresponding StoryÊ
 Duration
 Priority
 Complexity
@@ -47,86 +47,86 @@ INCLUDEPICTURE "https://lh7-us.googleusercontent.com/svbIGNdDXzMBgJLQBfcTPZixWQR
 
 Repo URL: HYPERLINK "https://github.com/dcjohnson15/Sideshift.git"https://github.com/dcjohnson15/Sideshift.git
 
-Daily Scrum Meetings:�
-�
+Daily Scrum Meetings:ï¿½
+ï¿½
 Meeting Date: February 26, 2024
 DJ
 Yesterday: Reviewed project milestones and deliverables.
 Today: Planning to design the shell for different employer pages, focusing on user interface.
 Issues: None reported.
-�
+ï¿½
 Garrett Larsen
 Yesterday: Assisted in outlining user stories for the sprint.
-Today:� Researching job openings for main page with details from local employers,
+Today:ï¿½ Researching job openings for main page with details from local employers,
 Issues: None reported.
-�
+ï¿½
 Chandler Breene
 Yesterday: Worked on reviewing current status and artifacts of the project.
 Today: Coordination with team on the layout and design aspects, focusing on user interface.
 Issues: None reported.
-�
+ï¿½
 Andrew Steitzel
 Yesterday: Discussing functional requirements of the web application.
 Today: Creating the main page with a 2-column layout featuring job openings, focusing on user-friendly design.
 Issues: None reported.
-�
+ï¿½
 JP Frimel
 Yesterday: Participated in discussions on future wants of the app and website.
 Today: Design of main page and layout aspect
 Issues: None reported.
-�
+ï¿½
 Meeting Date: March 1, 2024
 DJ
 Yesterday: Worked on the shell for different employer pages.
 Today: Enhancing the user interface for employer pages for better functionality
 Issues: None reported.
-�
+ï¿½
 Garrett Larsen
 Yesterday: Updated job listings with local employer details.
 Today: Enhancing UI for navigating job listings.
 Issues: Seeking more comprehensive details from some employers for listings.
-�
+ï¿½
 Chandler Breene
 Yesterday: Coordinated layout and design tasks, focusing on user interface.
 Today: Implementing design improvements based on initial feedback.
 Issues: None reported.
-�
+ï¿½
 Andrew Steitzel
 Yesterday: Created a 2-column layout for the main page.
 Today: Further refining the user interface to enhance user engagement with job listings.
 Issues: None reported.
-�
+ï¿½
 JP Frimel
 Yesterday: Developed the design of the login page.
 Today: Refining login page UI for a better user experience.
 Issues: None reported.
-�
+ï¿½
 Meeting Date: March 7, 2024
 DJ
 Yesterday: Checked-in with client of further discussions
 Today: Finalizing the figma design of personal profile sections for businesses, focusing on a clean and accessible UI.
 Issues: None reported.
-�
+ï¿½
 Garrett Larsen
 Yesterday: Worked on Sprint 1 assignment
 Today: Working on providing more information on shared project workbook
 Issues: Continue to receive more details on job postings
-�
+ï¿½
 Chandler Breene
 Yesterday: Suggested improvements for user experience, focusing on UI.
 Today: Ensuring consistency in UI design across all pages.
 Issues: None reported.
-�
+ï¿½
 Andrew Steitzel
 Yesterday: Focused on enhancing the main page layout for better user interaction.
 Today: Improving the layout and UI elements to make job listings more appealing.
 Issues: None reported.
-�
+ï¿½
 JP Frimel
 Yesterday: Looked into user authentication processes
 Today: Ensuring the user authentication process integrates well with the overall UI design
 Issues: None reported.
-�
+ï¿½
 
 Sprint Review:
 A.) What did we learn from doing our first sprint?
@@ -161,8 +161,8 @@ We successfully tackled portions of the project, setting a strong foundation for
  sprint will inform our future strategies.
 
 F.). Which group was invited? What are our observations/notes? Was everybody present?
-We invited Group 1 for the sprint review. The meeting was very productive, as we received constructive feedback from the group. 
-Group 1 provided insightful observations on user interface design and flow, which we plan to incorporate into our next sprint. 
+We invited Group 4 for the sprint review. The meeting was very productive, as we received constructive feedback from the group. 
+Group 4 provided insightful observations on user interface design and flow, which we plan to incorporate into our next sprint. 
 All team members from both groups were present, leading to an effective review session.
 
 Second Sprint:
