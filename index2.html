@@ -203,26 +203,26 @@
     </div>
   </section>
 
-  <!-- Student Sign in Page -->
+  <!-- Sign in Page -->
   <section id="signin" class="hero is-info is-fullheight-with-navbar section">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <form class="box">
+        <form id="si_form" class="box">
           <div class="field">
             <label class="label">Email</label>
             <div class="control">
-              <input class="input" type="email" placeholder="name@example.com" required />
+              <input class="input" id="si_email" type="email" placeholder="name@example.com" required />
             </div>
           </div>
           <div class="field">
             <label class="label">Password</label>
             <div class="control">
-              <input class="input" type="password" placeholder="********" required />
+              <input class="input" id="si_password" type="password" placeholder="********" required />
             </div>
           </div>
           <div class="field">
             <div class="control">
-              <button class="button is-link" type="submit">Sign In</button>
+              <button class="button is-link" id="si_button" type="submit">Sign In</button>
             </div>
           </div>
           <button class="button is-light" onclick="toggleSection('landing')">
@@ -232,6 +232,46 @@
       </div>
     </div>
   </section>
+
+  <!-- Form to create a job posting -->
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Employer Form</h1>
+      <form id="employerForm" class="box">
+        <div class="field">
+          <label class="label">Desired Hours</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g., 10-20" id="desiredHours" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Job Title</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Enter job title" id="jobTitle" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Job Description</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="Enter job description" id="jobDescription" required></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Required Experience</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Enter required experience" id="requiredExperience" required>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button class="button is-link" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->

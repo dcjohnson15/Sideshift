@@ -1,3 +1,6 @@
+function r_e(id) {
+  return document.querySelector(`#${id}`);
+}
 // Function to toggle the visibility of sections based on the given section ID.
 function toggleSection(sectionId) {
   // Select all sections with the class .section
@@ -98,4 +101,64 @@ function signUpStudent(event) {
 // Add event listeners to sign-up buttons
 document.getElementById('ssu_button').addEventListener('click', signUpStudent);
 document.getElementById('esu_button').addEventListener('click', signUpEmployer);
+
+// Add data from the job posting form into the job_post collection
+document.getElementById('employerForm').addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  // Get form values
+  const desiredHours = document.getElementById('desiredHours').value;
+  const jobTitle = document.getElementById('jobTitle').value;
+  const jobDescription = document.getElementById('jobDescription').value;
+  const requiredExperience = document.getElementById('requiredExperience').value;
+
+  // Add job post data to Firestore
+  db.collection("job_post").add({
+    desiredHours: desiredHours,
+    jobTitle: jobTitle,
+    jobDescription: jobDescription,
+    requiredExperience: requiredExperience
+  })
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+      // Reset form after successful submission
+      document.getElementById('employerForm').reset();
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+});
+
+// // Sign in user, and display message on mesage bar
+// r_e("si_button").addEventListener('submit', (e) => {
+//   e.preventDefault();
+
+//   // grab email and password
+//   let email = r_e("si_email").value;
+//   let password = r_e("si_password").value;
+
+//   // call the firebase finction to sign in user
+//   auth.signInWithEmailAndPassword(email, password).then((user) => {
+
+//     console.log("Signed In successfully");
+//     // reset form
+//     r_e("si_form").reset();
+
+//     // // close modal
+//     // r_e("signin").classList.remove(`is-active`);
+
+//   }).catch(err => {
+//     signin.querySelector('.error').innerHTML = err.message;
+//   })
+// })
+
+// // Sign out user, 
+// r_e('signout_nav').addEventListener('click', () => {
+//   // Display a successful signout message to user
+
+//   auth.signOut().then(() => {
+//     console.log("Signed Out")
+//   })
+// })
+
 
