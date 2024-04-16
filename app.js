@@ -1,3 +1,7 @@
+function r_e(id) {
+  return document.querySelector(`#${id}`);
+}
+
 // Function to toggle the visibility of sections based on the given section ID.
 function toggleSection(sectionId) {
   // Select all sections with the class .section
@@ -21,6 +25,39 @@ function toggleSection(sectionId) {
     navbar.className = "navbar is-info";
   }
 }
+
+
+// configure the navbar to only show certain elements when signed in/out
+function configure_navbar(user) {
+  let signedin = document.querySelectorAll(`.signedin`);
+  let signedout = document.querySelectorAll(`.signedout`);
+
+  // check user status
+  if (user) {
+
+    // show all signedin links
+    signedin.forEach(link => {
+      link.classList.remove('is-hidden');
+    });
+
+    // hide all signedout links
+    signedout.forEach(link => {
+      link.classList.add('is-hidden');
+    });
+
+  } else {
+    // show all signedout links
+    signedout.forEach(link => {
+      link.classList.remove('is-hidden');
+    });
+
+    // hide all signedin links
+    signedin.forEach(link => {
+      link.classList.add('is-hidden');
+    });
+  }
+}
+
 
 // Call this function when the content is loaded to show active section
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -199,7 +236,7 @@ document.getElementById('employerForm').addEventListener('submit', function (eve
 });
 
 // Sign in user
-r_e("si_form").addEventListener('submit', (e) => {
+r_e("signin").addEventListener('submit', (e) => {
   e.preventDefault();
 
   // grab email and password
@@ -211,7 +248,7 @@ r_e("si_form").addEventListener('submit', (e) => {
 
     console.log("Signed In successfully");
     // reset form
-    r_e("si_form").reset();
+    r_e("signin").reset();
 
   }).catch(err => {
     signin.querySelector('.error').innerHTML = err.message;
