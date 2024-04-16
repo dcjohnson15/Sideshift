@@ -131,6 +131,59 @@ function signUpStudent(event) {
       console.error('Error creating user:', errorMessage);
     });
 }
+
+// Function to fetch job postings from Firestore
+function fetchJobPostings() {
+  const jobPostingsContainer = document.getElementById('jobPostings');
+
+  // Get a reference to the job_post collection
+  const jobPostCollection = db.collection('job_post');
+
+  // Fetch documents from job_post collection
+  jobPostCollection.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      // Extract data from each document
+      const data = doc.data();
+
+      // Create card element
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      // Populate card with data from Firestore
+      card.innerHTML = `
+      <div class="column is-full">
+        <div class="card">
+          <div class="card-content">
+              <div class="media">
+                  <div class="media-content">
+                      <p class="title is-4 has-text-black">${data.company}: ${data.title}</p>
+                      <p class="content">Expected hours/week: ${data.hours}</p>
+                      <p class="content">Required Experience: ${data.experience}</p>
+                      <p class="content">Wage: $${data.wage}/hour </p>
+                      <p class="content">Days of Week: ${data.days} </p>
+                      <p class="content">Description: ${data.description} </p>
+                  </div>
+                  <div class="media-right">
+                      <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
+                          <img src="${data.img_link}" alt="Job Image">
+                      </figure>
+                  </div>
+              </div>
+          </div>
+          <footer class="card-footer">
+              <a id="apply" class="card-footer-item">Apply</a>
+          </footer>
+      </div>`
+
+      // Append card to container
+      jobPostingsContainer.appendChild(card);
+    });
+  }).catch((error) => {
+    console.error("Error getting documents: ", error);
+  });
+}
+
+
 // Call this function when the content is loaded to show active section
 document.addEventListener("DOMContentLoaded", (event) => {
   // Initially show only show the landing page
@@ -168,7 +221,7 @@ document.getElementById('employerForm').addEventListener('submit', function (eve
     });
 });
 
-// Sign in user, and display message on mesage bar
+// Sign in user
 r_e("si_form").addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -202,6 +255,7 @@ auth.onAuthStateChanged((user) => {
   //check if user is signed in or out
   if (user) {
     toggleSection("studenthomepage")
+    fetchJobPostings()
     // display message, configure nav bar, and toggle right section
     console.log("User Signed In!")
     configure_navbar(user)
