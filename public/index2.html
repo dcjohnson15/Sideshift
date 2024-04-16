@@ -1,0 +1,488 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+  <script src="https://kit.fontawesome.com/8a80b728dc.js" crossorigin="anonymous"></script>
+  <title>SideShift</title>
+
+  <style>
+    .section {
+      display: none;
+      /* Initially hide all sections */
+    }
+
+    .is-active {
+      display: block;
+      /* Show the active section */
+    }
+
+    .hero.is-fullheight-with-navbar {
+      background-color: #add8e6;
+    }
+
+    .hero.is-fullheight-with-navbar {
+      background: linear-gradient(rgba(173, 216, 230, 0.5),
+          rgba(173, 216, 230, 0.5)),
+        url("images/workers.webp");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    #landing .hero-body {
+      padding-top: 10vh;
+    }
+
+    .button.is-primary {
+      background-color: #ffffff;
+      color: #333333;
+      border: 2px solid #add8e6;
+    }
+
+    .logo-circle {
+      background-color: white;
+      border-radius: 50%;
+      width: 250px;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      margin-bottom: 2rem;
+    }
+
+    .navbar-menu {
+      justify-content: flex-end;
+    }
+
+    .logo-image {
+      max-height: 50%;
+    }
+
+    .button.is-light {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      padding-right: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Nav bar -->
+  <!--   <nav id="navbar" class="navbar is-primary" role="navigation" aria-label="main navigation">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" onclick="toggleSection('landing')">
+        <img src="Images/SideShift Colored Logo .png" alt="Home" style="cursor: pointer" />
+      </a>
+    </div>
+
+
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="button is-light" onclick="toggleSection('signin')">Current User? Sign In</a>
+        </div>
+      </div>
+    </div>
+  </nav> -->
+
+  <nav id="navbar" class="navbar is-info" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" onclick="toggleSection('landing')">
+        <img src="Images/SideShift Colored Logo .png" alt="Home" style="cursor: pointer" />
+      </a>
+      <div class="navbar-item is-size-5">
+        <div id="user_email" class="signedin has-text-grey-lighter"></div>
+      </div>
+      <a class="navbar-burger is-size-1" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </div>
+    <!-- navbar-end -->
+    <div class="navbar-menu has-background-info" id="nav-links">
+      <div class="navbar-end">
+        <div class="navbar-item is-size-4">
+          <a class="button signedout has-text-black " id="signin_nav" onclick="toggleSection('signin')">Already have an
+            account? Sign in!</a>
+        </div>
+        <div class="navbar-item is-size-4">
+          <a class=" signedin has-text-white" id="signout_nav" href="#">Sign Out</a>
+        </div>
+        <div class="navbar-item is-size-4">
+          <a class="signedin has-text-white" id="profile_nav" href="#">My Profile</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Landing page  -->
+  <section id="landing" class="hero is-primary is-fullheight-with-navbar section is-active">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="logo-circle">
+          <img src="Images/SideShift Colored Logo .png" alt="SIDESHIFT Logo" class="logo-image" />
+        </div>
+        <div class="buttons is-centered">
+
+          <button class="button is-light" onclick="toggleSection('business')">
+            <span class="icon">
+              <!-- Business icon image -->
+              <img src="Images/briefcase.png" alt="Business Icon">
+            </span>
+            <span>Business Sign-Up</span>
+          </button>
+
+          <!-- Student Sign-Up Button -->
+          <button class="button is-light" onclick="toggleSection('student')">
+            <span class="icon">
+              <img src="Images/student.png" alt="Student Icon"> <!-- Student icon image -->
+            </span>
+            <span>Student Sign-Up</span>
+          </button>
+        </div>
+
+
+
+  </section>
+
+  <!-- Business Sign-Up Page -->
+  <section id="business" class="hero is-info is-fullheight-with-navbar section">
+    <div class="hero-body">
+      <div class="container">
+        <form class="box">
+          <div class="field">
+            <label class="label">Company Name</label>
+            <div class="control">
+              <input class="input" id="c_name" type="text" placeholder="Your company name" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Company Email</label>
+            <div class="control">
+              <input class="input" id="c_email" type="email" placeholder="name@company.com" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+              <input class="input" id="c_password" type="password" placeholder="********" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Confirm Password</label>
+            <div class="control">
+              <input class="input" id="c_password2" type="password" placeholder="********" required />
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-link" id="esu_button" type="submit">Sign Up</button>
+            </div>
+          </div>
+          <button class="button is-light" onclick="toggleSection('landing')">
+            Back
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student Sign up Page -->
+  <section id="student" class="hero is-info is-fullheight-with-navbar section">
+    <div class="hero-body">
+      <div class="container">
+        <form class="box">
+          <div class="field">
+            <label class="label">Full Name</label>
+            <div class="control">
+              <input class="input" id="s_name" type="text" placeholder="Your full name" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Educational Email</label>
+            <div class="control">
+              <input class="input" id="s_email" type="email" placeholder="name@university.com" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+              <input class="input" id="s_password" type="password" placeholder="********" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Confirm Password</label>
+            <div class="control">
+              <input class="input" id="s_password2" type="password" placeholder="********" required />
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-link" id="ssu_button" type="submit">Sign Up</button>
+            </div>
+          </div>
+          <button class="button is-light" onclick="toggleSection('landing')">
+            Back
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student Sign in Page -->
+  <section id="signin" class="hero is-info is-fullheight-with-navbar section">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <form id="signin_form" class="box">
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <input class="input" id="si_email" type="email" placeholder="name@example.com" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+              <input class="input" id="si_password" type="password" placeholder="********" required />
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-link" type="submit">Sign In</button>
+            </div>
+          </div>
+          <button class="button is-light" onclick="toggleSection('landing')">
+            Back
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student Home Page -->
+  <section id="studenthomepage" class="hero is-primary is-fullheight-with-navbar section">
+    <!-- Header -->
+    <div class="container">
+      <h1 class="title has-text-centered has-text-black is-1">
+        Sideshift
+      </h1>
+    </div>
+    <!-- Main Content -->
+    <div class="columns">
+      <!-- Filter column -->
+      <div class="column is-one-quarter">
+        <div class="box">
+          <h2 class="title has-text-centered has-text-black">Filters</h2>
+          <form>
+            <!-- Wage per hour filter -->
+            <div class="field">
+              <label class="label">Wage per hour</label>
+              <div class="control">
+                <input class="input" type="number" placeholder="Min">
+              </div>
+              <div class="control">
+                <input class="input" type="number" placeholder="Max">
+              </div>
+            </div>
+            <!-- Days of the week filter -->
+            <div class="field">
+              <label class="label">Days of the week</label>
+              <div class="control">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Monday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Tuesday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Wednesday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Thursday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Friday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Saturday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Sunday
+                </label>
+              </div>
+            </div>
+
+            <!-- Expected hours per week filter -->
+            <div class="field">
+              <label class="label">Expected hours (per week)</label>
+              <div class="control">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  less than 10
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox">
+                  15
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox">
+                  25
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox">
+                  40+
+                </label>
+              </div>
+            </div>
+            <!-- Company ratings filter -->
+            <div class="field">
+              <label class="label">Company ratings</label>
+              <div class="control">
+                <input class="input" type="number" placeholder="Min">
+              </div>
+              <div class="control">
+                <input class="input" type="number" placeholder="Max">
+              </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="field is-grouped is-grouped-centered">
+              <div class="control">
+                <button class="button is-primary">Apply Filters</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Job Posting column -->
+      <div class="column">
+        <div class="box">
+          <h2 class="title has-text-centered has-text-black">Job Listings</h2>
+          <!-- Job listings -->
+          <div class="columns is-multiline">
+            <div id="job_postings" class="container">
+              <!-- Job postings will be dynamically added here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Your Information -->
+      <div class="column is-one-quarter">
+        <div class="box">
+          <h2 class="title has-text-centered has-text-black">Your Information</h2>
+          <!-- Your information content here -->
+          <br>
+          <div class="media-right">
+            <figure class="image is-128x128"> <!-- Adjust size as needed -->
+              <img
+                src="https://media.licdn.com/dms/image/C5603AQFCyXDJi7l7AA/profile-displayphoto-shrink_400_400/0/1655996365566?e=1715817600&v=beta&t=-k3w9dGQWy_iUD0l99SJD3Q9X-sfrymp8T4cmB3OyTI"
+                alt="Job Image" class="is-rounded">
+            </figure>
+          </div>
+          <br>
+          <br>
+          <div class="content">
+            <p><strong>Name:</strong> Dierre Johnson</p>
+            <p><strong>Age:</strong> 22</p>
+            <p><strong>Year in school:</strong> Senior</p>
+            <p><strong>Major:</strong> Real Estate and Information Systems</p>
+            <p><strong>Hometown:</strong> Kansas City, MO</p>
+            <p><strong>Desired hours:</strong> Part-time</p>
+            <p><strong>About me:</strong> I love working with enthusiastic people and have experience in
+              hospitality. I am looking for a part-time role with about 15 hours a week.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form to create a job posting -->
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Employer Form</h1>
+      <form id="employerForm" class="box">
+        <div class="field">
+          <label class="label">Desired Hours</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g., 10-20" id="desiredHours" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Job Title</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Enter job title" id="jobTitle" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Job Description</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="Enter job description" id="jobDescription" required></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Required Experience</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Enter required experience" id="requiredExperience" required>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button class="button is-link" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCJ0j8y9XNRgclIKAKFNhvqxUTuVw7JkY",
+      authDomain: "sideshift-36e2b.firebaseapp.com",
+      projectId: "sideshift-36e2b",
+      storageBucket: "sideshift-36e2b.appspot.com",
+      messagingSenderId: "387661945350",
+      appId: "1:387661945350:web:b27f4b30255e9da53d4187",
+      measurementId: "G-23LVVJ37E6"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // define authentication variable
+    let auth = firebase.auth();
+    let db = firebase.firestore();
+  </script>
+
+  <!-- Custom Script -->
+  <script src="app.js"></script>
+</body>
+
+</html>

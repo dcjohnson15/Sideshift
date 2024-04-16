@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+  />
+  <script
+    src="https://kit.fontawesome.com/8a80b728dc.js"
+    crossorigin="anonymous"
+  ></script>
+  <title>SideShift</title>
+
+  <style>
+    .section {
+      display: block; /* Initially show all sections */
+    }
+
+    .is-active {
+      display: block; /* Show the active section */
+    }
+
+    .hero.is-fullheight-with-navbar {
+      height: calc(100vh - 52px); /* Navbar height adjustment */
+    }
+
+    .navbar-menu {
+      justify-content: flex-end;
+    }
+
+    .logo-image {
+      max-height: 5rem;
+      margin-bottom: 2rem;
+    }
+ 
+
+
+
+ 
+  </style>
+</head>
+<body>
+  <!-- Nav bar -->
+  <nav
+    id="navbar"
+    class="navbar is-primary"
+    role="navigation"
+    aria-label="main navigation"
+  >
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="button is-light" onclick="toggleSection('landing')"
+            >Home</a
+          >
+          <a class="button is-light" onclick="toggleSection('signin')"
+            >Sign In</a
+          >
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Student Update Info Page -->
+  <section
+    id="student"
+    class="hero is-info is-fullheight-with-navbar section is-active"
+  >
+    <div class="hero-body">
+      <div class="container">
+        <img src="" alt="SIDESHIFT Logo" class="logo-image" />
+        <form class="box">
+          <div class="field">
+            <label class="label">First Name</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Your first name"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Last Name</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Your last name"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Educational Email</label>
+            <div class="control">
+              <input
+                class="input"
+                type="email"
+                placeholder="name@university.com"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Phone Number</label>
+            <div class="control">
+              <input
+                class="input"
+                type="phone"
+                placeholder="000-000-0000"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Year in School</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="schoolyr"
+                  placeholder="Freshman, Sophomore, etc."
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Age</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="age"
+                  placeholder="20"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Major(s)</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="major"
+                  placeholder="Consumer Behavior"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Hometown</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="hometown"
+                  placeholder="Chanhassen, MN"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Desired Hours</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="hours"
+                  placeholder="10-20"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">About me</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="aboutme"
+                  placeholder="2-3 sentences"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Job Experience 1</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="job1"
+                  placeholder="Title of a past job or experience"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Job Experience 1 Description</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="job1dsc"
+                  placeholder="Insert a few bullet points about what you did"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Job Experience 2</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="job2"
+                  placeholder="Title of another past job or experience"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Job Experience 2 Description</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="job2dsc"
+                  placeholder="Insert a few more bullet points about what you did"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label">Job Experience 1</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="job1"
+                  placeholder="Title of a past job or experience"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Headshot</label>
+            <div class="control">
+              <input
+                class="input"
+                type="file"
+                accept="image/*"
+                id="headshot"
+                onchange="previewImage()"
+                required
+              />
+              <img
+                id="preview"
+                src="#"
+                alt="Preview"
+                style="display:none;max-width:200px;max-height:200px;"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-link" type="submit">Update Info</button>
+            </div>
+          </div>
+          <button class="button is-light" onclick="toggleSection('landing')">
+            Back
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Script -->
+  <script src="app.js"></script>
+</body>
+</html>
