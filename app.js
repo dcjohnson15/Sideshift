@@ -91,7 +91,6 @@ function signUpEmployer(event) {
   db.collection("employers").doc(companyEmail).set({
     companyName: companyName,
     email: companyEmail,
-    password: password
   })
     .then(() => {
       console.log("Employer added successfully.");
@@ -121,7 +120,6 @@ function signUpStudent(event) {
   db.collection("users").doc(educationalEmail).set({
     fullName: fullName,
     email: educationalEmail,
-    password: password
   })
     .then(() => {
       console.log("Student added successfully.");
