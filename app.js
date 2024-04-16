@@ -1,8 +1,3 @@
-// function to quickly select items by id
-function r_e(id) {
-  return document.querySelector(`#${id}`);
-}
-
 // Function to toggle the visibility of sections based on the given section ID.
 function toggleSection(sectionId) {
   // Select all sections with the class .section
@@ -23,40 +18,22 @@ function toggleSection(sectionId) {
   if (sectionId == "landing") {
     navbar.className = "navbar is-info";
   } else {
-    // navbar.className = "navbar is-info";
+    navbar.className = "navbar is-info";
   }
 }
 
-// configure the navbar to only show certain elements when signed in/out
-function configure_navbar(user) {
-  let signedin = document.querySelectorAll(`.signedin`);
-  let signedout = document.querySelectorAll(`.signedout`);
+// Call this function when the content is loaded to show active section
+document.addEventListener("DOMContentLoaded", (event) => {
+  // Initially show only show the landing page
+  toggleSection("landing");
+});
 
-  // check user status
-  if (user) {
 
-    // show all signedin links
-    signedin.forEach(link => {
-      link.classList.remove('is-hidden');
-    });
-
-    // hide all signedout links
-    signedout.forEach(link => {
-      link.classList.add('is-hidden');
-    });
-
-  } else {
-    // show all signedout links
-    signedout.forEach(link => {
-      link.classList.remove('is-hidden');
-    });
-
-    // hide all signedin links
-    signedin.forEach(link => {
-      link.classList.add('is-hidden');
-    });
-  }
-}
+// .custom-centered {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 
 // Function to handle employer sign-up
 function signUpEmployer(event) {

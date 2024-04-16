@@ -71,50 +71,19 @@
 
 <body>
   <!-- Nav bar -->
-  <!--   <nav id="navbar" class="navbar is-primary" role="navigation" aria-label="main navigation">
-
+  <nav id="navbar" class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <!-- LEFT SIDE: Home logo -->
     <div class="navbar-brand">
       <a class="navbar-item" onclick="toggleSection('landing')">
         <img src="Images/SideShift Colored Logo .png" alt="Home" style="cursor: pointer" />
       </a>
     </div>
 
-
+    <!-- RIGHT SIDE: Sign In button -->
     <div class="navbar-menu">
       <div class="navbar-end">
         <div class="navbar-item">
           <a class="button is-light" onclick="toggleSection('signin')">Current User? Sign In</a>
-        </div>
-      </div>
-    </div>
-  </nav> -->
-
-  <nav id="navbar" class="navbar is-info" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" onclick="toggleSection('landing')">
-        <img src="Images/SideShift Colored Logo .png" alt="Home" style="cursor: pointer" />
-      </a>
-      <div class="navbar-item is-size-5">
-        <div id="user_email" class="signedin has-text-grey-lighter"></div>
-      </div>
-      <a class="navbar-burger is-size-1" id="burger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </a>
-    </div>
-    <!-- navbar-end -->
-    <div class="navbar-menu has-background-info" id="nav-links">
-      <div class="navbar-end">
-        <div class="navbar-item is-size-4">
-          <a class="button signedout has-text-black " id="signin_nav" onclick="toggleSection('signin')">Already have an
-            account? Sign in!</a>
-        </div>
-        <div class="navbar-item is-size-4">
-          <a class=" signedin has-text-white" id="signout_nav" href="#">Sign Out</a>
-        </div>
-        <div class="navbar-item is-size-4">
-          <a class="signedin has-text-white" id="profile_nav" href="#">My Profile</a>
         </div>
       </div>
     </div>
@@ -145,6 +114,9 @@
             <span>Student Sign-Up</span>
           </button>
         </div>
+
+
+
   </section>
 
   <!-- Business Sign-Up Page -->
@@ -231,34 +203,31 @@
     </div>
   </section>
 
-  <!-- Sign in Page -->
+  <!-- Student Sign in Page -->
   <section id="signin" class="hero is-info is-fullheight-with-navbar section">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <form id="si_form" class="box">
+        <form class="box">
           <div class="field">
             <label class="label">Email</label>
             <div class="control">
-              <input class="input" id="si_email" type="email" placeholder="name@example.com" required />
+              <input class="input" type="email" placeholder="name@example.com" required />
             </div>
           </div>
           <div class="field">
             <label class="label">Password</label>
             <div class="control">
-              <input class="input" id="si_password" type="password" placeholder="********" required />
+              <input class="input" type="password" placeholder="********" required />
             </div>
           </div>
           <div class="field">
             <div class="control">
-              <button class="button is-link" id="si_button" type="submit">Sign In</button>
+              <button class="button is-link" type="submit">Sign In</button>
             </div>
           </div>
           <button class="button is-light" onclick="toggleSection('landing')">
             Back
           </button>
-
-          <!-- Error -->
-          <div class="error has-text-black"></div>
         </form>
       </div>
     </div>
