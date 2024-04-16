@@ -238,17 +238,17 @@
   <section id="signin" class="hero is-info is-fullheight-with-navbar section">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <form class="box">
+        <form id="signin_form" class="box">
           <div class="field">
             <label class="label">Email</label>
             <div class="control">
-              <input class="input" type="email" placeholder="name@example.com" required />
+              <input class="input" id="si_email" type="email" placeholder="name@example.com" required />
             </div>
           </div>
           <div class="field">
             <label class="label">Password</label>
             <div class="control">
-              <input class="input" type="password" placeholder="********" required />
+              <input class="input" id="si_password" type="password" placeholder="********" required />
             </div>
           </div>
           <div class="field">
@@ -373,7 +373,7 @@
           <h2 class="title has-text-centered has-text-black">Job Listings</h2>
           <!-- Job listings -->
           <div class="columns is-multiline">
-            <div id="jobPostings" class="container">
+            <div id="job_postings" class="container">
               <!-- Job postings will be dynamically added here -->
             </div>
           </div>

@@ -148,7 +148,7 @@ function signUpStudent(event) {
 
 // Function to fetch job postings from Firestore
 function fetchJobPostings() {
-  const jobPostingsContainer = document.getElementById('jobPostings');
+  const jobPostingsContainer = document.getElementById('job_postings');
 
   // Get a reference to the job_post collection
   const jobPostCollection = db.collection('job_post');
@@ -193,7 +193,7 @@ function fetchJobPostings() {
       jobPostingsContainer.appendChild(card);
     });
   }).catch((error) => {
-    console.error("Error getting documents: ", error);
+    console.log("Error getting documents: ", error);
   });
 }
 
@@ -236,7 +236,7 @@ document.getElementById('employerForm').addEventListener('submit', function (eve
 });
 
 // Sign in user
-r_e("signin").addEventListener('submit', (e) => {
+r_e("signin_form").addEventListener('submit', (e) => {
   e.preventDefault();
 
   // grab email and password
@@ -248,10 +248,10 @@ r_e("signin").addEventListener('submit', (e) => {
 
     console.log("Signed In successfully");
     // reset form
-    r_e("signin").reset();
+    r_e("signin_form").reset();
 
   }).catch(err => {
-    signin.querySelector('.error').innerHTML = err.message;
+    console.log("Error with sign in", err)
   })
 })
 
