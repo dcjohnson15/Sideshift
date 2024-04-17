@@ -287,3 +287,19 @@ auth.onAuthStateChanged((user) => {
     toggleSection("landing");
   }
 });
+
+// Establiishing if user is Business or Student based off sign up
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    user.getIdTokenResult().then((idTokenResult) => {
+      if (idTokenResult.claims.role === 'business') {
+        toggleSection('businessHomepage');  // Display business homepage
+      } else if (idTokenResult.claims.role === 'student') {
+        toggleSection('studentHomepage');  // Display student homepage
+      }
+    });
+  } else {
+    toggleSection('landing');  // Redirect to landing page if not logged in
+  }
+});
+
