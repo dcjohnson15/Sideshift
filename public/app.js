@@ -207,7 +207,7 @@ function signUpEmployer(event) {
       // Store additional user info in Firestore with role
       return firebase
         .firestore()
-        .collection("employers")
+        .collection("users")
         .doc(userCredential.user.uid)
         .set({
           companyName: companyName,
@@ -376,9 +376,9 @@ firebase.auth().onAuthStateChanged((user) => {
       .get()
       .then((doc) => {
         const userData = doc.data();
-        if (userData && userData.role === "student") {
+        if (userData.role === "student") {
           toggleSection("studentHomepage");
-        } else if (userData && userData.role === "business") {
+        } else if (userData.role === "business") {
           toggleSection("businessHomepage");
         } else {
           toggleSection("landing");
