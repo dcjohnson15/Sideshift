@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 //     });
 // }
 
-// Example of adjusted student and business signup functions
+// adjusted student and business signup functions
 
 function signUpStudent(event) {
   event.preventDefault(); // Add this if not already present
@@ -354,7 +354,7 @@ r_e("signout_nav").addEventListener("click", () => {
 auth.onAuthStateChanged((user) => {
   //check if user is signed in or out
   if (user) {
-    toggleSection("studenthomepage");
+    toggleSection("studentHomepage");
     fetchJobPostings();
     // display message, configure nav bar, and toggle right section
     console.log("User Signed In!");
