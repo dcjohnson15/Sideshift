@@ -26,7 +26,6 @@ function toggleSection(sectionId) {
   }
 }
 
-
 // configure the navbar to only show certain elements when signed in/out
 function configure_navbar(user) {
   let signedin = document.querySelectorAll(`.signedin`);
@@ -98,6 +97,20 @@ function signUpEmployer(event) {
     })
     .catch((error) => {
       console.error("Error adding employer: ", error);
+    });
+
+  firebase.auth().createUserWithEmailAndPassword(companyEmail, password)
+    .then((userCredential) => {
+      // User account created successfully
+      const user = userCredential.user;
+      console.log('User created:', user);
+      // Optionally, redirect the user to a different page
+    })
+    .catch((error) => {
+      // Handle errors
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error('Error creating user:', errorMessage);
     });
 }
 
@@ -266,11 +279,13 @@ r_e('signout_nav').addEventListener('click', () => {
 auth.onAuthStateChanged((user) => {
   //check if user is signed in or out
   if (user) {
+    // if student
     toggleSection("studenthomepage")
     fetchJobPostings()
     // display message, configure nav bar, and toggle right section
     console.log("User Signed In!")
     configure_navbar(user)
+    // if employer
 
   } else {
     console.log("User Signed Out!")
