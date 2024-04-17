@@ -68,82 +68,160 @@ document.addEventListener("DOMContentLoaded", (event) => {
 // }
 
 // Function to handle employer sign-up
-function signUpEmployer(event) {
-  event.preventDefault();
+// function signUpEmployer(event) {
+//   event.preventDefault();
 
-  const companyName = document.getElementById("c_name").value;
-  const companyEmail = document.getElementById("c_email").value;
-  const password = document.getElementById("c_password").value;
-  const confirmPassword = document.getElementById("c_password2").value;
+//   const companyName = document.getElementById("c_name").value;
+//   const companyEmail = document.getElementById("c_email").value;
+//   const password = document.getElementById("c_password").value;
+//   const confirmPassword = document.getElementById("c_password2").value;
 
-  // Check if passwords match
-  if (password !== confirmPassword) {
-    alert("Passwords do not match.");
-    return;
-  }
+//   // Check if passwords match
+//   if (password !== confirmPassword) {
+//     alert("Passwords do not match.");
+//     return;
+//   }
 
-  // Add employer data to Firestore
-  db.collection("employers")
-    .doc(companyEmail)
-    .set({
-      companyName: companyName,
-      email: companyEmail,
-      password: password,
-    })
-    .then(() => {
-      console.log("Employer added successfully.");
-      // Redirect or show success message
-    })
-    .catch((error) => {
-      console.error("Error adding employer: ", error);
-    });
-}
+//   // Add employer data to Firestore
+//   db.collection("employers")
+//     .doc(companyEmail)
+//     .set({
+//       companyName: companyName,
+//       email: companyEmail,
+//       password: password,
+//     })
+//     .then(() => {
+//       console.log("Employer added successfully.");
+//       // Redirect or show success message
+//     })
+//     .catch((error) => {
+//       console.error("Error adding employer: ", error);
+//     });
+// }
 
-// Function to handle student sign-up
+// // Function to handle student sign-up
+// function signUpStudent(event) {
+//   event.preventDefault();
+
+//   const fullName = document.getElementById("s_name").value;
+//   const educationalEmail = document.getElementById("s_email").value;
+//   const password = document.getElementById("s_password").value;
+//   const confirmPassword = document.getElementById("s_password2").value;
+
+//   // Check if passwords match
+//   if (password !== confirmPassword) {
+//     alert("Passwords do not match.");
+//     return;
+//   }
+
+//   // Add student data to Firestore
+//   db.collection("users")
+//     .doc(educationalEmail)
+//     .set({
+//       fullName: fullName,
+//       email: educationalEmail,
+//       password: password,
+//     })
+//     .then(() => {
+//       console.log("Student added successfully.");
+//       // Redirect or show success message
+//     })
+//     .catch((error) => {
+//       console.error("Error adding student: ", error);
+//     });
+
+//   firebase
+//     .auth()
+//     .createUserWithEmailAndPassword(educationalEmail, password)
+//     .then((userCredential) => {
+//       // User account created successfully
+//       const user = userCredential.user;
+//       console.log("User created:", user);
+//       // Optionally, redirect the user to a different page
+//     })
+//     .catch((error) => {
+//       // Handle errors
+//       const errorCode = error.code;
+//       const errorMessage = error.message;
+//       console.error("Error creating user:", errorMessage);
+//     });
+// }
+
+// Example of adjusted student and business signup functions
+
 function signUpStudent(event) {
-  event.preventDefault();
+  event.preventDefault(); // Add this if not already present
 
   const fullName = document.getElementById("s_name").value;
   const educationalEmail = document.getElementById("s_email").value;
   const password = document.getElementById("s_password").value;
   const confirmPassword = document.getElementById("s_password2").value;
 
-  // Check if passwords match
   if (password !== confirmPassword) {
     alert("Passwords do not match.");
     return;
   }
 
-  // Add student data to Firestore
-  db.collection("users")
-    .doc(educationalEmail)
-    .set({
-      fullName: fullName,
-      email: educationalEmail,
-      password: password,
-    })
-    .then(() => {
-      console.log("Student added successfully.");
-      // Redirect or show success message
-    })
-    .catch((error) => {
-      console.error("Error adding student: ", error);
-    });
-
   firebase
     .auth()
     .createUserWithEmailAndPassword(educationalEmail, password)
     .then((userCredential) => {
-      // User account created successfully
-      const user = userCredential.user;
-      console.log("User created:", user);
-      // Optionally, redirect the user to a different page
+      // Store additional user info in Firestore with role
+      return firebase
+        .firestore()
+        .collection("users")
+        .doc(userCredential.user.uid)
+        .set({
+          fullName: fullName,
+          email: educationalEmail,
+          role: "student",
+        });
+    })
+    .then(() => {
+      console.log("Student account created with role.");
+      toggleSection("studentHomepage"); // Redirect to student home
     })
     .catch((error) => {
-      // Handle errors
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error("Error creating user:", errorMessage);
+      console.error("Error signing up student: ", error);
+      alert(error.message); // Display error message to user
+    });
+}
+
+function signUpEmployer(event) {
+  event.preventDefault(); // Add this if not already present
+
+  const companyName = document.getElementById("c_name").value;
+  const companyEmail = document.getElementById("c_email").value;
+  const password = document.getElementById("c_password").value;
+  const confirmPassword = document.getElementById("c_password2").value;
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(companyEmail, password)
+    .then((userCredential) => {
+      // Store additional user info in Firestore with role
+      return firebase
+        .firestore()
+        .collection("employers")
+        .doc(userCredential.user.uid)
+        .set({
+          companyName: companyName,
+          email: companyEmail,
+          role: "business",
+        });
+    })
+    .then(() => {
+      console.log("Business account created with role.");
+      toggleSection("businessHomepage"); // Redirect to business home
+    })
+    .catch((error) => {
+      console.error("Error signing up business: ", error);
+      alert(error.message); // Display error message to user
     });
 }
 
@@ -291,15 +369,25 @@ auth.onAuthStateChanged((user) => {
 // Establiishing if user is Business or Student based off sign up
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    user.getIdTokenResult().then((idTokenResult) => {
-      if (idTokenResult.claims.role === 'business') {
-        toggleSection('businessHomepage');  // Display business homepage
-      } else if (idTokenResult.claims.role === 'student') {
-        toggleSection('studentHomepage');  // Display student homepage
-      }
-    });
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        const userData = doc.data();
+        if (userData && userData.role === "student") {
+          toggleSection("studentHomepage");
+        } else if (userData && userData.role === "business") {
+          toggleSection("businessHomepage");
+        } else {
+          toggleSection("landing");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user data: ", error);
+      });
   } else {
-    toggleSection('landing');  // Redirect to landing page if not logged in
+    toggleSection("landing"); // User is not signed in
   }
 });
-
