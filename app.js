@@ -87,17 +87,6 @@ function signUpEmployer(event) {
   }
 
   // Add employer data to Firestore
-  db.collection("employers").doc(companyEmail).set({
-    companyName: companyName,
-    email: companyEmail,
-  })
-    .then(() => {
-      console.log("Employer added successfully.");
-      // Redirect or show success message
-    })
-    .catch((error) => {
-      console.error("Error adding employer: ", error);
-    });
 
   firebase.auth().createUserWithEmailAndPassword(companyEmail, password)
     .then((userCredential) => {
@@ -105,6 +94,19 @@ function signUpEmployer(event) {
       const user = userCredential.user;
       console.log('User created:', user);
       // Optionally, redirect the user to a different page
+
+      db.collection("employers").doc(companyEmail).set({
+        companyName: companyName,
+        email: companyEmail,
+      })
+        .then(() => {
+          console.log("Employer added successfully.");
+          // Redirect or show success message
+        })
+        .catch((error) => {
+          console.error("Error adding employer: ", error);
+        });
+
     })
     .catch((error) => {
       // Handle errors
@@ -129,25 +131,24 @@ function signUpStudent(event) {
     return;
   }
 
-  // Add student data to Firestore
-  db.collection("users").doc(educationalEmail).set({
-    fullName: fullName,
-    email: educationalEmail,
-  })
-    .then(() => {
-      console.log("Student added successfully.");
-      // Redirect or show success message
-    })
-    .catch((error) => {
-      console.error("Error adding student: ", error);
-    });
-
   firebase.auth().createUserWithEmailAndPassword(educationalEmail, password)
     .then((userCredential) => {
       // User account created successfully
       const user = userCredential.user;
       console.log('User created:', user);
       // Optionally, redirect the user to a different page
+      // Add student data to Firestore
+      db.collection("users").doc(educationalEmail).set({
+        fullName: fullName,
+        email: educationalEmail,
+      })
+        .then(() => {
+          console.log("Student added successfully.");
+          // Redirect or show success message
+        })
+        .catch((error) => {
+          console.error("Error adding student: ", error);
+        });
     })
     .catch((error) => {
       // Handle errors
