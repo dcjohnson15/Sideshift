@@ -145,9 +145,6 @@
             <span>Student Sign-Up</span>
           </button>
         </div>
-
-
-
   </section>
 
   <!-- Business Sign-Up Page -->
@@ -636,15 +633,30 @@
         <div class="column is-two-thirds">
           <div class="box">
             <h2 class="title has-text-centered">Active Posts</h2>
-            <p class="subtitle has-text-centered">Review and manage your job postings</p>
-            <!-- Dynamic content should be added here -->
-            <div class="content">
-              <ul>
-                <li>Job Post 1 - <a href="#">Edit</a> | <a href="#">Remove</a></li>
-                <li>Job Post 2 - <a href="#">Edit</a> | <a href="#">Remove</a></li>
-                <li>Job Post 3 - <a href="#">Edit</a> | <a href="#">Remove</a></li>
-              </ul>
+            <!-- Job listings -->
+            <div id="active_posts" class="columns is-multiline">
+            <!-- Job listing card 1 -->
+            <div class="column is-full">
+              <div class="card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                      <p class="title is-4 has-text-black">${data.position}</p>
+                      <div class="content">6 applications</div>
+                    </div>
+                    <div class="media-right">
+                      <p class="title is-4 has-text-black">${data.pay}</p>
+                      <p class="is-pulled-right">3-4 days per week</p>
+                    </div>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <a href="#" class="card-footer-item">Edit</a>
+                </footer>
+              </div>
             </div>
+              </div>
+          </div>
             <button class="button is-primary">Add New Job</button>
           </div>
         </div>
