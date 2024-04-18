@@ -225,6 +225,72 @@ function signUpEmployer(event) {
     });
 }
 
+// Function to display active posts on comapny page
+function fetchActivePosts() {
+  const activePosts = document.getElementById("active_posts");
+
+  // Get a reference to the job_post collection
+  const jobPostCollection = db.collection("job_post");
+
+  // Get the ID of the currently logged-in user
+  const currentUserID = firebase.auth().currentUser.uid;
+
+  // Fetch documents from job_post collection
+  jobPostCollection
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // Extract data from each document
+        const data = doc.data();
+
+        // Check if the employerID matches the ID of the currently logged-in user
+        if (data.employerID === currentUserID) {
+          // Create card element
+          const card = document.createElement("div");
+          card.classList.add("card");
+
+          // Populate card with data from Firestore
+          card.innerHTML = `<!-- Job listing card 1 -->
+            <div class="column is-full">
+              <div class="card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                      <p class="title is-4 has-text-black">${data.position}</p>
+                      <div class="content">6 applications</div>
+                    </div>
+                    <div class="media-right">
+                      <p class="title is-4 has-text-black">${data.pay}</p>
+                      <p class="is-pulled-right">3-4 days per week</p>
+                    </div>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <a href="#" class="card-footer-item">Edit</a>
+                </footer>
+              </div>
+            </div>`;
+
+          // Get the first child of the container
+          const firstChild = activePosts.firstChild;
+
+          // Insert the card before the first child
+          // activePosts.insertBefore(card, firstChild);`
+          activePosts.appendChild(card);
+        }
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+}
+
+// Function to clear innerHTML of activePosts container
+function clearActivePosts() {
+  const activePostsContainer = document.getElementById("active_posts");
+  activePostsContainer.innerHTML = ""; // Clear innerHTML
+}
+
 // Function to fetch job postings from Firestore
 function fetchJobPostings() {
   const jobPostingsContainer = document.getElementById("job_postings");
@@ -277,6 +343,12 @@ function fetchJobPostings() {
     .catch((error) => {
       console.log("Error getting documents: ", error);
     });
+}
+
+// Function to clear innerHTML of jobPosts container
+function clearActivePosts() {
+  const jobPostingsContainer = document.getElementById("job_postings");
+  jobPostingsContainer.innerHTML = ""; // Clear innerHTML
 }
 
 // Call this function when the content is loaded to show active section
@@ -344,7 +416,7 @@ r_e("signin_form").addEventListener("submit", (e) => {
 // Sign out user,
 r_e("signout_nav").addEventListener("click", () => {
   // Display a successful signout message to user
-
+  activePosts.innerHTML = ``;
   auth.signOut().then(() => {
     console.log("Signed Out");
   });
@@ -376,10 +448,12 @@ firebase.auth().onAuthStateChanged((user) => {
       .get()
       .then((doc) => {
         const userData = doc.data();
+        console.log(userData);
         if (userData.role === "student") {
           toggleSection("studentHomepage");
         } else if (userData.role === "business") {
           toggleSection("businessHomepage");
+          fetchActivePosts();
         } else {
           toggleSection("landing");
         }
@@ -389,5 +463,6 @@ firebase.auth().onAuthStateChanged((user) => {
       });
   } else {
     toggleSection("landing"); // User is not signed in
+    clearActivePosts();
   }
 });
