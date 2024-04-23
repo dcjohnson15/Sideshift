@@ -379,20 +379,20 @@
 
       <!--Your Information -->
       <div class="column is-one-quarter">
-        <div class="box">
+        <div class="box" id="userInfoBox">
           <h2 class="title has-text-centered has-text-black">Your Information</h2>
-          <!-- Your information content here -->
-          <br>
-          <div class="media-right">
-            <figure class="image is-128x128"> <!-- Adjust size as needed -->
-              <img
-                src="https://media.licdn.com/dms/image/C5603AQFCyXDJi7l7AA/profile-displayphoto-shrink_400_400/0/1655996365566?e=1715817600&v=beta&t=-k3w9dGQWy_iUD0l99SJD3Q9X-sfrymp8T4cmB3OyTI"
-                alt="Job Image" class="is-rounded">
-            </figure>
-          </div>
-          <br>
-          <br>
-          <div class="content">
+          <p><strong>Name:</strong> <span id="displayName"></span></p>
+          <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+          <p><strong>Age:</strong> <span id="displayAge"></span></p>
+          <p><strong>Year in school:</strong> <span id="displayYis"></span></p>
+          <p><strong>Major(s):</strong> <span id="displayMajor"></span></p>
+          <p><strong>Hometown:</strong> <span id="displayHometown"></span></p>
+          <p><strong>About me:</strong> <span id="displayAboutme"></span></p>
+          <div id="additionalFields"></div>
+          <button class="button is-link" onclick="toggleEditForm()">Edit Information</button>
+        </div>
+  </div>
+</div>
             <p><strong>Name:</strong> Dierre Johnson</p>
             <p><strong>Age:</strong> 22</p>
             <p><strong>Year in school:</strong> Senior</p>
