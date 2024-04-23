@@ -451,11 +451,14 @@ firebase.auth().onAuthStateChanged((user) => {
         console.log(userData);
         if (userData.role === "student") {
           toggleSection("studentHomepage");
+          configure_navbar(user);
         } else if (userData.role === "business") {
           toggleSection("businessHomepage");
+          configure_navbar(user);
           fetchActivePosts();
         } else {
           toggleSection("landing");
+          configure_navbar(user);
         }
       })
       .catch((error) => {
