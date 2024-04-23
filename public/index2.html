@@ -66,6 +66,19 @@
       padding-bottom: 2rem;
       padding-right: 1rem;
     }
+
+    .headshot {
+    border-radius: 50%;  
+    width: 128px;       
+    height: 128px;      
+    object-fit: cover;   
+    border: 2px solid #ffffff; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3); 
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
   </style>
 </head>
 
@@ -381,6 +394,10 @@
       <div class="column is-one-quarter">
         <div class="box" id="userInfoBox">
           <h2 class="title has-text-centered has-text-black">Your Information</h2>
+          <figure class="image is-128x128 is-inline-block">
+            <img id="displayHeadshot" class="headshot" src="path/to/default/image.jpg" alt="Headshot">
+        </figure>
+        <div class="has-text-centered" style="padding-bottom: 20px;"></div>
           <p><strong>Name:</strong> <span id="displayName"></span></p>
           <p><strong>Email:</strong> <span id="displayEmail"></span></p>
           <p><strong>Age:</strong> <span id="displayAge"></span></p>
@@ -388,9 +405,9 @@
           <p><strong>Major(s):</strong> <span id="displayMajor"></span></p>
           <p><strong>Hometown:</strong> <span id="displayHometown"></span></p>
           <p><strong>About me:</strong> <span id="displayAboutme"></span></p>
-          <div id="additionalFields"></div>
+          <button class="button is-link" onclick="toggleMoreInfo()">Load More</button>
           <button class="button is-link" onclick="toggleEditForm()">Edit Information</button>
-        </div>
+      </div>
   </div>
 </div>
             <p><strong>Name:</strong> Dierre Johnson</p>
