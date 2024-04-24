@@ -482,3 +482,61 @@ function toggleSection(sectionId) {
     }
   });
 }
+
+// submitting student data to firebase
+document
+  .getElementById("editProfileForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const user = firebase.auth().currentUser;
+    if (user) {
+      const updatedData = {
+        name: document.getElementById("editName").value,
+        email: document.getElementById("editEmail").value,
+        phone: document.getElementById("editPhone").value,
+      };
+
+      db.collection("users")
+        .doc(user.uid)
+        .set(updatedData, { merge: true })
+        .then(() => {
+          console.log("Document successfully updated!");
+          updateUserInfoDisplay(updatedData);
+          toggleSection("studentHomepage"); // Go back to the main page
+        })
+        .catch((error) => {
+          console.error("Error updating document: ", error);
+        });
+    }
+  });
+
+// Function to display student information
+function updateUserInfoDisplay(data) {
+  document.getElementById("displayName").textContent = data.name || "";
+  document.getElementById("eduEmail").textContent = data.email || "";
+  document.getElementById("age").textContent = data.age || "";
+  document.getElementById("year").textContent = data.year || "";
+  document.getElementById("major").textContent = data.majors || "";
+  document.getElementById("hometown").textContent = data.hometown || "";
+  document.getElementById("aboutme").textContent = data.aboutMe || "";
+}
+
+//fetching user data
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    db.collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          updateUserInfoDisplay(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }
+});
