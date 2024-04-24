@@ -491,27 +491,83 @@ document
 
     const user = firebase.auth().currentUser;
     if (user) {
-      const updatedData = {
-        name: document.getElementById("editName").value,
-        email: document.getElementById("editEmail").value,
-        phone: document.getElementById("editPhone").value,
-      };
-
-      db.collection("users")
-        .doc(user.uid)
-        .set(updatedData, { merge: true })
-        .then(() => {
-          console.log("Document successfully updated!");
-          updateUserInfoDisplay(updatedData);
-          toggleSection("studentHomepage"); // Go back to the main page
-        })
-        .catch((error) => {
-          console.error("Error updating document: ", error);
-        });
+      updateUserProfile(user);
+    } else {
+      console.log("No user is logged in");
     }
   });
 
+function updateUserProfile(user) {
+  const updatedData = {
+    name: document.getElementById("editName").value,
+    email: document.getElementById("editEmail").value,
+    phone: document.getElementById("editPhone").value,
+    age: document.getElementById("editAge").value,
+    majors: document.getElementById("editMajors").value,
+    hometown: document.getElementById("editHometown").value,
+    aboutMe: document.getElementById("editAboutMe").value,
+  };
+
+  const file = document.getElementById("editProfilePic").files[0];
+    if (file && file.type.match('image.*')) {
+        const storageRef = firebase.storage().ref();
+        const fileRef = storageRef.child('profilePictures/' + user.uid + '/' + file.name);
+
+        fileRef.put(file).then((snapshot) => {
+            return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
+        }).then((url) => {
+            updatedData.profilePicUrl = url; // Save URL to the profile data
+            return db.collection("users").doc(user.uid).set(updatedData, { merge: true });
+        }).then(() => {
+            console.log("Profile successfully updated with image!");
+            updateUserInfoDisplay(updatedData); // Update UI
+        }).catch((error) => {
+            console.error("Error updating profile: ", error);
+        });
+    } else {
+        db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
+            console.log("Profile successfully updated!");
+            updateUserInfoDisplay(updatedData); // Update UI
+        }).catch((error) => {
+            console.error("Error updating profile: ", error);
+        });
+    }
+}
+
+  // db.collection("users")
+  //   .doc(user.uid)
+  //   .set(updatedData, { merge: true })
+  //   .then(() => {
+  //     console.log("Document successfully updated!");
+  //     updateUserInfoDisplay(updatedData);
+  //     toggleSection("studentHomepage"); // Go back to the main page
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error updating document: ", error);
+  //   });
+
+
 // Function to display student information
+function fetchUserData() {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    db.collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          fillEditForm(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
+      });
+  }
+}
+
 function updateUserInfoDisplay(data) {
   document.getElementById("displayName").textContent = data.name || "";
   document.getElementById("eduEmail").textContent = data.email || "";
@@ -520,7 +576,13 @@ function updateUserInfoDisplay(data) {
   document.getElementById("major").textContent = data.majors || "";
   document.getElementById("hometown").textContent = data.hometown || "";
   document.getElementById("aboutme").textContent = data.aboutMe || "";
+  if (data.profilePicUrl) {
+    document.getElementById("displayHeadshot").src = data.profilePicUrl;
+    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
 }
+};
+
+
 
 //fetching user data
 firebase.auth().onAuthStateChanged(function (user) {
@@ -540,3 +602,17 @@ firebase.auth().onAuthStateChanged(function (user) {
       });
   }
 });
+
+function previewImage() {
+  var file = document.getElementById("editProfilePic").files[0];
+  var reader = new FileReader();
+  reader.onloadend = function() {
+      document.getElementById('preview').style.display = 'block';
+      document.getElementById('preview').src = reader.result;
+  }
+  if (file) {
+      reader.readAsDataURL(file);
+  } else {
+      document.getElementById('preview').src = "";
+  }
+}
