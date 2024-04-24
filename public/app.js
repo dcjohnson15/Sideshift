@@ -473,52 +473,12 @@ firebase.auth().onAuthStateChanged((user) => {
 function toggleSection(sectionId) {
   const sections = document.querySelectorAll(".section");
   sections.forEach((section) => {
-    section.style.display = "none"; // Hide all sections
-  });
-  document.getElementById(sectionId).style.display = "block"; // Show requested section
-}
-
-document
-  .getElementById("userInfobox")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    const user = firebase.auth().currentUser;
-    if (user) {
-      const updatedData = {
-        fullName: document.getElementById("displayName").value,
-        email: document.getElementById("eduEmail").value,
-        phone: document.getElementById("phone").value,
-        age: document.getElementById("age").value,
-        major: document.getElementById("major").value,
-        hometown: document.getElementById("hometown").value,
-        aboutMe: document.getElementById("aboutMe").value,
-      };
-
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(user.uid)
-        .update(updatedData)
-        .then(() => {
-          console.log("Profile updated successfully.");
-          // After updating, you can call a function to update UI or redirect back
-          updateUserInfoDisplay(updatedData);
-          toggleSection("studentHomepage"); // Optionally switch back to the homepage
-        })
-        .catch((error) => {
-          console.error("Error updating profile: ", error);
-        });
+    if (section.id === sectionId) {
+      section.classList.add("is-active");
+      section.style.display = "block"; // Ensure it's visible
+    } else {
+      section.classList.remove("is-active");
+      section.style.display = "none"; // Ensure it's hidden
     }
   });
-
-function updateUserInfoDisplay(data) {
-  document.getElementById("displayName").textContent =
-    data.fullName || "Name not set";
-  document.getElementById("displayEmail").textContent =
-    data.email || "Email not set";
-}
-
-function toggleMoreInfo() {
-  const moreInfo = document.getElementById("moreInfo");
-  moreInfo.style.display = moreInfo.style.display === "none" ? "block" : "none";
 }
