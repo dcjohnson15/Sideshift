@@ -513,8 +513,6 @@
     </div>
   </section>
 
-
-
   <!-- Business Home Page Section -->
   <section id="businessHomepage" class="hero is-info is-fullheight-with-navbar section">
     <div class="hero-body">
@@ -564,44 +562,21 @@
     <div class="container">
       <h1 class="title">Employer Form</h1>
       <div class="container">
-        <form id="job_application_form" class="box">
+        <form id="employerForm" class="box">
+          <div class="field">
+            <label class="label" for="company">Company Name:</label>
+            <div class="control">
+              <input class="input" type="text" id="company" name="company" placeholder="Enter company name">
+            </div>
+          </div>
           <div class="field">
             <label class="label" for="job_title">Job Title:</label>
             <div class="control">
               <input class="input" type="text" id="job_title" name="job_title" placeholder="Enter job title">
             </div>
           </div>
-
           <div class="field">
-            <label class="label" for="name">Name:</label>
-            <div class="control">
-              <input class="input" type="text" id="name" name="name" placeholder="Enter your name">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="email">Email:</label>
-            <div class="control">
-              <input class="input" type="email" id="email" name="email" placeholder="Enter your email">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="message">Message:</label>
-            <div class="control">
-              <textarea class="textarea" id="message" name="message" placeholder="Enter your message"></textarea>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="company">Company:</label>
-            <div class="control">
-              <input class="input" type="text" id="company" name="company" placeholder="Enter company name">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Days:</label>
+            <label class="label">Required Days:</label>
             <div class="control">
               <label class="checkbox">
                 <input type="checkbox" name="days[]" value="Monday">
@@ -653,7 +628,7 @@
           <div class="field">
             <label class="label" for="hours">Hours:</label>
             <div class="control">
-              <input class="input" type="number" id="hours" name="hours" placeholder="Enter working hours">
+              <input class="input" type="number" id="totalhours" name="totalhours" placeholder="Enter working hours">
             </div>
           </div>
 

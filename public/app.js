@@ -553,54 +553,47 @@ document
     }
   });
 
-document
-  .getElementById("employerForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
+// add job post from the form to db
+document.getElementById("employerForm").addEventListener("submit", function (event) {
+  event.preventDefault();
 
-    // Get form values
-    const desiredHours = document.getElementById("desiredHours").value;
-    const jobTitle = document.getElementById("jobTitle").value;
-    const jobDescription = document.getElementById("jobDescription").value;
-    const requiredExperience = document.getElementById("requiredExperience").value;
-    const wage = document.getElementById("wage").value;
+  // Get form values
+  const job_title = document.getElementById("job_title").value;
+  const company = document.getElementById("company").value;
+  const days = Array.from(document.querySelectorAll("input[name='days[]']:checked")).map(day => day.value);
+  const description = document.getElementById("description").value;
+  const experience = document.getElementById("experience").value;
+  const totalhours = document.getElementById("totalhours").value;
+  const img_link = document.getElementById("img_link").value;
+  const location = document.getElementById("location").value;
+  const posted_date = document.getElementById("posted_date").value;
+  const wage = document.getElementById("wage").value;
 
-    // Add job post data to Firestore
-    db.collection("job_post")
-      .add({
-        desiredHours: desiredHours,
-        jobTitle: jobTitle,
-        jobDescription: jobDescription,
-        requiredExperience: requiredExperience,
-        wage: wage,
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
-      });
+  // Add job application data to Firestore
+  db.collection("job_post")
+    .add({
+      title: job_title,
+      company: company,
+      days: days,
+      description: description,
+      experience: experience,
+      hours: totalhours,
+      img_link: img_link,
+      location: location,
+      posted_date: posted_date,
+      wage: wage
+    })
+    .then(() => {
+      // Reset form after submission
+      document.getElementById("employerForm").reset();
 
-    // reset form after submitted
-    document.getElementById("employerForm").reset();
-
-    // go back to the homepage
-    toggleSection('businesHomepage')
-  });
-
-// db.collection("users")
-//   .doc(user.uid)
-//   .set(updatedData, { merge: true })
-//   .then(() => {
-//     console.log("Document successfully updated!");
-//     updateUserInfoDisplay(updatedData);
-//     toggleSection("studentHomepage"); // Go back to the main page
-//   })
-//   .catch((error) => {
-//     console.error("Error updating document: ", error);
-//   });
-
-
-
-
-
+      // Go back to the homepage (assuming you have a function named toggleSection)
+      toggleSection('businessHomepage');
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+});
 
 //fetching user data
 firebase.auth().onAuthStateChanged(function (user) {
