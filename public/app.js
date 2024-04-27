@@ -26,6 +26,68 @@ function toggleSection(sectionId) {
   }
 }
 
+function toggleSection(sectionId) {
+  const sections = document.querySelectorAll(".section");
+  sections.forEach((section) => {
+    if (section.id === sectionId) {
+      section.classList.add("is-active");
+      section.style.display = "block"; // Ensure it's visible
+    } else {
+      section.classList.remove("is-active");
+      section.style.display = "none"; // Ensure it's hidden
+    }
+  });
+}
+
+// Function to display student information
+function fetchUserData() {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    db.collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          fillEditForm(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
+      });
+  }
+}
+
+function updateUserInfoDisplay(data) {
+  document.getElementById("displayName").textContent = data.name || "";
+  document.getElementById("eduEmail").textContent = data.email || "";
+  document.getElementById("age").textContent = data.age || "";
+  document.getElementById("year").textContent = data.year || "";
+  document.getElementById("major").textContent = data.majors || "";
+  document.getElementById("hometown").textContent = data.hometown || "";
+  document.getElementById("aboutme").textContent = data.aboutMe || "";
+  if (data.profilePicUrl) {
+    document.getElementById("displayHeadshot").src = data.profilePicUrl;
+    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
+  }
+};
+
+function previewImage() {
+  var file = document.getElementById("editProfilePic").files[0];
+  var reader = new FileReader();
+  reader.onloadend = function () {
+    document.getElementById('preview').style.display = 'block';
+    document.getElementById('preview').src = reader.result;
+  }
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    document.getElementById('preview').src = "";
+  }
+}
+
 // configure the navbar to only show certain elements when signed in/out
 function configure_navbar(user) {
   let signedin = document.querySelectorAll(`.signedin`);
@@ -351,6 +413,43 @@ function clearActivePosts() {
   jobPostingsContainer.innerHTML = ""; // Clear innerHTML
 }
 
+function updateUserProfile(user) {
+  const updatedData = {
+    name: document.getElementById("editName").value,
+    email: document.getElementById("editEmail").value,
+    phone: document.getElementById("editPhone").value,
+    age: document.getElementById("editAge").value,
+    majors: document.getElementById("editMajors").value,
+    hometown: document.getElementById("editHometown").value,
+    aboutMe: document.getElementById("editAboutMe").value,
+  };
+
+  const file = document.getElementById("editProfilePic").files[0];
+  if (file && file.type.match('image.*')) {
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child('profilePictures/' + user.uid + '/' + file.name);
+
+    fileRef.put(file).then((snapshot) => {
+      return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
+    }).then((url) => {
+      updatedData.profilePicUrl = url; // Save URL to the profile data
+      return db.collection("users").doc(user.uid).set(updatedData, { merge: true });
+    }).then(() => {
+      console.log("Profile successfully updated with image!");
+      updateUserInfoDisplay(updatedData); // Update UI
+    }).catch((error) => {
+      console.error("Error updating profile: ", error);
+    });
+  } else {
+    db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
+      console.log("Profile successfully updated!");
+      updateUserInfoDisplay(updatedData); // Update UI
+    }).catch((error) => {
+      console.error("Error updating profile: ", error);
+    });
+  }
+}
+
 // Call this function when the content is loaded to show active section
 document.addEventListener("DOMContentLoaded", (event) => {
   // Initially show only show the landing page
@@ -362,35 +461,6 @@ document.getElementById("ssu_button").addEventListener("click", signUpStudent);
 document.getElementById("esu_button").addEventListener("click", signUpEmployer);
 
 // Add data from the job posting form into the job_post collection
-document
-  .getElementById("employerForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    // Get form values
-    const desiredHours = document.getElementById("desiredHours").value;
-    const jobTitle = document.getElementById("jobTitle").value;
-    const jobDescription = document.getElementById("jobDescription").value;
-    const requiredExperience =
-      document.getElementById("requiredExperience").value;
-
-    // Add job post data to Firestore
-    db.collection("job_post")
-      .add({
-        desiredHours: desiredHours,
-        jobTitle: jobTitle,
-        jobDescription: jobDescription,
-        requiredExperience: requiredExperience,
-      })
-      .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-        // Reset form after successful submission
-        document.getElementById("employerForm").reset();
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
-      });
-  });
 
 // Sign in user
 r_e("signin_form").addEventListener("submit", (e) => {
@@ -448,7 +518,6 @@ firebase.auth().onAuthStateChanged((user) => {
       .get()
       .then((doc) => {
         const userData = doc.data();
-        console.log(userData);
         if (userData.role === "student") {
           toggleSection("studentHomepage");
           configure_navbar(user);
@@ -470,19 +539,6 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-function toggleSection(sectionId) {
-  const sections = document.querySelectorAll(".section");
-  sections.forEach((section) => {
-    if (section.id === sectionId) {
-      section.classList.add("is-active");
-      section.style.display = "block"; // Ensure it's visible
-    } else {
-      section.classList.remove("is-active");
-      section.style.display = "none"; // Ensure it's hidden
-    }
-  });
-}
-
 // submitting student data to firebase
 document
   .getElementById("editProfileForm")
@@ -497,90 +553,52 @@ document
     }
   });
 
-function updateUserProfile(user) {
-  const updatedData = {
-    name: document.getElementById("editName").value,
-    email: document.getElementById("editEmail").value,
-    phone: document.getElementById("editPhone").value,
-    age: document.getElementById("editAge").value,
-    majors: document.getElementById("editMajors").value,
-    hometown: document.getElementById("editHometown").value,
-    aboutMe: document.getElementById("editAboutMe").value,
-  };
+document
+  .getElementById("employerForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
 
-  const file = document.getElementById("editProfilePic").files[0];
-    if (file && file.type.match('image.*')) {
-        const storageRef = firebase.storage().ref();
-        const fileRef = storageRef.child('profilePictures/' + user.uid + '/' + file.name);
+    // Get form values
+    const desiredHours = document.getElementById("desiredHours").value;
+    const jobTitle = document.getElementById("jobTitle").value;
+    const jobDescription = document.getElementById("jobDescription").value;
+    const requiredExperience = document.getElementById("requiredExperience").value;
+    const wage = document.getElementById("wage").value;
 
-        fileRef.put(file).then((snapshot) => {
-            return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
-        }).then((url) => {
-            updatedData.profilePicUrl = url; // Save URL to the profile data
-            return db.collection("users").doc(user.uid).set(updatedData, { merge: true });
-        }).then(() => {
-            console.log("Profile successfully updated with image!");
-            updateUserInfoDisplay(updatedData); // Update UI
-        }).catch((error) => {
-            console.error("Error updating profile: ", error);
-        });
-    } else {
-        db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
-            console.log("Profile successfully updated!");
-            updateUserInfoDisplay(updatedData); // Update UI
-        }).catch((error) => {
-            console.error("Error updating profile: ", error);
-        });
-    }
-}
-
-  // db.collection("users")
-  //   .doc(user.uid)
-  //   .set(updatedData, { merge: true })
-  //   .then(() => {
-  //     console.log("Document successfully updated!");
-  //     updateUserInfoDisplay(updatedData);
-  //     toggleSection("studentHomepage"); // Go back to the main page
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error updating document: ", error);
-  //   });
-
-
-// Function to display student information
-function fetchUserData() {
-  const user = firebase.auth().currentUser;
-  if (user) {
-    db.collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          console.log("Document data:", doc.data());
-          fillEditForm(doc.data());
-        } else {
-          console.log("No such document!");
-        }
+    // Add job post data to Firestore
+    db.collection("job_post")
+      .add({
+        desiredHours: desiredHours,
+        jobTitle: jobTitle,
+        jobDescription: jobDescription,
+        requiredExperience: requiredExperience,
+        wage: wage,
       })
       .catch((error) => {
-        console.error("Error getting document:", error);
+        console.error("Error adding document: ", error);
       });
-  }
-}
 
-function updateUserInfoDisplay(data) {
-  document.getElementById("displayName").textContent = data.name || "";
-  document.getElementById("eduEmail").textContent = data.email || "";
-  document.getElementById("age").textContent = data.age || "";
-  document.getElementById("year").textContent = data.year || "";
-  document.getElementById("major").textContent = data.majors || "";
-  document.getElementById("hometown").textContent = data.hometown || "";
-  document.getElementById("aboutme").textContent = data.aboutMe || "";
-  if (data.profilePicUrl) {
-    document.getElementById("displayHeadshot").src = data.profilePicUrl;
-    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
-}
-};
+    // reset form after submitted
+    document.getElementById("employerForm").reset();
+
+    // go back to the homepage
+    toggleSection('businesHomepage')
+  });
+
+// db.collection("users")
+//   .doc(user.uid)
+//   .set(updatedData, { merge: true })
+//   .then(() => {
+//     console.log("Document successfully updated!");
+//     updateUserInfoDisplay(updatedData);
+//     toggleSection("studentHomepage"); // Go back to the main page
+//   })
+//   .catch((error) => {
+//     console.error("Error updating document: ", error);
+//   });
+
+
+
 
 
 
@@ -603,18 +621,6 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 });
 
-function previewImage() {
-  var file = document.getElementById("editProfilePic").files[0];
-  var reader = new FileReader();
-  reader.onloadend = function() {
-      document.getElementById('preview').style.display = 'block';
-      document.getElementById('preview').src = reader.result;
-  }
-  if (file) {
-      reader.readAsDataURL(file);
-  } else {
-      document.getElementById('preview').src = "";
-  }
-}
+
 
 

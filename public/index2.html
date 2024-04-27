@@ -68,43 +68,22 @@
     }
 
     #displayHeadshot {
-    border-radius: 60%;  
-    align-items: center;
-    width: 200px;       
-    height: 180px;      
-    object-fit: cover;   
-    border: 2px solid #ffffff; 
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3); 
-    display: inline-flex;
-    margin-bottom: 30px;
-    margin-left: 40px;
-    
-}
+      border-radius: 60%;
+      align-items: center;
+      width: 200px;
+      height: 180px;
+      object-fit: cover;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      display: inline-flex;
+      margin-bottom: 30px;
+      margin-left: 40px;
 
-
-
+    }
   </style>
 </head>
 
 <body>
-  <!-- Nav bar -->
-  <!--   <nav id="navbar" class="navbar is-primary" role="navigation" aria-label="main navigation">
-
-    <div class="navbar-brand">
-      <a class="navbar-item" onclick="toggleSection('landing')">
-        <img src="Images/SideShift Colored Logo .png" alt="Home" style="cursor: pointer" />
-      </a>
-    </div>
-
-
-    <div class="navbar-menu">
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <a class="button is-light" onclick="toggleSection('signin')">Current User? Sign In</a>
-        </div>
-      </div>
-    </div>
-  </nav> -->
 
   <nav id="navbar" class="navbar is-info" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
@@ -128,7 +107,8 @@
             account? Sign in!</a>
         </div>
         <div class="navbar-item is-size-4">
-          <a class="button is-light signedin" id="profile_nav" onclick="toggleSection('studentUpdateInfo')">My Profile</a>
+          <a class="button is-light signedin" id="profile_nav" onclick="toggleSection('studentUpdateInfo')">My
+            Profile</a>
         </div>
         <div class="navbar-item is-size-4">
           <a class="button is-light signedin" id="signout_nav" onclick="auth.signOut()">Sign out</a>
@@ -281,340 +261,442 @@
 
 
   <!-- Student Home Page -->
-<section id="studentHomepage" class="hero is-primary is-fullheight-with-navbar section">
-  <div class="container">
-    <h1 class="title has-text-centered has-text-black is-1">Sideshift</h1>
-    
-    <!-- Main Content organized in columns -->
-    <div class="columns">
-      <!-- Filter column -->
-      <div class="column is-one-quarter">
-        <div class="box">
-          <h2 class="title has-text-centered has-text-black">Filters</h2>
-          <form>
-            <!-- Filters detail -->
-            <div class="field">
-              <label class="label">Wage per hour</label>
-              <div class="control">
-                <input class="input" type="number" placeholder="$ Min">
-                <input class="input" type="number" placeholder="$ Max">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label"> Required days of the week</label>
-              <div class="control">
-                <!-- List of checkboxes for days -->
-                <label class="checkbox"><input type="checkbox"> Monday</label>
-                <br>
-                <label class="checkbox"><input type="checkbox"> Tuesday</label>
-                <br>
-                <label class="checkbox"><input type="checkbox"> Wednesday</label>
-                <br>
-                <label class="checkbox"><input type="checkbox"> Thursday</label>
-                <br>
-                <label class="checkbox"><input type="checkbox"> Friday</label>
-                <br>
-                <label class="checkbox"><input type="checkbox"> Saturday</label>
-                <br>
-                <label class="checkbox"><input type="checkbox"> Sunday</label>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Company ratings</label>
-              <div class="control">
-                <input class="input" type="number" placeholder="Min">
-                <input class="input" type="number" placeholder="Max">
-              </div>
-            </div>
-            <div class="field is-grouped is-grouped-centered">
-              <div class="control">
-                <button class="button is-primary">Apply Filters</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- Job Posting column -->
-      <div class="column">
-        <div class="box">
-          <h2 class="title has-text-centered has-text-black">Job Listings</h2>
-          <div class="columns is-multiline">
-            <div id="job_postings" class="container">
-              <!-- Job postings will be dynamically added here -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Your Information column -->
-      <div class="column is-one-quarter">
-        <div class="box" id="userInfoBox">
-          <h2 class="title has-text-centered has-text-black">Your Information</h2>
-          <figure class="image is-150x150">
-            <img id="displayHeadshot" src="" alt="Headshot" style="margin-bottom: px;">
-          </figure>
-          <p><strong>Name:</strong> <span id="displayName"></span></p>
-          <p><strong>Email:</strong> <span id="eduEmail"></span></p>
-          <p><strong>Phone number:</strong> <span id="phonenumber"></span></p>
-          <p><strong>Age:</strong> <span id="age"></span></p>
-          <p><strong>Year in school:</strong> <span id="year"></span></p>
-          <p><strong>Major(s):</strong> <span id="major"></span></p>
-          <p><strong>Hometown:</strong> <span id="hometown"></span></p>
-          <p><strong>About me:</strong> <span id="aboutme"></span></p>
-          <p><strong>Available Days:</strong> <span id="availabilty"></span></p>
-          <p><strong>Desired Hours:</strong> <span id="hours"></span></p>
-          <button class="button is-link" onclick="toggleSection('studentUpdateInfo')">Edit Information</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- Student update info page -->
-<section id="studentUpdateInfo" class="hero is-info is-fullheight-with-navbar section" style="display: none;">
-  <div class="hero-body">
+  <section id="studentHomepage" class="hero is-primary is-fullheight-with-navbar section">
     <div class="container">
-      <form id="editProfileForm" class="box">
+      <h1 class="title has-text-centered has-text-black is-1">Sideshift</h1>
 
-        <div class="field">
-          <label class="label">Name</label>
-          <div class="control">
-            <input class="input" id="editName" type="text" placeholder="Your full name" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Educational Email</label>
-          <div class="control">
-            <input class="input" id="editEmail" type="email" placeholder="name@university.com" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Phone Number</label>
-          <div class="control">
-            <input class="input" id="editPhone" type="text" placeholder="000-000-0000" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Age</label>
-          <div class="control">
-            <input class="input" id="editAge" type="text" placeholder="20" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Major(s)</label>
-          <div class="control">
-            <input class="input" id="editMajors" type="text" placeholder="Consumer Behavior" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Hometown</label>
-          <div class="control">
-            <input class="input" id="editHometown" type="text" placeholder="Chanhassen, MN" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Desired Hours</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="10-20" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">About me</label>
-          <div class="control">
-            <input class="input" id="editAboutMe" type="text" placeholder="2-3 sentences" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Job Experience 1</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Title of a past job or experience" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Job Experience 1 Description</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Insert a few bullet points about what you did" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Job Experience 2</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Title of another past job or experience" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Job Experience 2 Description</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Insert a few more bullet points about what you did" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Desired Hours</label>
-          <div class="control">
-            <div class="select">
-              <select id="editDesiredHours">
-                <option value="0-5">0-5</option>
-                <option value="5-10">5-10</option>
-                <option value="10-20">10-20</option>
-                <option value="20-30">20-30</option>
-                <option value="40">40</option>
-                <option value="custom">Custom</option>
-              </select>
-            </div>
-            <input class="input" type="text" id="editCustomHours" placeholder="Enter custom hours" style="display: none;" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Available Days</label>
-          <div class="control">
-            <div class="select is-multiple">
-              <select id="editAvailableDays" multiple size="7">
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Year in School</label>
-          <div class="control">
-            <div class="select">
-              <select id="editYearInSchool">
-                <option value="Freshman">Freshman</option>
-                <option value="Sophomore">Sophomore</option>
-                <option value="Junior">Junior</option>
-                <option value="Senior">Senior</option>
-                <option value="Graduate Student">Graduate Student</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Headshot</label>
-          <div class="control">
-            <input class="input" type="file" accept="image/*" id="editProfilePic" onchange="previewImage()"/>
-            <img id="preview" src="" alt="Preview" style="display: none; max-width: 300px; max-height: 300px;">
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-            <button type="submit" class="button is-link">Update Info</button>
-            <button type="button" class="button is-light" onclick="toggleSection('studentHomepage')">Cancel</button>
-          </div>
-        </div>
-
-      </form>
-    </div>
-  </div>
-</section>
-
-
-
- <!-- Business Home Page Section -->
-<section id="businessHomepage" class="hero is-info is-fullheight-with-navbar section">
-  <div class="hero-body">
-    <div class="container">
+      <!-- Main Content organized in columns -->
       <div class="columns">
-        
-        <!-- Active Posts Column -->
-        <div class="column is-two-thirds">
+        <!-- Filter column -->
+        <div class="column is-one-quarter">
           <div class="box">
-            <h2 class="title has-text-centered has-text-black ">Active Posts</h2>
-            <!-- Job listings -->
-            <div  class="columns is-multiline">
-            <!-- Job listing card 1 -->
-            <div id="active_posts" class="column is-full">
-              <!-- dynamic entered here -->
-           
-            </div>
+            <h2 class="title has-text-centered has-text-black">Filters</h2>
+            <form>
+              <!-- Filters detail -->
+              <div class="field">
+                <label class="label">Wage per hour</label>
+                <div class="control">
+                  <input class="input" type="number" placeholder="$ Min">
+                  <input class="input" type="number" placeholder="$ Max">
+                </div>
               </div>
+              <div class="field">
+                <label class="label"> Required days of the week</label>
+                <div class="control">
+                  <!-- List of checkboxes for days -->
+                  <label class="checkbox"><input type="checkbox"> Monday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Tuesday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Wednesday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Thursday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Friday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Saturday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Sunday</label>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Company ratings</label>
+                <div class="control">
+                  <input class="input" type="number" placeholder="Min">
+                  <input class="input" type="number" placeholder="Max">
+                </div>
+              </div>
+              <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                  <button class="button is-primary">Apply Filters</button>
+                </div>
+              </div>
+            </form>
           </div>
-          <div class="has-text-right">
-            <button class="button is-link" onclick="toggleSection('jobpostForm')">Add Post</button>
+        </div>
+
+        <!-- Job Posting column -->
+        <div class="column">
+          <div class="box">
+            <h2 class="title has-text-centered has-text-black">Job Listings</h2>
+            <div class="columns is-multiline">
+              <div id="job_postings" class="container">
+                <!-- Job postings will be dynamically added here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Your Information column -->
+        <div class="column is-one-quarter">
+          <div class="box" id="userInfoBox">
+            <h2 class="title has-text-centered has-text-black">Your Information</h2>
+            <figure class="image is-150x150">
+              <img id="displayHeadshot" src="" alt="Headshot" style="margin-bottom: px;">
+            </figure>
+            <p><strong>Name:</strong> <span id="displayName"></span></p>
+            <p><strong>Email:</strong> <span id="eduEmail"></span></p>
+            <p><strong>Phone number:</strong> <span id="phonenumber"></span></p>
+            <p><strong>Age:</strong> <span id="age"></span></p>
+            <p><strong>Year in school:</strong> <span id="year"></span></p>
+            <p><strong>Major(s):</strong> <span id="major"></span></p>
+            <p><strong>Hometown:</strong> <span id="hometown"></span></p>
+            <p><strong>About me:</strong> <span id="aboutme"></span></p>
+            <p><strong>Available Days:</strong> <span id="availabilty"></span></p>
+            <p><strong>Desired Hours:</strong> <span id="hours"></span></p>
+            <button class="button is-link" onclick="toggleSection('studentUpdateInfo')">Edit Information</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Student update info page -->
+  <section id="studentUpdateInfo" class="hero is-info is-fullheight-with-navbar section" style="display: none;">
+    <div class="hero-body">
+      <div class="container">
+        <form id="editProfileForm" class="box">
+
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input class="input" id="editName" type="text" placeholder="Your full name" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Educational Email</label>
+            <div class="control">
+              <input class="input" id="editEmail" type="email" placeholder="name@university.com" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Phone Number</label>
+            <div class="control">
+              <input class="input" id="editPhone" type="text" placeholder="000-000-0000" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Age</label>
+            <div class="control">
+              <input class="input" id="editAge" type="text" placeholder="20" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Major(s)</label>
+            <div class="control">
+              <input class="input" id="editMajors" type="text" placeholder="Consumer Behavior" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Hometown</label>
+            <div class="control">
+              <input class="input" id="editHometown" type="text" placeholder="Chanhassen, MN" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Desired Hours</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="10-20" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">About me</label>
+            <div class="control">
+              <input class="input" id="editAboutMe" type="text" placeholder="2-3 sentences" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Job Experience 1</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Title of a past job or experience" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Job Experience 1 Description</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Insert a few bullet points about what you did" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Job Experience 2</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Title of another past job or experience" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Job Experience 2 Description</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Insert a few more bullet points about what you did" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Desired Hours</label>
+            <div class="control">
+              <div class="select">
+                <select id="editDesiredHours">
+                  <option value="0-5">0-5</option>
+                  <option value="5-10">5-10</option>
+                  <option value="10-20">10-20</option>
+                  <option value="20-30">20-30</option>
+                  <option value="40">40</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <input class="input" type="text" id="editCustomHours" placeholder="Enter custom hours"
+                style="display: none;" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Available Days</label>
+            <div class="control">
+              <div class="select is-multiple">
+                <select id="editAvailableDays" multiple size="7">
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Year in School</label>
+            <div class="control">
+              <div class="select">
+                <select id="editYearInSchool">
+                  <option value="Freshman">Freshman</option>
+                  <option value="Sophomore">Sophomore</option>
+                  <option value="Junior">Junior</option>
+                  <option value="Senior">Senior</option>
+                  <option value="Graduate Student">Graduate Student</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Headshot</label>
+            <div class="control">
+              <input class="input" type="file" accept="image/*" id="editProfilePic" onchange="previewImage()" />
+              <img id="preview" src="" alt="Preview" style="display: none; max-width: 300px; max-height: 300px;">
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button is-link">Update Info</button>
+              <button type="button" class="button is-light" onclick="toggleSection('studentHomepage')">Cancel</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Business Home Page Section -->
+  <section id="businessHomepage" class="hero is-info is-fullheight-with-navbar section">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns">
+
+          <!-- Active Posts Column -->
+          <div class="column is-two-thirds">
+            <div class="box">
+              <h2 class="title has-text-centered has-text-black ">Active Posts</h2>
+              <!-- Job listings -->
+              <div class="columns is-multiline">
+                <!-- Job listing card 1 -->
+                <div id="active_posts" class="column is-full">
+                  <!-- dynamic entered here -->
+
+                </div>
+              </div>
+            </div>
+            <div class="has-text-right">
+              <button class="button is-link" onclick="toggleSection('jobpostForm')">Add Post</button>
               <span class="icon">
                 <i class="fas fa-plus"></i>
               </span>
-            </button>
-          </div>
-        </div>
-        <!-- Company Information Column -->
-        <div class="column is-one-third">
-          <div class="box">
-            <h2 class="title has-text-centered">Company Information</h2>
-            <!-- Company information content -->
-            <div class="content">
-              <p><strong>Name:</strong> Your Company Name</p>
-              <p><strong>Location:</strong> City, State</p>
-              <p><strong>Industry:</strong> Sector</p>
-              <p><strong>Size:</strong> 100-500 Employees</p>
+              </button>
             </div>
-            <button class="button is-link">Edit Information</button>
+          </div>
+          <!-- Company Information Column -->
+          <div class="column is-one-third">
+            <div class="box">
+              <h2 class="title has-text-centered">Company Information</h2>
+              <!-- Company information content -->
+              <div class="content">
+                <p><strong>Name:</strong> Your Company Name</p>
+                <p><strong>Location:</strong> City, State</p>
+                <p><strong>Industry:</strong> Sector</p>
+                <p><strong>Size:</strong> 100-500 Employees</p>
+              </div>
+              <button class="button is-link">Edit Information</button>
+            </div>
           </div>
         </div>
-      </div>
-
+  </section>
 
   <!-- Form to create a job posting -->
-  <section id= "jobpostForm" class="section">
+  <section id="jobpostForm" class="section">
     <div class="container">
       <h1 class="title">Employer Form</h1>
-      <form id="employerForm" class="box">
-        <div class="field">
-          <label class="label">Desired Hours</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="e.g., 10-20" id="desiredHours" required>
+      <div class="container">
+        <form id="job_application_form" class="box">
+          <div class="field">
+            <label class="label" for="job_title">Job Title:</label>
+            <div class="control">
+              <input class="input" type="text" id="job_title" name="job_title" placeholder="Enter job title">
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label class="label">Job Title</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Enter job title" id="jobTitle" required>
+
+          <div class="field">
+            <label class="label" for="name">Name:</label>
+            <div class="control">
+              <input class="input" type="text" id="name" name="name" placeholder="Enter your name">
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label class="label">Job Description</label>
-          <div class="control">
-            <textarea class="textarea" placeholder="Enter job description" id="jobDescription" required></textarea>
+
+          <div class="field">
+            <label class="label" for="email">Email:</label>
+            <div class="control">
+              <input class="input" type="email" id="email" name="email" placeholder="Enter your email">
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label class="label">Required Experience</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Enter required experience" id="requiredExperience" required>
+
+          <div class="field">
+            <label class="label" for="message">Message:</label>
+            <div class="control">
+              <textarea class="textarea" id="message" name="message" placeholder="Enter your message"></textarea>
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <div class="control">
-            <button class="button is-link" type="submit">Submit</button>
+
+          <div class="field">
+            <label class="label" for="company">Company:</label>
+            <div class="control">
+              <input class="input" type="text" id="company" name="company" placeholder="Enter company name">
+            </div>
           </div>
-        </div>
-      </form>
+
+          <div class="field">
+            <label class="label">Days:</label>
+            <div class="control">
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Monday">
+                Monday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Tuesday">
+                Tuesday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Wednesday">
+                Wednesday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Thursday">
+                Thursday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Friday">
+                Friday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Saturday">
+                Saturday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Sunday">
+                Sunday
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="description">Description:</label>
+            <div class="control">
+              <textarea class="textarea" id="description" name="description"
+                placeholder="Enter job description"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="experience">Experience:</label>
+            <div class="control">
+              <input class="input" type="text" id="experience" name="experience"
+                placeholder="Enter required experience">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="hours">Hours:</label>
+            <div class="control">
+              <input class="input" type="number" id="hours" name="hours" placeholder="Enter working hours">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="img_link">Image Link:</label>
+            <div class="control">
+              <input class="input" type="text" id="img_link" name="img_link" placeholder="Enter image link">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="location">Location:</label>
+            <div class="control">
+              <input class="input" type="text" id="location" name="location" placeholder="Enter job location">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="posted_date">Posted Date:</label>
+            <div class="control">
+              <input class="input" type="text" id="posted_date" name="posted_date" placeholder="Enter posted date">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="wage">Wage:</label>
+            <div class="control">
+              <input class="input" type="number" id="wage" name="wage" placeholder="Enter wage">
+            </div>
+          </div>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <input class="button is-primary" type="submit" value="Submit">
+            </div>
+            <div class="control">
+              <input class="button is-link" type="button" value="Cancel">
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-  </section> 
+  </section>
 
   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
