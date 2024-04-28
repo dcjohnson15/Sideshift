@@ -351,8 +351,6 @@
     </div>
   </section>
 
-
-
   <!-- Student update info page -->
   <section id="studentUpdateInfo" class="hero is-info is-fullheight-with-navbar section" style="display: none;">
     <div class="hero-body">
@@ -444,37 +442,36 @@
           </div>
 
           <div class="field">
-            <label class="label">Desired Hours</label>
+            <label class="label">Availabilty:</label>
             <div class="control">
-              <div class="select">
-                <select id="editDesiredHours">
-                  <option value="0-5">0-5</option>
-                  <option value="5-10">5-10</option>
-                  <option value="10-20">10-20</option>
-                  <option value="20-30">20-30</option>
-                  <option value="40">40</option>
-                  <option value="custom">Custom</option>
-                </select>
-              </div>
-              <input class="input" type="text" id="editCustomHours" placeholder="Enter custom hours"
-                style="display: none;" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Available Days</label>
-            <div class="control">
-              <div class="select is-multiple">
-                <select id="editAvailableDays" multiple size="7">
-                  <option value="Monday">Monday</option>
-                  <option value="Tuesday">Tuesday</option>
-                  <option value="Wednesday">Wednesday</option>
-                  <option value="Thursday">Thursday</option>
-                  <option value="Friday">Friday</option>
-                  <option value="Saturday">Saturday</option>
-                  <option value="Sunday">Sunday</option>
-                </select>
-              </div>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Monday">
+                Monday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Tuesday">
+                Tuesday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Wednesday">
+                Wednesday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Thursday">
+                Thursday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Friday">
+                Friday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Saturday">
+                Saturday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Sunday">
+                Sunday
+              </label>
             </div>
           </div>
 
