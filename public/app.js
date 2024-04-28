@@ -312,26 +312,30 @@ function fetchActivePosts() {
           card.classList.add("card");
 
           // Populate card with data from Firestore
-          card.innerHTML = `<!-- Job listing card 1 -->
-            <div class="column is-full">
-              <div class="card">
-                <div class="card-content">
+          card.innerHTML = `
+          <div class="column is-full">
+            <div class="card">
+              <div class="card-content">
                   <div class="media">
-                    <div class="media-content">
-                      <p class="title is-4 has-text-black">${data.position}</p>
-                      <div class="content">6 applications</div>
-                    </div>
-                    <div class="media-right">
-                      <p class="title is-4 has-text-black">${data.pay}</p>
-                      <p class="is-pulled-right">3-4 days per week</p>
-                    </div>
+                      <div class="media-content">
+                          <p class="title is-4 has-text-black">${data.company}: ${data.title}</p>
+                          <p class="content">Expected hours/week: ${data.hours}</p>
+                          <p class="content">Required Experience: ${data.experience}</p>
+                          <p class="content">Wage: $${data.wage}/hour </p>
+                          <p class="content">Days of Week: ${data.days} </p>
+                          <p class="content">Description: ${data.description} </p>
+                      </div>
+                      <div class="media-right">
+                          <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
+                              <img src="${data.img_link}" alt="Job Image">
+                          </figure>
+                      </div>
                   </div>
-                </div>
-                <footer class="card-footer">
-                  <a href="#" class="card-footer-item">Edit</a>
-                </footer>
               </div>
-            </div>`;
+              <footer class="card-footer">
+                  <a id="edit_post" class="card-footer-item">Edit</a>
+              </footer>
+          </div>`;
 
           // Get the first child of the container
           const firstChild = activePosts.firstChild;
@@ -486,7 +490,6 @@ r_e("signin_form").addEventListener("submit", (e) => {
 // Sign out user,
 r_e("signout_nav").addEventListener("click", () => {
   // Display a successful signout message to user
-  activePosts.innerHTML = ``;
   auth.signOut().then(() => {
     console.log("Signed Out");
   });
@@ -557,6 +560,9 @@ document
 document.getElementById("employerForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
+  // Get the ID of the currently logged-in user
+  const currentUserID = firebase.auth().currentUser.uid;
+
   // Get form values
   const job_title = document.getElementById("job_title").value;
   const company = document.getElementById("company").value;
@@ -572,6 +578,7 @@ document.getElementById("employerForm").addEventListener("submit", function (eve
   // Add job application data to Firestore
   db.collection("job_post")
     .add({
+      employerID: currentUserID,
       title: job_title,
       company: company,
       days: days,
