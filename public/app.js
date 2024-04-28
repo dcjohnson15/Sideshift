@@ -331,9 +331,10 @@ function fetchActivePosts() {
                           </figure>
                       </div>
                   </div>
-              </div>
+            </div>
               <footer class="card-footer">
-                  <a id="edit_post" class="card-footer-item">Edit</a>
+                <a id="edit_post" class="card-footer-item">Edit</a>
+                <a id="view_applicants" class="card-footer-item">View Applicants</a> 
               </footer>
           </div>`;
 
@@ -495,21 +496,21 @@ r_e("signout_nav").addEventListener("click", () => {
   });
 });
 
-// track user authentification status with on authstatechanged
-auth.onAuthStateChanged((user) => {
-  //check if user is signed in or out
-  if (user) {
-    toggleSection("studentHomepage");
-    fetchJobPostings();
-    // display message, configure nav bar, and toggle right section
-    console.log("User Signed In!");
-    configure_navbar(user);
-  } else {
-    console.log("User Signed Out!");
-    configure_navbar(user);
-    toggleSection("landing");
-  }
-});
+// // track user authentification status with on authstatechanged
+// auth.onAuthStateChanged((user) => {
+//   //check if user is signed in or out
+//   if (user) {
+//     toggleSection("studentHomepage");
+//     fetchJobPostings();
+//     // display message, configure nav bar, and toggle right section
+//     console.log("User Signed In!");
+//     configure_navbar(user);
+//   } else {
+//     console.log("User Signed Out!");
+//     configure_navbar(user);
+//     toggleSection("landing");
+//   }
+// });
 
 // Establiishing if user is Business or Student based off sign up
 firebase.auth().onAuthStateChanged((user) => {
@@ -523,14 +524,12 @@ firebase.auth().onAuthStateChanged((user) => {
         const userData = doc.data();
         if (userData.role === "student") {
           toggleSection("studentHomepage");
+          fetchJobPostings();
           configure_navbar(user);
         } else if (userData.role === "business") {
           toggleSection("businessHomepage");
           configure_navbar(user);
           fetchActivePosts();
-        } else {
-          toggleSection("landing");
-          configure_navbar(user);
         }
       })
       .catch((error) => {
@@ -539,6 +538,7 @@ firebase.auth().onAuthStateChanged((user) => {
   } else {
     toggleSection("landing"); // User is not signed in
     clearActivePosts();
+    configure_navbar(user)
   }
 });
 
