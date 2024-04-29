@@ -332,3 +332,139 @@ Yes, we are satisfied with the current status of our project but the team knows 
 F.). Which group was invited? What are our observations/notes? Was everybody present?
 Group 4 was invited. Everyone was present for the initial meeting and interaction. We noticed with the website that it is a single page app with the different pages in the nav bar being fully clickable. The graphic interface is very well laid out and designed -  seems the group has mastered the front end portion of the site and now just to add functionality through javascript code. Our favorite portion of the website is the booking and leave a review section of the website. 
 
+Sprint 3 (4/15-4/28)
+
+Trello Board: https://trello.com/b/atmqnlgd/sideshift
+Public Repo URL: https://github.com/dcjohnson15/Sideshift.git
+
+
+
+User Stories:
+As a user, I need to be able to search for employers and submit applications for the positions they are hiring for.
+As an admin, I need to be able to see users all applicants and job listings with customization capabilities
+As a user, I need to be able to post my job openings and review applicants, as well as being able to follow up on promising applications.
+
+Burndown Chart:
+
+Task
+Corresponding Story 
+Duration
+Priority
+Complexity
+Lead Person
+About us/footer
+2
+1
+4
+low
+JP
+Job post filterings
+1
+3 hours
+2
+
+
+mid-high
+DJ
+Applicants filtering
+3
+3 hours
+1
+mid-high
+Andrew
+
+
+Dynamic student homepage
+1
+4 hours
+3
+mid-high
+Garrett
+Dynamic employer homepage
+3
+4 hours
+10
+mid-high
+Andrew
+Admin login
+2
+2 hours
+10
+mid
+Chandler
+
+
+
+
+Meeting Date: 4/15/2026 
+
+DJ
+Yesterday: N/A (Start of Sprint)
+Today: Planning to start a job posting filtering system.
+Issues: None reported.
+
+Garret Larsen
+Yesterday: N/A (Start of Sprint)
+Today: Starting the development of dynamic features for the student homepage.
+Issues: None reported.
+
+Chandler Breene
+Yesterday: N/A (Start of Sprint)
+Today: Setting up for admin login updates.
+Issues: None reported.
+
+Andrew Steitzel
+Yesterday: N/A (Start of Sprint)
+Today: Planning the dynamic content into the employer homepage.
+Issues: None reported.
+
+
+JP Frimel
+Yesterday: N/A (Start of Sprint)
+Today: Beginning to work on the filtering system for student applicants.
+Issues: None reported.
+
+Meeting Date: 4/25/2026 
+
+DJ
+Yesterday: Enhanced the user interface for business posting filters.
+Today: Finalizing and testing the business posting filtering system.
+Issues: Minor bugs detected in filter logic.
+
+Garret Larsen
+Yesterday: Integrated feedback into the dynamic student homepage.
+Today: preparing for deployment.
+Issues: None reported.
+
+Chandler Breene
+Yesterday: Tested admin login.
+Today: Planning to document the updates and prepare for final review.
+Issues: None reported.
+
+Andrew Steitzel
+Yesterday: Adjusted layout issues on the employer homepage.
+Today: Wrapping up the dynamic content features and starting final tests.
+Issues: None reported.
+
+JP Frimel
+Yesterday: Implemented sorting features in the applicant filtering system.
+Today: Planning to refine the user experience based on test feedback.
+Issues: none
+
+A.) What did we learn from doing our last sprint?
+During our first sprint, we learned the critical role that effective resource allocation plays in achieving our project goals. We discovered that aligning our team's strengths with specific tasks can significantly enhance our productivity and the quality of our deliverables. This approach helped us better manage our time and meet our sprint objectives more effectively.
+
+B.) What went well? Why?
+The implementation of agile methodologies went particularly well during this sprint. By holding daily stand-ups and maintaining active communication channels, we ensured that everyone was aligned and could quickly address any issues. 
+
+C.) What didn’t go well? Why not?
+We encountered challenges with integrating individual pieces into a seamless workflow. Despite our efforts in planning and distribution of tasks, the integration process revealed some inconsistencies in our approach, causing delays. These issues stemmed from underestimating the complexity of different work which required more time and coordination 
+
+D.) How can we make things better next time?
+To improve in our next project, we could enhance our integration process by scheduling regular check-ins specifically focused on the integration of specific components. Additionally scheduling my group orientated sessions as opposed to individual work sessions.
+
+E.) Are we satisfied with what you already have completed?
+Yes, we definitely are satisfied with the status of the project and excited to present the site to the class. From the start of sprint 1 earlier this semester to the progress the group has made to this point now in sprint 3 is significant
+
+F.). Which group was invited? What are our observations/notes? Was everybody present?
+Group 4 was invited. Everyone was present for the initial meeting and interaction. We noticed with the website that it is a single page app with the different pages in the nav bar being fully clickable and functional now. The graphic interface is very well laid out and designed -  seems the group has mastered both ends of the website. Our favorite portion of the website is the booking an appointment portion and being able to see your appointments.
