@@ -605,9 +605,6 @@ function updateUserProfile2(user) {
     const fileRef = storageRef.child(
       "profilePictures/" + user.uid + "/" + file.name
     );
-    const fileRef = storageRef.child(
-      "profilePictures/" + user.uid + "/" + file.name
-    );
 
     fileRef
       .put(file)
