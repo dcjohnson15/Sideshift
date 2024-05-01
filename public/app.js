@@ -29,13 +29,13 @@ function toggleSection(sectionId) {
 // configure the message bar
 function configure_message_bar(msg) {
   // make msg bar visible
-  r_e('message_bar').classList.remove('is-hidden');
+  r_e("message_bar").classList.remove("is-hidden");
 
-  r_e('message_bar').innerHTML = msg;
+  r_e("message_bar").innerHTML = msg;
 
   setTimeout(() => {
-    r_e('message_bar').innerHTML = "";
-    r_e('message_bar').classList.add('is-hidden');
+    r_e("message_bar").innerHTML = "";
+    r_e("message_bar").classList.add("is-hidden");
   }, 3000);
 }
 
@@ -53,23 +53,50 @@ function toggleSection(sectionId) {
 }
 
 // Function to display student information
+// function fetchUserData() {
+//   const user = firebase.auth().currentUser;
+//   if (user) {
+//     db.collection("users")
+//       .doc(user.uid)
+//       .get()
+//       .then((doc) => {
+//         if (doc.exists) {
+//           console.log("Document data:", doc.data());
+//           fillEditForm(doc.data());
+//         } else {
+//           console.log("No such document!");
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Error getting document:", error);
+//       });
+//   }
+// }
+
+// fetchuserdata DEBUG
 function fetchUserData() {
   const user = firebase.auth().currentUser;
   if (user) {
-    db.collection("users")
+    return db
+      .collection("users")
       .doc(user.uid)
       .get()
       .then((doc) => {
         if (doc.exists) {
           console.log("Document data:", doc.data());
-          fillEditForm(doc.data());
+          return doc.data(); // Return user data
         } else {
           console.log("No such document!");
+          return null; // Return null if document doesn't exist
         }
       })
       .catch((error) => {
         console.error("Error getting document:", error);
+        throw error; // Rethrow the error to be caught by the caller
       });
+  } else {
+    console.error("User not authenticated!");
+    return Promise.reject(new Error("User not authenticated")); // Return a rejected promise
   }
 }
 
@@ -84,9 +111,9 @@ function updateUserInfoDisplay(data) {
   document.getElementById("aboutme").textContent = data.aboutMe || "";
   if (data.profilePicUrl) {
     document.getElementById("displayHeadshot").src = data.profilePicUrl;
-    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
+    document.getElementById("displayHeadshot").style.display = "block"; // Show the image element
   }
-};
+}
 
 function updateUserInfoDisplay2(data) {
   document.getElementById("companyName").textContent = data.companyName || "";
@@ -96,27 +123,55 @@ function updateUserInfoDisplay2(data) {
   document.getElementById("address").textContent = data.address || "";
   document.getElementById("phonenumber2").textContent = data.phone || "";
   if (data.profilePicUrl) {
-    document.getElementById("displayHeadshot").src = data.profilePicUrl;
-    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
+    document.getElementById("displayLogo").src = data.profilePicUrl;
+    document.getElementById("displayLogo").style.display = "block"; // Show the image element
   }
-};
+}
+
+// Function to populate form fields with user data
+function populateFormFields(data) {
+  document.getElementById("editCname").value = data.companyName || "";
+  document.getElementById("editCemail").value = data.email || "";
+  document.getElementById("editCindustry").value = data.industry || "";
+  document.getElementById("editCsize").value = data.size || "";
+  document.getElementById("editCaddress").value = data.address || "";
+  document.getElementById("editCphone").value = data.phone || "";
+
+  // Set profile picture if available
+  // if (data.profilePicUrl) {
+  //   document.getElementById("preview").src = data.profilePicUrl;
+  //   document.getElementById("preview").style.display = "block";
+  // } else {
+  //   // If profile picture is not available, hide the preview
+  //   document.getElementById("preview").style.display = "none";
+  // }
+}
+
+// Add click event listener to the "editEmployer" element
+document.getElementById("editEmployer").addEventListener("click", () => {
+  // Call fetchUserData to get user data and then populate form fields
+  fetchUserData()
+    .then((userData) => {
+      populateFormFields(userData);
+    })
+    .catch((error) => {
+      console.error("Error fetching user data:", error);
+    });
+});
 
 function previewImage() {
   var file = document.getElementById("editProfilePic").files[0];
   var reader = new FileReader();
   reader.onloadend = function () {
-    document.getElementById('preview').style.display = 'block';
-    document.getElementById('preview').src = reader.result;
-  }
+    document.getElementById("preview").style.display = "block";
+    document.getElementById("preview").src = reader.result;
+  };
   if (file) {
     reader.readAsDataURL(file);
   } else {
-    document.getElementById('preview').src = "";
+    document.getElementById("preview").src = "";
   }
 }
-
-
-
 
 // configure the navbar to only show certain elements when signed in/out
 function configure_navbar(user) {
@@ -271,7 +326,9 @@ function signUpStudent(event) {
     })
     .then(() => {
       toggleSection("studentHomepage"); // Redirect to student home
-      configure_message_bar(`Successfully Signed Up! Don't forget to input the rest of your information!`);
+      configure_message_bar(
+        `Successfully Signed Up! Don't forget to input the rest of your information!`
+      );
     })
     .catch((error) => {
       alert(error.message); // Display error message to user
@@ -308,7 +365,9 @@ function signUpEmployer(event) {
     })
     .then(() => {
       toggleSection("businessHomepage"); // Redirect to business home
-      configure_message_bar(`Successfully Signed Up! Don't forget to input the rest of your information!`);
+      configure_message_bar(
+        `Successfully Signed Up! Don't forget to input the rest of your information!`
+      );
     })
     .catch((error) => {
       alert(error.message); // Display error message to user
@@ -460,32 +519,46 @@ function updateUserProfile(user) {
     jobExperience1_title: document.getElementById("jobExp1_title").value,
     jobExperience1_desc: document.getElementById("jobExp1_desc").value,
     jobExperience2_title: document.getElementById("jobExp2_title").value,
-    jobExperience2_desc: document.getElementById("jobExp2_desc").value
+    jobExperience2_desc: document.getElementById("jobExp2_desc").value,
   };
 
   const file = document.getElementById("editProfilePic").files[0];
-  if (file && file.type.match('image.*')) {
+  if (file && file.type.match("image.*")) {
     const storageRef = firebase.storage().ref();
-    const fileRef = storageRef.child('profilePictures/' + user.uid + '/' + file.name);
+    const fileRef = storageRef.child(
+      "profilePictures/" + user.uid + "/" + file.name
+    );
 
-    fileRef.put(file).then((snapshot) => {
-      return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
-    }).then((url) => {
-      updatedData.profilePicUrl = url; // Save URL to the profile data
-      return db.collection("users").doc(user.uid).set(updatedData, { merge: true });
-    }).then(() => {
-      updateUserInfoDisplay(updatedData); // Update UI
-      configure_message_bar(`Successfully Updated Profile!`);
-    }).catch((error) => {
-      console.error("Error updating profile: ", error);
-    });
+    fileRef
+      .put(file)
+      .then((snapshot) => {
+        return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
+      })
+      .then((url) => {
+        updatedData.profilePicUrl = url; // Save URL to the profile data
+        return db
+          .collection("users")
+          .doc(user.uid)
+          .set(updatedData, { merge: true });
+      })
+      .then(() => {
+        updateUserInfoDisplay(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+      });
   } else {
-    db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
-      updateUserInfoDisplay(updatedData); // Update UI
-      configure_message_bar(`Successfully Updated Profile!`);
-    }).catch((error) => {
-      console.error("Error updating profile: ", error);
-    });
+    db.collection("users")
+      .doc(user.uid)
+      .set(updatedData, { merge: true })
+      .then(() => {
+        updateUserInfoDisplay(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+      });
   }
 }
 
@@ -500,29 +573,44 @@ function updateUserProfile2(user) {
     phone: document.getElementById("editCphone").value,
   };
 
-  const file = document.getElementById("editProfilePic").files[0];
-  if (file && file.type.match('image.*')) {
+  const file = document.getElementById("editLogoPic").files[0];
+  console.log(file);
+  if (file && file.type.match("image.*")) {
     const storageRef = firebase.storage().ref();
-    const fileRef = storageRef.child('profilePictures/' + user.uid + '/' + file.name);
+    const fileRef = storageRef.child(
+      "profilePictures/" + user.uid + "/" + file.name
+    );
 
-    fileRef.put(file).then((snapshot) => {
-      return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
-    }).then((url) => {
-      updatedData.profilePicUrl = url; // Save URL to the profile data
-      return db.collection("users").doc(user.uid).set(updatedData, { merge: true });
-    }).then(() => {
-      updateUserInfoDisplay2(updatedData); // Update UI
-      configure_message_bar(`Successfully Updated Profile!`);
-    }).catch((error) => {
-      configure_message_bar(`Error updating your profile.`);
-    });
+    fileRef
+      .put(file)
+      .then((snapshot) => {
+        return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
+      })
+      .then((url) => {
+        updatedData.profilePicUrl = url; // Save URL to the profile data
+        return db
+          .collection("users")
+          .doc(user.uid)
+          .set(updatedData, { merge: true });
+      })
+      .then(() => {
+        updateUserInfoDisplay2(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        configure_message_bar(`Error updating your profile.`);
+      });
   } else {
-    db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
-      updateUserInfoDisplay2(updatedData); // Update UI
-      configure_message_bar(`Successfully Updated Profile!`);
-    }).catch((error) => {
-      console.error("Error updating profile: ", error);
-    });
+    db.collection("users")
+      .doc(user.uid)
+      .set(updatedData, { merge: true })
+      .then(() => {
+        updateUserInfoDisplay2(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+      });
   }
 }
 
@@ -555,7 +643,9 @@ r_e("signin_form").addEventListener("submit", (e) => {
       r_e("signin_form").reset();
     })
     .catch((err) => {
-      configure_message_bar(`Please double check your credentials or create an account!`);
+      configure_message_bar(
+        `Please double check your credentials or create an account!`
+      );
     });
 });
 
@@ -597,12 +687,12 @@ firebase.auth().onAuthStateChanged((user) => {
           toggleSection("studentHomepage");
           fetchJobPostings();
           configure_navbar(user);
-          r_e('user_email').innerHTML = auth.currentUser.email;
+          r_e("user_email").innerHTML = auth.currentUser.email;
         } else if (userData.role === "business") {
           toggleSection("businessHomepage");
           configure_navbar(user);
           fetchActivePosts();
-          r_e('user_email').innerHTML = auth.currentUser.email;
+          r_e("user_email").innerHTML = auth.currentUser.email;
         }
       })
       .catch((error) => {
@@ -611,7 +701,7 @@ firebase.auth().onAuthStateChanged((user) => {
   } else {
     toggleSection("landing"); // User is not signed in
     clearActivePosts();
-    configure_navbar(user)
+    configure_navbar(user);
   }
 });
 
@@ -624,8 +714,8 @@ document
     const user = firebase.auth().currentUser;
     if (user) {
       updateUserProfile(user);
-      toggleSection('studentHomepage')
-      configure_message_bar('Successfully updated student info')
+      toggleSection("studentHomepage");
+      configure_message_bar("Successfully updated student info");
     } else {
       configure_message_bar(`No user logged in!`);
     }
@@ -640,62 +730,63 @@ document
     const user = firebase.auth().currentUser;
     if (user) {
       updateUserProfile2(user);
-      toggleSection('businessHomepage')
-      configure_message_bar('Successfully updated employer info')
+      toggleSection("businessHomepage");
+      configure_message_bar("Successfully updated employer info");
     } else {
       configure_message_bar(`No user logged in!`);
     }
   });
 
-
-
-
 // add job post from the form to db
-document.getElementById("employerForm").addEventListener("submit", function (event) {
-  event.preventDefault();
+document
+  .getElementById("employerForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
 
-  // Get the ID of the currently logged-in user
-  const currentUserID = firebase.auth().currentUser.uid;
+    // Get the ID of the currently logged-in user
+    const currentUserID = firebase.auth().currentUser.uid;
 
-  // Get form values
-  const job_title = document.getElementById("job_title").value;
-  const company = document.getElementById("company").value;
-  const days = Array.from(document.querySelectorAll("input[name='days[]']:checked")).map(day => day.value);
-  const description = document.getElementById("description").value;
-  const experience = document.getElementById("experience").value;
-  const totalhours = document.getElementById("totalhours").value;
-  const img_link = document.getElementById("img_link").value;
-  const location = document.getElementById("location").value;
-  const posted_date = document.getElementById("posted_date").value;
-  const wage = document.getElementById("wage").value;
+    // Get form values
+    const job_title = document.getElementById("job_title").value;
+    const company = document.getElementById("company").value;
+    const days = Array.from(
+      document.querySelectorAll("input[name='days[]']:checked")
+    ).map((day) => day.value);
+    const description = document.getElementById("description").value;
+    const experience = document.getElementById("experience").value;
+    const totalhours = document.getElementById("totalhours").value;
+    const img_link = document.getElementById("img_link").value;
+    const location = document.getElementById("location").value;
+    const posted_date = document.getElementById("posted_date").value;
+    const wage = document.getElementById("wage").value;
 
-  // Add job application data to Firestore
-  db.collection("job_post")
-    .add({
-      employerID: currentUserID,
-      title: job_title,
-      company: company,
-      days: days,
-      description: description,
-      experience: experience,
-      hours: totalhours,
-      img_link: img_link,
-      location: location,
-      posted_date: posted_date,
-      wage: wage
-    })
-    .then(() => {
-      configure_message_bar(`Job posted successfully!`);
-      // Reset form after submission
-      document.getElementById("employerForm").reset();
+    // Add job application data to Firestore
+    db.collection("job_post")
+      .add({
+        employerID: currentUserID,
+        title: job_title,
+        company: company,
+        days: days,
+        description: description,
+        experience: experience,
+        hours: totalhours,
+        img_link: img_link,
+        location: location,
+        posted_date: posted_date,
+        wage: wage,
+      })
+      .then(() => {
+        configure_message_bar(`Job posted successfully!`);
+        // Reset form after submission
+        document.getElementById("employerForm").reset();
 
-      // Go back to the homepage (assuming you have a function named toggleSection)
-      toggleSection('businessHomepage');
-    })
-    .catch((error) => {
-      configure_message_bar(`There was an error when creating your job post`);
-    });
-});
+        // Go back to the homepage (assuming you have a function named toggleSection)
+        toggleSection("businessHomepage");
+      })
+      .catch((error) => {
+        configure_message_bar(`There was an error when creating your job post`);
+      });
+  });
 
 //fetching studentuser data
 firebase.auth().onAuthStateChanged(function (user) {
@@ -734,7 +825,3 @@ firebase.auth().onAuthStateChanged(function (user) {
       });
   }
 });
-
-
-
-
