@@ -102,6 +102,55 @@ function previewImage() {
   }
 }
 
+
+// Function to display employer information
+function fetchUserData2() {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    db.collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          fillEditForm(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
+      });
+  }
+}
+
+function updateUserInfoDisplay2(data) {
+  document.getElementById("displayName").textContent = data.name || "";
+  document.getElementById("email").textContent = data.phone || "";
+  document.getElementById("industry").textContent = data.email || "";
+  document.getElementById("size").textContent = data.age || "";
+  document.getElementById("address").textContent = data.year || "";
+  document.getElementById("phonenumber").textContent = data.majors || "";
+  if (data.profilePicUrl) {
+    document.getElementById("displayHeadshot").src = data.profilePicUrl;
+    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
+  }
+};
+
+function previewImage2() {
+  var file = document.getElementById("editProfilePic").files[0];
+  var reader = new FileReader();
+  reader.onloadend = function () {
+    document.getElementById('preview').style.display = 'block';
+    document.getElementById('preview').src = reader.result;
+  }
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    document.getElementById('preview').src = "";
+  }
+}
+
 // configure the navbar to only show certain elements when signed in/out
 function configure_navbar(user) {
   let signedin = document.querySelectorAll(`.signedin`);
@@ -575,7 +624,26 @@ document
     } else {
       configure_message_bar(`No user logged in!`);
     }
-  });
+});
+
+// submitting employer data to firebase
+document
+  .getElementById("editProfileForm2")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const user = firebase.auth().currentUser;
+    if (user) {
+      updateUserProfile2(user);
+      toggleSection('businessHomepage')
+      configure_message_bar('Successfully updated student info')
+    } else {
+      configure_message_bar(`No user logged in!`);
+    }
+});
+
+
+
 
 // add job post from the form to db
 document.getElementById("employerForm").addEventListener("submit", function (event) {
@@ -624,7 +692,7 @@ document.getElementById("employerForm").addEventListener("submit", function (eve
     });
 });
 
-//fetching user data
+//fetching studentuser data
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     db.collection("users")
@@ -633,6 +701,25 @@ firebase.auth().onAuthStateChanged(function (user) {
       .then((doc) => {
         if (doc.exists) {
           updateUserInfoDisplay(doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }
+});
+
+//fetching employer user data
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    db.collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          updateUserInfoDisplay2(doc.data());
         } else {
           console.log("No such document!");
         }
