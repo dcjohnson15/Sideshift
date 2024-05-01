@@ -333,10 +333,10 @@ function fetchActivePosts() {
                       </div>
                   </div>
             </div>
-              <footer class="card-footer">
-                <a id="edit_post" class="card-footer-item">Edit</a>
+                <footer class="card-footer">
+                <a href="#" id="edit_post" class="card-footer-item button is-link" onclick="toggleSection('jobposteditForm')">Edit Information</a>
                 <a id="view_applicants" class="card-footer-item">View Applicants</a> 
-              </footer>
+                </footer>
           </div>`;
 
           // Get the first child of the container
@@ -548,6 +548,62 @@ function updateUserProfile2(user) {
       .set(updatedData, { merge: true })
       .then(() => {
         updateUserInfoDisplay2(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+      });
+  }
+}
+// have barely edited this just copied it from above to start working on it
+// function to update job post info
+function updateJobPost(user) {
+  const updatedData = {
+    name: document.getElementById("editName").value,
+    email: document.getElementById("editEmail").value,
+    phone: document.getElementById("editPhone").value,
+    majors: document.getElementById("editMajors").value,
+    hometown: document.getElementById("editHometown").value,
+    funfact: document.getElementById("editFunFact").value,
+    year: document.getElementById("editYearInSchool").value,
+    jobExp1: document.getElementById("jobExp1_title").value,
+    jobRole1: document.getElementById("jobExp1_desc").value,
+    jobExp2: document.getElementById("jobExp2_title").value,
+    jobRole2: document.getElementById("jobExp2_desc").value,
+  };
+
+  const file = document.getElementById("editProfilePic").files[0];
+  if (file && file.type.match("image.*")) {
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child(
+      "profilePictures/" + user.uid + "/" + file.name
+    );
+
+    fileRef
+      .put(file)
+      .then((snapshot) => {
+        return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
+      })
+      .then((url) => {
+        updatedData.profilePicUrl = url; // Save URL to the profile data
+        return db
+          .collection("users")
+          .doc(user.uid)
+          .set(updatedData, { merge: true });
+      })
+      .then(() => {
+        updateUserInfoDisplay(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+      });
+  } else {
+    db.collection("users")
+      .doc(user.uid)
+      .set(updatedData, { merge: true })
+      .then(() => {
+        updateUserInfoDisplay(updatedData); // Update UI
         configure_message_bar(`Successfully Updated Profile!`);
       })
       .catch((error) => {

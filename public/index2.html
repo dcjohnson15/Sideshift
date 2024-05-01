@@ -557,7 +557,7 @@
   </section>
 
   <!-- Employer update info page -->
-  <section id="employerUpdateInfo" class="hero is-info is-fullheight-with-navbar section" style="display: none;">
+  <section id="employerUpdateInfo" class="hero is-info is-fullheight-with-navbar section";>
     <div class="title has-text-centered has-text-black">Update your Information</div>
     <div class="hero-body">
       <div class="container">
@@ -724,6 +724,122 @@
           <div class="field is-grouped">
             <div class="control">
               <input class="button is-primary" type="submit" value="Submit">
+            </div>
+            <div class="control">
+              <input class="button is-link" type="button" value="Cancel" onclick="toggleSection('businessHomepage')">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form to edit a job posting -->
+  <section id="jobposteditForm" class="section">
+    <div class="container">
+      <h1 class="title">Employer Form</h1>
+      <div class="container">
+        <form id="employerForm" class="box">
+          <div class="field">
+            <label class="label" for="company">Company Name:</label>
+            <div class="control">
+              <input class="input" type="text" id="editcompany" name="company" placeholder="Enter company name">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="job_title">Job Title:</label>
+            <div class="control">
+              <input class="input" type="text" id="editjob_title" name="job_title" placeholder="Enter job title">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Required Days:</label>
+            <div class="control">
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Monday">
+                Monday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Tuesday">
+                Tuesday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Wednesday">
+                Wednesday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Thursday">
+                Thursday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Friday">
+                Friday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Saturday">
+                Saturday
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="days[]" value="Sunday">
+                Sunday
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="description">Description:</label>
+            <div class="control">
+              <textarea class="textarea" id="description" name="description"
+                placeholder="Enter job description"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="experience">Experience:</label>
+            <div class="control">
+              <input class="input" type="text" id="experience" name="experience"
+                placeholder="Enter required experience">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="hours">Hours:</label>
+            <div class="control">
+              <input class="input" type="number" id="totalhours" name="totalhours" placeholder="Enter working hours">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="img_link">Image Link:</label>
+            <div class="control">
+              <input class="input" type="text" id="img_link" name="img_link" placeholder="Enter image link">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="location">Location:</label>
+            <div class="control">
+              <input class="input" type="text" id="location" name="location" placeholder="Enter job location">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="posted_date">Posted Date:</label>
+            <div class="control">
+              <input class="input" type="text" id="posted_date" name="posted_date" placeholder="Enter posted date">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="wage">Wage:</label>
+            <div class="control">
+              <input class="input" type="number" id="wage" name="wage" placeholder="Enter wage">
+            </div>
+          </div>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <input class="button is-primary" type="submit" value="Update">
             </div>
             <div class="control">
               <input class="button is-link" type="button" value="Cancel" onclick="toggleSection('businessHomepage')">
