@@ -487,18 +487,15 @@
             </div>
             <div class="has-text-right">
               <button class="button is-link" onclick="toggleSection('jobpostForm')">Add Post</button>
-              <span class="icon">
-                <i class="fas fa-plus"></i>
-              </span>
-              </button>
+              
             </div>
           </div>
           <!-- Company Information Column -->
           <div class="column is-one-third">
             <div class="box" id="userInfoBox2">
               <h2 class="title has-text-centered has-text-black">Company Information</h2>
-              <figure class="image is-fullwidth">
-                <img id="displayHeadshot" src="" alt="Headshot">
+              <figure class="image is-fullwidth has-text-centered">
+                <img id="displayHeadshot" src="" alt="Headshot" class="is-centered">
               </figure>
               <p><strong>Company Name:</strong> <span id="companyName"></span></p>
               <p><strong>Email:</strong> <span id="email"></span></p>
@@ -554,6 +551,15 @@
               <input class="input" id="editCphone" type="text" placeholder="000-000-000" required />
             </div>
           </div>
+
+          <div class="field">
+            <label class="label">Logo</label>
+            <div class="control">
+              <input class="input" type="file" accept="image/*" id="editProfilePic" onchange="previewImage()" />
+              <img id="preview" src="" alt="Preview" style="display: none; max-width: 300px; max-height: 300px;">
+            </div>
+          </div>
+
           <div class="field">
             <div class="control">
               <button type="submit" class="button is-link">Update Info</button>
