@@ -88,6 +88,19 @@ function updateUserInfoDisplay(data) {
   }
 };
 
+function updateUserInfoDisplay2(data) {
+  document.getElementById("compName").textContent = data.name || "";
+  document.getElementById("email").textContent = data.email || "";
+  document.getElementById("industry").textContent = data.industry || "";
+  document.getElementById("size").textContent = data.size || "";
+  document.getElementById("address").textContent = data.address || "";
+  document.getElementById("phonenumber").textContent = data.phone || "";
+  if (data.profilePicUrl) {
+    document.getElementById("displayHeadshot").src = data.profilePicUrl;
+    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
+  }
+};
+
 function previewImage() {
   var file = document.getElementById("editProfilePic").files[0];
   var reader = new FileReader();
@@ -103,53 +116,7 @@ function previewImage() {
 }
 
 
-// Function to display employer information
-function fetchUserData2() {
-  const user = firebase.auth().currentUser;
-  if (user) {
-    db.collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          console.log("Document data:", doc.data());
-          fillEditForm(doc.data());
-        } else {
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.error("Error getting document:", error);
-      });
-  }
-}
 
-function updateUserInfoDisplay2(data) {
-  document.getElementById("displayName").textContent = data.name || "";
-  document.getElementById("email").textContent = data.phone || "";
-  document.getElementById("industry").textContent = data.email || "";
-  document.getElementById("size").textContent = data.age || "";
-  document.getElementById("address").textContent = data.year || "";
-  document.getElementById("phonenumber").textContent = data.majors || "";
-  if (data.profilePicUrl) {
-    document.getElementById("displayHeadshot").src = data.profilePicUrl;
-    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
-  }
-};
-
-function previewImage2() {
-  var file = document.getElementById("editProfilePic").files[0];
-  var reader = new FileReader();
-  reader.onloadend = function () {
-    document.getElementById('preview').style.display = 'block';
-    document.getElementById('preview').src = reader.result;
-  }
-  if (file) {
-    reader.readAsDataURL(file);
-  } else {
-    document.getElementById('preview').src = "";
-  }
-}
 
 // configure the navbar to only show certain elements when signed in/out
 function configure_navbar(user) {
@@ -479,6 +446,7 @@ function clearActivePosts() {
   jobPostingsContainer.innerHTML = ""; // Clear innerHTML
 }
 
+// function to update student user profile
 function updateUserProfile(user) {
   const updatedData = {
     name: document.getElementById("editName").value,
@@ -514,6 +482,43 @@ function updateUserProfile(user) {
   } else {
     db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
       updateUserInfoDisplay(updatedData); // Update UI
+      configure_message_bar(`Successfully Updated Profile!`);
+    }).catch((error) => {
+      console.error("Error updating profile: ", error);
+    });
+  }
+}
+
+// function to update employer user profile
+function updateUserProfile2(user) {
+  const updatedData = {
+    name: document.getElementById("editCname").value,
+    email: document.getElementById("editCemail").value,
+    phone: document.getElementById("editCindustry").value,
+    size: document.getElementById("editCsize").value,
+    address: document.getElementById("editCaddress").value,
+    phone: document.getElementById("editCphone").value,
+  };
+
+  const file = document.getElementById("editProfilePic").files[0];
+  if (file && file.type.match('image.*')) {
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child('profilePictures/' + user.uid + '/' + file.name);
+
+    fileRef.put(file).then((snapshot) => {
+      return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
+    }).then((url) => {
+      updatedData.profilePicUrl = url; // Save URL to the profile data
+      return db.collection("users").doc(user.uid).set(updatedData, { merge: true });
+    }).then(() => {
+      updateUserInfoDisplay2(updatedData); // Update UI
+      configure_message_bar(`Successfully Updated Profile!`);
+    }).catch((error) => {
+      console.error("Error updating profile: ", error);
+    });
+  } else {
+    db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
+      updateUserInfoDisplay2(updatedData); // Update UI
       configure_message_bar(`Successfully Updated Profile!`);
     }).catch((error) => {
       console.error("Error updating profile: ", error);
@@ -636,7 +641,7 @@ document
     if (user) {
       updateUserProfile2(user);
       toggleSection('businessHomepage')
-      configure_message_bar('Successfully updated student info')
+      configure_message_bar('Successfully updated employer info')
     } else {
       configure_message_bar(`No user logged in!`);
     }
