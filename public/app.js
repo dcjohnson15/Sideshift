@@ -89,12 +89,12 @@ function updateUserInfoDisplay(data) {
 };
 
 function updateUserInfoDisplay2(data) {
-  document.getElementById("compName").textContent = data.name || "";
+  document.getElementById("companyName").textContent = data.companyName || "";
   document.getElementById("email").textContent = data.email || "";
   document.getElementById("industry").textContent = data.industry || "";
   document.getElementById("size").textContent = data.size || "";
   document.getElementById("address").textContent = data.address || "";
-  document.getElementById("phonenumber").textContent = data.phone || "";
+  document.getElementById("phonenumber2").textContent = data.phone || "";
   if (data.profilePicUrl) {
     document.getElementById("displayHeadshot").src = data.profilePicUrl;
     document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
@@ -492,9 +492,9 @@ function updateUserProfile(user) {
 // function to update employer user profile
 function updateUserProfile2(user) {
   const updatedData = {
-    name: document.getElementById("editCname").value,
+    companyName: document.getElementById("editCname").value,
     email: document.getElementById("editCemail").value,
-    phone: document.getElementById("editCindustry").value,
+    industry: document.getElementById("editCindustry").value,
     size: document.getElementById("editCsize").value,
     address: document.getElementById("editCaddress").value,
     phone: document.getElementById("editCphone").value,
