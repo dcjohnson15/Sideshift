@@ -138,13 +138,13 @@ function populateFormFields(data) {
   document.getElementById("editCphone").value = data.phone || "";
 
   // Set profile picture if available
-  // if (data.profilePicUrl) {
-  //   document.getElementById("preview").src = data.profilePicUrl;
-  //   document.getElementById("preview").style.display = "block";
-  // } else {
-  //   // If profile picture is not available, hide the preview
-  //   document.getElementById("preview").style.display = "none";
-  // }
+  if (data.profilePicUrl) {
+    document.getElementById("preview2").src = data.profilePicUrl;
+    document.getElementById("preview2").style.display = "block";
+  } else {
+    // If profile picture is not available, hide the preview
+    document.getElementById("preview2").style.display = "none";
+  }
 }
 
 // Add click event listener to the "editEmployer" element
