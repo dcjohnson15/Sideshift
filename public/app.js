@@ -39,39 +39,13 @@ function configure_message_bar(msg) {
   }, 3000);
 }
 
-function toggleSection(sectionId) {
-  const sections = document.querySelectorAll(".section");
-  sections.forEach((section) => {
-    if (section.id === sectionId) {
-      section.classList.add("is-active");
-      section.style.display = "block"; // Ensure it's visible
-    } else {
-      section.classList.remove("is-active");
-      section.style.display = "none"; // Ensure it's hidden
-    }
-  });
-}
+function resetFilters() {
+  // Reset filter form fields to their default values
+  document.getElementById("filter_form").reset();
 
-// Function to display student information
-// function fetchUserData() {
-//   const user = firebase.auth().currentUser;
-//   if (user) {
-//     db.collection("users")
-//       .doc(user.uid)
-//       .get()
-//       .then((doc) => {
-//         if (doc.exists) {
-//           console.log("Document data:", doc.data());
-//           fillEditForm(doc.data());
-//         } else {
-//           console.log("No such document!");
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error getting document:", error);
-//       });
-//   }
-// }
+  // Fetch all job postings again
+  fetchJobPostings();
+}
 
 // fetchuserdata DEBUG
 function fetchUserData() {
@@ -233,92 +207,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // Initially show only show the landing page
   toggleSection("landing");
 });
-
-// .custom-centered {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
-
-// Function to handle employer sign-up
-// function signUpEmployer(event) {
-//   event.preventDefault();
-
-//   const companyName = document.getElementById("c_name").value;
-//   const companyEmail = document.getElementById("c_email").value;
-//   const password = document.getElementById("c_password").value;
-//   const confirmPassword = document.getElementById("c_password2").value;
-
-//   // Check if passwords match
-//   if (password !== confirmPassword) {
-//     alert("Passwords do not match.");
-//     return;
-//   }
-
-//   // Add employer data to Firestore
-//   db.collection("employers")
-//     .doc(companyEmail)
-//     .set({
-//       companyName: companyName,
-//       email: companyEmail,
-//       password: password,
-//     })
-//     .then(() => {
-//       console.log("Employer added successfully.");
-//       // Redirect or show success message
-//     })
-//     .catch((error) => {
-//       console.error("Error adding employer: ", error);
-//     });
-// }
-
-// // Function to handle student sign-up
-// function signUpStudent(event) {
-//   event.preventDefault();
-
-//   const fullName = document.getElementById("s_name").value;
-//   const educationalEmail = document.getElementById("s_email").value;
-//   const password = document.getElementById("s_password").value;
-//   const confirmPassword = document.getElementById("s_password2").value;
-
-//   // Check if passwords match
-//   if (password !== confirmPassword) {
-//     alert("Passwords do not match.");
-//     return;
-//   }
-
-//   // Add student data to Firestore
-//   db.collection("users")
-//     .doc(educationalEmail)
-//     .set({
-//       fullName: fullName,
-//       email: educationalEmail,
-//       password: password,
-//     })
-//     .then(() => {
-//       console.log("Student added successfully.");
-//       // Redirect or show success message
-//     })
-//     .catch((error) => {
-//       console.error("Error adding student: ", error);
-//     });
-
-//   firebase
-//     .auth()
-//     .createUserWithEmailAndPassword(educationalEmail, password)
-//     .then((userCredential) => {
-//       // User account created successfully
-//       const user = userCredential.user;
-//       console.log("User created:", user);
-//       // Optionally, redirect the user to a different page
-//     })
-//     .catch((error) => {
-//       // Handle errors
-//       const errorCode = error.code;
-//       const errorMessage = error.message;
-//       console.error("Error creating user:", errorMessage);
-//     });
-// }
 
 // adjusted student and business signup functions
 
