@@ -104,17 +104,22 @@ function updateUserInfoDisplay(data) {
   document.getElementById("displayName").textContent = data.name || "";
   document.getElementById("phonenumber").textContent = data.phone || "";
   document.getElementById("eduEmail").textContent = data.email || "";
-  document.getElementById("age").textContent = data.age || "";
   document.getElementById("year").textContent = data.year || "";
   document.getElementById("major").textContent = data.majors || "";
   document.getElementById("hometown").textContent = data.hometown || "";
-  document.getElementById("aboutme").textContent = data.aboutMe || "";
+  document.getElementById("funFact").textContent = data.funfact || "";
+  document.getElementById("jobExp1").textContent = data.jobExp1 || "";
+  document.getElementById("jobRole1").textContent = data.jobRole1 || "";
+  document.getElementById("jobExp2").textContent = data.jobExp2 || "";
+  document.getElementById("jobRole2").textContent = data.jobRole2 || "";
+
   if (data.profilePicUrl) {
     document.getElementById("displayHeadshot").src = data.profilePicUrl;
     document.getElementById("displayHeadshot").style.display = "block"; // Show the image element
   }
 }
 
+// Display employer info
 function updateUserInfoDisplay2(data) {
   document.getElementById("companyName").textContent = data.companyName || "";
   document.getElementById("email").textContent = data.email || "";
@@ -170,6 +175,27 @@ function previewImage() {
     reader.readAsDataURL(file);
   } else {
     document.getElementById("preview").src = "";
+  }
+}
+
+// function to fill in custom desired hours
+function handleSelectionChange() {
+  var select = document.getElementById("editHours");
+  if (select.value === "custom") {
+    var customHours = prompt("Please enter your desired custom hours:");
+    if (customHours !== null && customHours !== "") {
+      // Check if the custom value already exists
+      let exists = Array.from(select.options).some(
+        (option) => option.value === customHours
+      );
+      if (!exists) {
+        // Create a new option element and add it to the dropdown
+        var newOption = new Option(customHours + " hours", customHours);
+        select.add(newOption);
+      }
+      // Select the newly added option
+      select.value = customHours;
+    }
   }
 }
 
@@ -511,15 +537,14 @@ function updateUserProfile(user) {
     name: document.getElementById("editName").value,
     email: document.getElementById("editEmail").value,
     phone: document.getElementById("editPhone").value,
-    age: document.getElementById("editAge").value,
     majors: document.getElementById("editMajors").value,
     hometown: document.getElementById("editHometown").value,
-    aboutMe: document.getElementById("editAboutMe").value,
+    funfact: document.getElementById("editFunFact").value,
     year: document.getElementById("editYearInSchool").value,
-    jobExperience1_title: document.getElementById("jobExp1_title").value,
-    jobExperience1_desc: document.getElementById("jobExp1_desc").value,
-    jobExperience2_title: document.getElementById("jobExp2_title").value,
-    jobExperience2_desc: document.getElementById("jobExp2_desc").value,
+    jobExp1: document.getElementById("jobExp1_title").value,
+    jobRole1: document.getElementById("jobExp1_desc").value,
+    jobExp2: document.getElementById("jobExp2_title").value,
+    jobRole2: document.getElementById("jobExp2_desc").value,
   };
 
   const file = document.getElementById("editProfilePic").files[0];
@@ -580,7 +605,29 @@ function updateUserProfile2(user) {
     const fileRef = storageRef.child(
       "profilePictures/" + user.uid + "/" + file.name
     );
+    const fileRef = storageRef.child(
+      "profilePictures/" + user.uid + "/" + file.name
+    );
 
+    fileRef
+      .put(file)
+      .then((snapshot) => {
+        return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
+      })
+      .then((url) => {
+        updatedData.profilePicUrl = url; // Save URL to the profile data
+        return db
+          .collection("users")
+          .doc(user.uid)
+          .set(updatedData, { merge: true });
+      })
+      .then(() => {
+        updateUserInfoDisplay2(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        configure_message_bar(`Error updating your profile.`);
+      });
     fileRef
       .put(file)
       .then((snapshot) => {
@@ -611,6 +658,16 @@ function updateUserProfile2(user) {
       .catch((error) => {
         console.error("Error updating profile: ", error);
       });
+    db.collection("users")
+      .doc(user.uid)
+      .set(updatedData, { merge: true })
+      .then(() => {
+        updateUserInfoDisplay2(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+      });
   }
 }
 
@@ -625,53 +682,6 @@ document.getElementById("ssu_button").addEventListener("click", signUpStudent);
 document.getElementById("esu_button").addEventListener("click", signUpEmployer);
 
 // Add data from the job posting form into the job_post collection
-
-// Sign in user
-r_e("signin_form").addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  // grab email and password
-  let email = r_e("si_email").value;
-  let password = r_e("si_password").value;
-
-  // call the firebase function to sign in user
-  auth
-    .signInWithEmailAndPassword(email, password)
-    .then((user) => {
-      configure_message_bar(`Successfully Signed In!`);
-      // reset form
-      r_e("signin_form").reset();
-    })
-    .catch((err) => {
-      configure_message_bar(
-        `Please double check your credentials or create an account!`
-      );
-    });
-});
-
-// Sign out user,
-r_e("signout_nav").addEventListener("click", () => {
-  // Display a successful signout message to user
-  auth.signOut().then(() => {
-    configure_message_bar(`Successfully Signed Out!`);
-  });
-});
-
-// // track user authentification status with on authstatechanged
-// auth.onAuthStateChanged((user) => {
-//   //check if user is signed in or out
-//   if (user) {
-//     toggleSection("studentHomepage");
-//     fetchJobPostings();
-//     // display message, configure nav bar, and toggle right section
-//     console.log("User Signed In!");
-//     configure_navbar(user);
-//   } else {
-//     console.log("User Signed Out!");
-//     configure_navbar(user);
-//     toggleSection("landing");
-//   }
-// });
 
 // Establiishing if user is Business or Student based off sign up
 firebase.auth().onAuthStateChanged((user) => {
@@ -736,6 +746,53 @@ document
       configure_message_bar(`No user logged in!`);
     }
   });
+
+// Sign in user
+r_e("signin_form").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  // grab email and password
+  let email = r_e("si_email").value;
+  let password = r_e("si_password").value;
+
+  // call the firebase function to sign in user
+  auth
+    .signInWithEmailAndPassword(email, password)
+    .then((user) => {
+      configure_message_bar(`Successfully Signed In!`);
+      // reset form
+      r_e("signin_form").reset();
+    })
+    .catch((err) => {
+      configure_message_bar(
+        `Please double check your credentials or create an account!`
+      );
+    });
+});
+
+// Sign out user,
+r_e("signout_nav").addEventListener("click", () => {
+  // Display a successful signout message to user
+  auth.signOut().then(() => {
+    configure_message_bar(`Successfully Signed Out!`);
+  });
+});
+
+// // track user authentification status with on authstatechanged
+// auth.onAuthStateChanged((user) => {
+//   //check if user is signed in or out
+//   if (user) {
+//     toggleSection("studentHomepage");
+//     fetchJobPostings();
+//     // display message, configure nav bar, and toggle right section
+//     console.log("User Signed In!");
+//     configure_navbar(user);
+//   } else {
+//     console.log("User Signed Out!");
+//     configure_navbar(user);
+//     toggleSection("landing");
+//   }
+// });
 
 // add job post from the form to db
 document
