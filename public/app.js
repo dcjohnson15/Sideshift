@@ -75,6 +75,7 @@ function fetchUserData() {
 
 function updateUserInfoDisplay(data) {
   document.getElementById("displayName").textContent = data.name || "";
+  document.getElementById("phonenumber").textContent = data.phone || "";
   document.getElementById("eduEmail").textContent = data.email || "";
   document.getElementById("age").textContent = data.age || "";
   document.getElementById("year").textContent = data.year || "";
@@ -438,6 +439,11 @@ function updateUserProfile(user) {
     majors: document.getElementById("editMajors").value,
     hometown: document.getElementById("editHometown").value,
     aboutMe: document.getElementById("editAboutMe").value,
+    year: document.getElementById("editYearInSchool").value,
+    jobExperience1_title: document.getElementById("jobExp1_title").value,
+    jobExperience1_desc: document.getElementById("jobExp1_desc").value,
+    jobExperience2_title: document.getElementById("jobExp2_title").value,
+    jobExperience2_desc: document.getElementById("jobExp2_desc").value
   };
 
   const file = document.getElementById("editProfilePic").files[0];
@@ -564,6 +570,8 @@ document
     const user = firebase.auth().currentUser;
     if (user) {
       updateUserProfile(user);
+      toggleSection('studentHomepage')
+      configure_message_bar('Successfully updated student info')
     } else {
       configure_message_bar(`No user logged in!`);
     }

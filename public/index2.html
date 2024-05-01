@@ -257,8 +257,6 @@
     </div>
   </section>
 
-
-
   <!-- Student Home Page -->
   <section id="studentHomepage" class="hero is-primary is-fullheight-with-navbar section">
     <div class="container">
@@ -330,8 +328,8 @@
         <div class="column is-one-quarter">
           <div class="box" id="userInfoBox">
             <h2 class="title has-text-centered has-text-black">Your Information</h2>
-            <figure class="image is-150x150">
-              <img id="displayHeadshot" src="" alt="Headshot" style="margin-bottom: px;">
+            <figure class="image is-fullwidth">
+              <img id="displayHeadshot" src="" alt="Headshot">
             </figure>
             <p><strong>Name:</strong> <span id="displayName"></span></p>
             <p><strong>Email:</strong> <span id="eduEmail"></span></p>
@@ -341,8 +339,6 @@
             <p><strong>Major(s):</strong> <span id="major"></span></p>
             <p><strong>Hometown:</strong> <span id="hometown"></span></p>
             <p><strong>About me:</strong> <span id="aboutme"></span></p>
-            <p><strong>Available Days:</strong> <span id="availabilty"></span></p>
-            <p><strong>Desired Hours:</strong> <span id="hours"></span></p>
             <button class="button is-link" onclick="toggleSection('studentUpdateInfo')">Edit Information</button>
           </div>
         </div>
@@ -352,10 +348,10 @@
 
   <!-- Student update info page -->
   <section id="studentUpdateInfo" class="hero is-info is-fullheight-with-navbar section" style="display: none;">
+    <div class="title has-text-centered has-text-black">Update your Information</div>
     <div class="hero-body">
       <div class="container">
         <form id="editProfileForm" class="box">
-
           <div class="field">
             <label class="label">Name</label>
             <div class="control">
@@ -399,13 +395,6 @@
           </div>
 
           <div class="field">
-            <label class="label">Desired Hours</label>
-            <div class="control">
-              <input class="input" type="text" placeholder="10-20" required />
-            </div>
-          </div>
-
-          <div class="field">
             <label class="label">About me</label>
             <div class="control">
               <input class="input" id="editAboutMe" type="text" placeholder="2-3 sentences" required />
@@ -415,62 +404,30 @@
           <div class="field">
             <label class="label">Job Experience 1</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Title of a past job or experience" />
+              <input class="input" id="jobExp1_title" type="text" placeholder="Company: Title" />
             </div>
           </div>
 
           <div class="field">
             <label class="label">Job Experience 1 Description</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Insert a few bullet points about what you did" />
+              <input class="input" id="jobExp1_desc" type="text"
+                placeholder="Insert a brief description of your role" />
             </div>
           </div>
 
           <div class="field">
             <label class="label">Job Experience 2</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Title of another past job or experience" />
+              <input class="input" id="jobExp2_title" type="text" placeholder="Company: Title" />
             </div>
           </div>
 
           <div class="field">
             <label class="label">Job Experience 2 Description</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Insert a few more bullet points about what you did" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Availabilty:</label>
-            <div class="control">
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Monday">
-                Monday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Tuesday">
-                Tuesday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Wednesday">
-                Wednesday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Thursday">
-                Thursday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Friday">
-                Friday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Saturday">
-                Saturday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Sunday">
-                Sunday
-              </label>
+              <input class="input" id="jobExp2_desc" type="text"
+                placeholder="Insert a brief description of your role" />
             </div>
           </div>
 
