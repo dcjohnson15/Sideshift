@@ -26,6 +26,19 @@ function toggleSection(sectionId) {
   }
 }
 
+// configure the message bar
+function configure_message_bar(msg) {
+  // make msg bar visible
+  r_e('message_bar').classList.remove('is-hidden');
+
+  r_e('message_bar').innerHTML = msg;
+
+  setTimeout(() => {
+    r_e('message_bar').innerHTML = "";
+    r_e('message_bar').classList.add('is-hidden');
+  }, 3000);
+}
+
 function toggleSection(sectionId) {
   const sections = document.querySelectorAll(".section");
   sections.forEach((section) => {
@@ -240,11 +253,10 @@ function signUpStudent(event) {
         });
     })
     .then(() => {
-      console.log("Student account created with role.");
       toggleSection("studentHomepage"); // Redirect to student home
+      configure_message_bar(`Successfully Signed Up! Don't forget to input the rest of your information!`);
     })
     .catch((error) => {
-      console.error("Error signing up student: ", error);
       alert(error.message); // Display error message to user
     });
 }
@@ -278,11 +290,10 @@ function signUpEmployer(event) {
         });
     })
     .then(() => {
-      console.log("Business account created with role.");
       toggleSection("businessHomepage"); // Redirect to business home
+      configure_message_bar(`Successfully Signed Up! Don't forget to input the rest of your information!`);
     })
     .catch((error) => {
-      console.error("Error signing up business: ", error);
       alert(error.message); // Display error message to user
     });
 }
@@ -440,15 +451,15 @@ function updateUserProfile(user) {
       updatedData.profilePicUrl = url; // Save URL to the profile data
       return db.collection("users").doc(user.uid).set(updatedData, { merge: true });
     }).then(() => {
-      console.log("Profile successfully updated with image!");
       updateUserInfoDisplay(updatedData); // Update UI
+      configure_message_bar(`Successfully Updated Profile!`);
     }).catch((error) => {
       console.error("Error updating profile: ", error);
     });
   } else {
     db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
-      console.log("Profile successfully updated!");
       updateUserInfoDisplay(updatedData); // Update UI
+      configure_message_bar(`Successfully Updated Profile!`);
     }).catch((error) => {
       console.error("Error updating profile: ", error);
     });
@@ -479,12 +490,12 @@ r_e("signin_form").addEventListener("submit", (e) => {
   auth
     .signInWithEmailAndPassword(email, password)
     .then((user) => {
-      console.log("Signed In successfully");
+      configure_message_bar(`Successfully Signed In!`);
       // reset form
       r_e("signin_form").reset();
     })
     .catch((err) => {
-      console.log("Error with sign in", err);
+      configure_message_bar(`Please double check your credentials or create an account!`);
     });
 });
 
@@ -492,7 +503,7 @@ r_e("signin_form").addEventListener("submit", (e) => {
 r_e("signout_nav").addEventListener("click", () => {
   // Display a successful signout message to user
   auth.signOut().then(() => {
-    console.log("Signed Out");
+    configure_message_bar(`Successfully Signed Out!`);
   });
 });
 
@@ -526,10 +537,12 @@ firebase.auth().onAuthStateChanged((user) => {
           toggleSection("studentHomepage");
           fetchJobPostings();
           configure_navbar(user);
+          r_e('user_email').innerHTML = auth.currentUser.email;
         } else if (userData.role === "business") {
           toggleSection("businessHomepage");
           configure_navbar(user);
           fetchActivePosts();
+          r_e('user_email').innerHTML = auth.currentUser.email;
         }
       })
       .catch((error) => {
@@ -552,7 +565,7 @@ document
     if (user) {
       updateUserProfile(user);
     } else {
-      console.log("No user is logged in");
+      configure_message_bar(`No user logged in!`);
     }
   });
 
@@ -591,6 +604,7 @@ document.getElementById("employerForm").addEventListener("submit", function (eve
       wage: wage
     })
     .then(() => {
+      configure_message_bar(`Job posted successfully!`);
       // Reset form after submission
       document.getElementById("employerForm").reset();
 
@@ -598,7 +612,7 @@ document.getElementById("employerForm").addEventListener("submit", function (eve
       toggleSection('businessHomepage');
     })
     .catch((error) => {
-      console.error("Error adding document: ", error);
+      configure_message_bar(`There was an error when creating your job post`);
     });
 });
 
