@@ -514,7 +514,7 @@ function updateUserProfile2(user) {
       updateUserInfoDisplay2(updatedData); // Update UI
       configure_message_bar(`Successfully Updated Profile!`);
     }).catch((error) => {
-      console.error("Error updating profile: ", error);
+      configure_message_bar(`Error updating your profile.`);
     });
   } else {
     db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
@@ -629,7 +629,7 @@ document
     } else {
       configure_message_bar(`No user logged in!`);
     }
-});
+  });
 
 // submitting employer data to firebase
 document
@@ -645,7 +645,7 @@ document
     } else {
       configure_message_bar(`No user logged in!`);
     }
-});
+  });
 
 
 
