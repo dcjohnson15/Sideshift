@@ -29,13 +29,13 @@ function toggleSection(sectionId) {
 // configure the message bar
 function configure_message_bar(msg) {
   // make msg bar visible
-  r_e('message_bar').classList.remove('is-hidden');
+  r_e("message_bar").classList.remove("is-hidden");
 
-  r_e('message_bar').innerHTML = msg;
+  r_e("message_bar").innerHTML = msg;
 
   setTimeout(() => {
-    r_e('message_bar').innerHTML = "";
-    r_e('message_bar').classList.add('is-hidden');
+    r_e("message_bar").innerHTML = "";
+    r_e("message_bar").classList.add("is-hidden");
   }, 3000);
 }
 
@@ -77,17 +77,22 @@ function updateUserInfoDisplay(data) {
   document.getElementById("displayName").textContent = data.name || "";
   document.getElementById("phonenumber").textContent = data.phone || "";
   document.getElementById("eduEmail").textContent = data.email || "";
-  document.getElementById("age").textContent = data.age || "";
   document.getElementById("year").textContent = data.year || "";
   document.getElementById("major").textContent = data.majors || "";
   document.getElementById("hometown").textContent = data.hometown || "";
-  document.getElementById("aboutme").textContent = data.aboutMe || "";
+  document.getElementById("funFact").textContent = data.funfact || "";
+  document.getElementById("jobExp1").textContent = data.jobExp1 || "";
+  document.getElementById("jobRole1").textContent = data.jobRole1 || "";
+  document.getElementById("jobExp2").textContent = data.jobExp2 || "";
+  document.getElementById("jobRole2").textContent = data.jobRole2 || "";
+
   if (data.profilePicUrl) {
     document.getElementById("displayHeadshot").src = data.profilePicUrl;
-    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
+    document.getElementById("displayHeadshot").style.display = "block"; // Show the image element
   }
-};
+}
 
+// Display employer info
 function updateUserInfoDisplay2(data) {
   document.getElementById("companyName").textContent = data.companyName || "";
   document.getElementById("email").textContent = data.email || "";
@@ -97,26 +102,44 @@ function updateUserInfoDisplay2(data) {
   document.getElementById("phonenumber2").textContent = data.phone || "";
   if (data.profilePicUrl) {
     document.getElementById("displayHeadshot").src = data.profilePicUrl;
-    document.getElementById("displayHeadshot").style.display = 'block'; // Show the image element
+    document.getElementById("displayHeadshot").style.display = "block"; // Show the image element
   }
-};
+}
 
 function previewImage() {
   var file = document.getElementById("editProfilePic").files[0];
   var reader = new FileReader();
   reader.onloadend = function () {
-    document.getElementById('preview').style.display = 'block';
-    document.getElementById('preview').src = reader.result;
-  }
+    document.getElementById("preview").style.display = "block";
+    document.getElementById("preview").src = reader.result;
+  };
   if (file) {
     reader.readAsDataURL(file);
   } else {
-    document.getElementById('preview').src = "";
+    document.getElementById("preview").src = "";
   }
 }
 
-
-
+// function to fill in custom desired hours
+function handleSelectionChange() {
+  var select = document.getElementById("editHours");
+  if (select.value === "custom") {
+    var customHours = prompt("Please enter your desired custom hours:");
+    if (customHours !== null && customHours !== "") {
+      // Check if the custom value already exists
+      let exists = Array.from(select.options).some(
+        (option) => option.value === customHours
+      );
+      if (!exists) {
+        // Create a new option element and add it to the dropdown
+        var newOption = new Option(customHours + " hours", customHours);
+        select.add(newOption);
+      }
+      // Select the newly added option
+      select.value = customHours;
+    }
+  }
+}
 
 // configure the navbar to only show certain elements when signed in/out
 function configure_navbar(user) {
@@ -271,7 +294,9 @@ function signUpStudent(event) {
     })
     .then(() => {
       toggleSection("studentHomepage"); // Redirect to student home
-      configure_message_bar(`Successfully Signed Up! Don't forget to input the rest of your information!`);
+      configure_message_bar(
+        `Successfully Signed Up! Don't forget to input the rest of your information!`
+      );
     })
     .catch((error) => {
       alert(error.message); // Display error message to user
@@ -308,7 +333,9 @@ function signUpEmployer(event) {
     })
     .then(() => {
       toggleSection("businessHomepage"); // Redirect to business home
-      configure_message_bar(`Successfully Signed Up! Don't forget to input the rest of your information!`);
+      configure_message_bar(
+        `Successfully Signed Up! Don't forget to input the rest of your information!`
+      );
     })
     .catch((error) => {
       alert(error.message); // Display error message to user
@@ -452,40 +479,53 @@ function updateUserProfile(user) {
     name: document.getElementById("editName").value,
     email: document.getElementById("editEmail").value,
     phone: document.getElementById("editPhone").value,
-    age: document.getElementById("editAge").value,
     majors: document.getElementById("editMajors").value,
     hometown: document.getElementById("editHometown").value,
-    aboutMe: document.getElementById("editAboutMe").value,
+    funfact: document.getElementById("editFunFact").value,
     year: document.getElementById("editYearInSchool").value,
-    jobExperience1_title: document.getElementById("jobExp1_title").value,
-    jobExperience1_desc: document.getElementById("jobExp1_desc").value,
-    jobExperience2_title: document.getElementById("jobExp2_title").value,
-    jobExperience2_desc: document.getElementById("jobExp2_desc").value
+    jobExp1: document.getElementById("jobExp1_title").value,
+    jobRole1: document.getElementById("jobExp1_desc").value,
+    jobExp2: document.getElementById("jobExp2_title").value,
+    jobRole2: document.getElementById("jobExp2_desc").value,
   };
 
   const file = document.getElementById("editProfilePic").files[0];
-  if (file && file.type.match('image.*')) {
+  if (file && file.type.match("image.*")) {
     const storageRef = firebase.storage().ref();
-    const fileRef = storageRef.child('profilePictures/' + user.uid + '/' + file.name);
+    const fileRef = storageRef.child(
+      "profilePictures/" + user.uid + "/" + file.name
+    );
 
-    fileRef.put(file).then((snapshot) => {
-      return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
-    }).then((url) => {
-      updatedData.profilePicUrl = url; // Save URL to the profile data
-      return db.collection("users").doc(user.uid).set(updatedData, { merge: true });
-    }).then(() => {
-      updateUserInfoDisplay(updatedData); // Update UI
-      configure_message_bar(`Successfully Updated Profile!`);
-    }).catch((error) => {
-      console.error("Error updating profile: ", error);
-    });
+    fileRef
+      .put(file)
+      .then((snapshot) => {
+        return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
+      })
+      .then((url) => {
+        updatedData.profilePicUrl = url; // Save URL to the profile data
+        return db
+          .collection("users")
+          .doc(user.uid)
+          .set(updatedData, { merge: true });
+      })
+      .then(() => {
+        updateUserInfoDisplay(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+      });
   } else {
-    db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
-      updateUserInfoDisplay(updatedData); // Update UI
-      configure_message_bar(`Successfully Updated Profile!`);
-    }).catch((error) => {
-      console.error("Error updating profile: ", error);
-    });
+    db.collection("users")
+      .doc(user.uid)
+      .set(updatedData, { merge: true })
+      .then(() => {
+        updateUserInfoDisplay(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+      });
   }
 }
 
@@ -501,28 +541,42 @@ function updateUserProfile2(user) {
   };
 
   const file = document.getElementById("editProfilePic").files[0];
-  if (file && file.type.match('image.*')) {
+  if (file && file.type.match("image.*")) {
     const storageRef = firebase.storage().ref();
-    const fileRef = storageRef.child('profilePictures/' + user.uid + '/' + file.name);
+    const fileRef = storageRef.child(
+      "profilePictures/" + user.uid + "/" + file.name
+    );
 
-    fileRef.put(file).then((snapshot) => {
-      return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
-    }).then((url) => {
-      updatedData.profilePicUrl = url; // Save URL to the profile data
-      return db.collection("users").doc(user.uid).set(updatedData, { merge: true });
-    }).then(() => {
-      updateUserInfoDisplay2(updatedData); // Update UI
-      configure_message_bar(`Successfully Updated Profile!`);
-    }).catch((error) => {
-      configure_message_bar(`Error updating your profile.`);
-    });
+    fileRef
+      .put(file)
+      .then((snapshot) => {
+        return snapshot.ref.getDownloadURL(); // Get URL of the uploaded file
+      })
+      .then((url) => {
+        updatedData.profilePicUrl = url; // Save URL to the profile data
+        return db
+          .collection("users")
+          .doc(user.uid)
+          .set(updatedData, { merge: true });
+      })
+      .then(() => {
+        updateUserInfoDisplay2(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        configure_message_bar(`Error updating your profile.`);
+      });
   } else {
-    db.collection("users").doc(user.uid).set(updatedData, { merge: true }).then(() => {
-      updateUserInfoDisplay2(updatedData); // Update UI
-      configure_message_bar(`Successfully Updated Profile!`);
-    }).catch((error) => {
-      console.error("Error updating profile: ", error);
-    });
+    db.collection("users")
+      .doc(user.uid)
+      .set(updatedData, { merge: true })
+      .then(() => {
+        updateUserInfoDisplay2(updatedData); // Update UI
+        configure_message_bar(`Successfully Updated Profile!`);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+      });
   }
 }
 
@@ -537,6 +591,70 @@ document.getElementById("ssu_button").addEventListener("click", signUpStudent);
 document.getElementById("esu_button").addEventListener("click", signUpEmployer);
 
 // Add data from the job posting form into the job_post collection
+
+// Establiishing if user is Business or Student based off sign up
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        const userData = doc.data();
+        if (userData.role === "student") {
+          toggleSection("studentHomepage");
+          fetchJobPostings();
+          configure_navbar(user);
+          r_e("user_email").innerHTML = auth.currentUser.email;
+        } else if (userData.role === "business") {
+          toggleSection("businessHomepage");
+          configure_navbar(user);
+          fetchActivePosts();
+          r_e("user_email").innerHTML = auth.currentUser.email;
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user data: ", error);
+      });
+  } else {
+    toggleSection("landing"); // User is not signed in
+    clearActivePosts();
+    configure_navbar(user);
+  }
+});
+
+// submitting student data to firebase
+document
+  .getElementById("editProfileForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const user = firebase.auth().currentUser;
+    if (user) {
+      updateUserProfile(user);
+      toggleSection("studentHomepage");
+      configure_message_bar("Successfully updated student info");
+    } else {
+      configure_message_bar(`No user logged in!`);
+    }
+  });
+
+// submitting employer data to firebase
+document
+  .getElementById("editProfileForm2")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const user = firebase.auth().currentUser;
+    if (user) {
+      updateUserProfile2(user);
+      toggleSection("businessHomepage");
+      configure_message_bar("Successfully updated employer info");
+    } else {
+      configure_message_bar(`No user logged in!`);
+    }
+  });
 
 // Sign in user
 r_e("signin_form").addEventListener("submit", (e) => {
@@ -555,7 +673,9 @@ r_e("signin_form").addEventListener("submit", (e) => {
       r_e("signin_form").reset();
     })
     .catch((err) => {
-      configure_message_bar(`Please double check your credentials or create an account!`);
+      configure_message_bar(
+        `Please double check your credentials or create an account!`
+      );
     });
 });
 
@@ -583,119 +703,56 @@ r_e("signout_nav").addEventListener("click", () => {
 //   }
 // });
 
-// Establiishing if user is Business or Student based off sign up
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        const userData = doc.data();
-        if (userData.role === "student") {
-          toggleSection("studentHomepage");
-          fetchJobPostings();
-          configure_navbar(user);
-          r_e('user_email').innerHTML = auth.currentUser.email;
-        } else if (userData.role === "business") {
-          toggleSection("businessHomepage");
-          configure_navbar(user);
-          fetchActivePosts();
-          r_e('user_email').innerHTML = auth.currentUser.email;
-        }
+// add job post from the form to db
+document
+  .getElementById("employerForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    // Get the ID of the currently logged-in user
+    const currentUserID = firebase.auth().currentUser.uid;
+
+    // Get form values
+    const job_title = document.getElementById("job_title").value;
+    const company = document.getElementById("company").value;
+    const days = Array.from(
+      document.querySelectorAll("input[name='days[]']:checked")
+    ).map((day) => day.value);
+    const description = document.getElementById("description").value;
+    const experience = document.getElementById("experience").value;
+    const totalhours = document.getElementById("totalhours").value;
+    const img_link = document.getElementById("img_link").value;
+    const location = document.getElementById("location").value;
+    const posted_date = document.getElementById("posted_date").value;
+    const wage = document.getElementById("wage").value;
+
+    // Add job application data to Firestore
+    db.collection("job_post")
+      .add({
+        employerID: currentUserID,
+        title: job_title,
+        company: company,
+        days: days,
+        description: description,
+        experience: experience,
+        hours: totalhours,
+        img_link: img_link,
+        location: location,
+        posted_date: posted_date,
+        wage: wage,
+      })
+      .then(() => {
+        configure_message_bar(`Job posted successfully!`);
+        // Reset form after submission
+        document.getElementById("employerForm").reset();
+
+        // Go back to the homepage (assuming you have a function named toggleSection)
+        toggleSection("businessHomepage");
       })
       .catch((error) => {
-        console.error("Error fetching user data: ", error);
+        configure_message_bar(`There was an error when creating your job post`);
       });
-  } else {
-    toggleSection("landing"); // User is not signed in
-    clearActivePosts();
-    configure_navbar(user)
-  }
-});
-
-// submitting student data to firebase
-document
-  .getElementById("editProfileForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const user = firebase.auth().currentUser;
-    if (user) {
-      updateUserProfile(user);
-      toggleSection('studentHomepage')
-      configure_message_bar('Successfully updated student info')
-    } else {
-      configure_message_bar(`No user logged in!`);
-    }
   });
-
-// submitting employer data to firebase
-document
-  .getElementById("editProfileForm2")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const user = firebase.auth().currentUser;
-    if (user) {
-      updateUserProfile2(user);
-      toggleSection('businessHomepage')
-      configure_message_bar('Successfully updated employer info')
-    } else {
-      configure_message_bar(`No user logged in!`);
-    }
-  });
-
-
-
-
-// add job post from the form to db
-document.getElementById("employerForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  // Get the ID of the currently logged-in user
-  const currentUserID = firebase.auth().currentUser.uid;
-
-  // Get form values
-  const job_title = document.getElementById("job_title").value;
-  const company = document.getElementById("company").value;
-  const days = Array.from(document.querySelectorAll("input[name='days[]']:checked")).map(day => day.value);
-  const description = document.getElementById("description").value;
-  const experience = document.getElementById("experience").value;
-  const totalhours = document.getElementById("totalhours").value;
-  const img_link = document.getElementById("img_link").value;
-  const location = document.getElementById("location").value;
-  const posted_date = document.getElementById("posted_date").value;
-  const wage = document.getElementById("wage").value;
-
-  // Add job application data to Firestore
-  db.collection("job_post")
-    .add({
-      employerID: currentUserID,
-      title: job_title,
-      company: company,
-      days: days,
-      description: description,
-      experience: experience,
-      hours: totalhours,
-      img_link: img_link,
-      location: location,
-      posted_date: posted_date,
-      wage: wage
-    })
-    .then(() => {
-      configure_message_bar(`Job posted successfully!`);
-      // Reset form after submission
-      document.getElementById("employerForm").reset();
-
-      // Go back to the homepage (assuming you have a function named toggleSection)
-      toggleSection('businessHomepage');
-    })
-    .catch((error) => {
-      configure_message_bar(`There was an error when creating your job post`);
-    });
-});
 
 //fetching studentuser data
 firebase.auth().onAuthStateChanged(function (user) {
@@ -734,7 +791,3 @@ firebase.auth().onAuthStateChanged(function (user) {
       });
   }
 });
-
-
-
-
