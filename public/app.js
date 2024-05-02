@@ -496,6 +496,68 @@ function applyJob(jobId) {
   }
 }
 
+// Function to fetch job applications for the current student
+function fetchJobApplications() {
+  const jobAppContainer = r_e('my_app_posts')
+  const studentId = auth.currentUser.uid // Function to get the current student's ID
+
+  // Query Firestore to fetch job applications for the current student
+  db.collection("applications")
+    .where("userID", "==", studentId)
+    .get()
+    .then((querySnapshot) => {
+      // Process query results and display job applications
+      querySnapshot.forEach((doc) => {
+        const applicationData = doc.data();
+        const jobId = applicationData.jobID;
+
+        // Fetch job details using jobId from the 'job_post' collection
+        db.collection("job_post")
+          .doc(jobId)
+          .get()
+          .then((jobDoc) => {
+            const jobData = jobDoc.data();
+
+            // Create card element
+            const card = document.createElement("div");
+            card.classList.add("card");
+
+            // Populate card with data from Firestore
+            card.innerHTML = `
+            <div class="column is-full">
+              <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-4 has-text-black">${jobData.company}: ${jobData.title}</p>
+                            <p class="content">Expected hours/week: ${jobData.hours}</p>
+                            <p class="content">Required Experience: ${jobData.experience}</p>
+                            <p class="content">Wage: $${jobData.wage}/hour </p>
+                            <p class="content">Days of Week: ${jobData.days} </p>
+                            <p class="content">Description: ${jobData.description} </p>
+                        </div>
+                        <div class="media-right">
+                            <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
+                                <img src="${jobData.img_link}" alt="Job Image">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>`
+
+            jobAppContainer.appendChild(card);
+          })
+          .catch((error) => {
+            console.error("Error fetching job details:", error);
+          });
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching job applications:", error);
+    });
+}
+
 // View applicants for employers
 function viewApplicants(jobId) {
   const applicantsContainer = document.getElementById("applicantsList");
@@ -1019,6 +1081,14 @@ r_e("signout_nav").addEventListener("click", () => {
 //     toggleSection("landing");
 //   }
 // });
+
+document.getElementById("viewApps").addEventListener("click", function () {
+  // Change the section to "My Applications"
+  toggleSection('my_apps')
+
+  // Call the fetchJobApplications function
+  fetchJobApplications();
+});
 
 // add job post from the form to db
 document

@@ -360,121 +360,137 @@
             <p><strong>Job Role (1):</strong> <span id="jobRole1"></span></p>
             <p><strong>Job Experience (2):</strong> <span id="jobExp2"></span></p>
             <p><strong>Job Role (2):</strong> <span id="jobRole2"></span></p>
-            <button id="editStudent" class="button is-link" onclick="toggleSection('studentUpdateInfo')">Edit Information</button>
+            <button id="editStudent" class="button is-link" onclick="toggleSection('studentUpdateInfo')">Edit
+              Information</button>
+            <button id="viewApps" class="button">View Applications</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Student update info page -->
-  <section id="studentUpdateInfo" class="hero is-info is-fullheight-with-navbar section" ;>
-    <div class="title has-text-centered has-text-black">Update your Information</div>
-    <div class="hero-body">
-      <div class="container">
-        <form id="editProfileForm" class="box">
-          <div class="field">
-            <label class="label">Name</label>
-            <div class="control">
-              <input class="input" id="editName" type="text" placeholder="Your full name" required />
-            </div>
+  <!-- Students Pending Applications -->
+  <section id="my_apps" class="hero is-primary is-fullheight-with-navbar section">
+    <div class="column">
+      <div class="box">
+        <h2 class="title has-text-centered has-text-black">Jobs You Applied To</h2>
+        <div class="columns is-multiline">
+          <div id="my_app_posts" class="container">
+            <!-- Job postings will be dynamically added here -->
           </div>
+        </div>
+        <button class="is-right button" onclick="toggleSection('studentHomepage')">Return to home page</button>
+      </div>
+    </div>
 
-          <div class="field">
-            <label class="label">Educational Email</label>
-            <div class="control">
-              <input class="input" id="editEmail" type="email" placeholder="name@university.com" required />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Phone Number</label>
-            <div class="control">
-              <input class="input" id="editPhone" type="text" placeholder="000-000-0000" required />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Major(s)</label>
-            <div class="control">
-              <input class="input" id="editMajors" type="text" placeholder="Consumer Behavior" required />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Hometown</label>
-            <div class="control">
-              <input class="input" id="editHometown" type="text" placeholder="Chanhassen, MN" required />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Fun Fact</label>
-            <div class="control">
-              <input class="input" id="editFunFact" type="text" placeholder="2-3 sentences" required />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Job Experience 1</label>
-            <div class="control">
-              <input class="input" id="jobExp1_title" type="text" placeholder="Company Name (Kollege Klub)" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Job Experience 1 Description</label>
-            <div class="control">
-              <input class="input" id="jobExp1_desc" type="text" placeholder="Role (Bartender)" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Job Experience 2</label>
-            <div class="control">
-              <input class="input" id="jobExp2_title" type="text" placeholder="Company Name (Luchador)" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Job Experience 2 Description</label>
-            <div class="control">
-              <input class="input" id="jobExp2_desc" type="text" placeholder="Role (Server)" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Year in School</label>
-            <div class="control">
-              <div class="select">
-                <select id="editYearInSchool">
-                  <option value="Freshman">Freshman</option>
-                  <option value="Sophomore">Sophomore</option>
-                  <option value="Junior">Junior</option>
-                  <option value="Senior">Senior</option>
-                  <option value="Graduate Student">Graduate Student</option>
-                </select>
+    <!-- Student update info page -->
+    <section id="studentUpdateInfo" class="hero is-info is-fullheight-with-navbar section" ;>
+      <div class="title has-text-centered has-text-black">Update your Information</div>
+      <div class="hero-body">
+        <div class="container">
+          <form id="editProfileForm" class="box">
+            <div class="field">
+              <label class="label">Name</label>
+              <div class="control">
+                <input class="input" id="editName" type="text" placeholder="Your full name" required />
               </div>
             </div>
-          </div>
 
-          <div class="field">
-            <label class="label">Desired Hours</label>
-            <div class="control">
-              <div class="select">
-                <select id="editHours" onchange="handleSelectionChange()">
-                  <option value="0-5">0-5</option>
-                  <option value="5-10">5-10</option>
-                  <option value="10-15">10-15</option>
-                  <option value="15-20">15-20</option>
-                  <option value="20-25">20-25</option>
-                  <option value="25-30">25-30</option>
-                  <option value="30-35">30-35</option>
-                  <option value="35-40">35-40</option>
-                  <option value="Custom">Custom</option>
-                </select>
+            <div class="field">
+              <label class="label">Educational Email</label>
+              <div class="control">
+                <input class="input" id="editEmail" type="email" placeholder="name@university.com" required />
               </div>
-              <!-- <input type="text" id="customHours" style = "display: none;">
+            </div>
+
+            <div class="field">
+              <label class="label">Phone Number</label>
+              <div class="control">
+                <input class="input" id="editPhone" type="text" placeholder="000-000-0000" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Major(s)</label>
+              <div class="control">
+                <input class="input" id="editMajors" type="text" placeholder="Consumer Behavior" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Hometown</label>
+              <div class="control">
+                <input class="input" id="editHometown" type="text" placeholder="Chanhassen, MN" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Fun Fact</label>
+              <div class="control">
+                <input class="input" id="editFunFact" type="text" placeholder="2-3 sentences" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Job Experience 1</label>
+              <div class="control">
+                <input class="input" id="jobExp1_title" type="text" placeholder="Company Name (Kollege Klub)" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Job Experience 1 Description</label>
+              <div class="control">
+                <input class="input" id="jobExp1_desc" type="text" placeholder="Role (Bartender)" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Job Experience 2</label>
+              <div class="control">
+                <input class="input" id="jobExp2_title" type="text" placeholder="Company Name (Luchador)" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Job Experience 2 Description</label>
+              <div class="control">
+                <input class="input" id="jobExp2_desc" type="text" placeholder="Role (Server)" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Year in School</label>
+              <div class="control">
+                <div class="select">
+                  <select id="editYearInSchool">
+                    <option value="Freshman">Freshman</option>
+                    <option value="Sophomore">Sophomore</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                    <option value="Graduate Student">Graduate Student</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Desired Hours</label>
+              <div class="control">
+                <div class="select">
+                  <select id="editHours" onchange="handleSelectionChange()">
+                    <option value="0-5">0-5</option>
+                    <option value="5-10">5-10</option>
+                    <option value="10-15">10-15</option>
+                    <option value="15-20">15-20</option>
+                    <option value="20-25">20-25</option>
+                    <option value="25-30">25-30</option>
+                    <option value="30-35">30-35</option>
+                    <option value="35-40">35-40</option>
+                    <option value="Custom">Custom</option>
+                  </select>
+                </div>
+                <!-- <input type="text" id="customHours" style = "display: none;">
                 <p>Please enter the custom hours:</p>
                 <input type="text" id="customHoursInput" placeholder="Enter custom hours">
                 <button onclick="submitCustomHours()">Submit</button>
@@ -482,439 +498,440 @@
             </div>
           </div> -->
 
-              <div class="field">
-                <label class="label">Headshot</label>
-                <div class="control">
-                  <input class="input" type="file" accept="image/*" id="editProfilePic" onchange="previewImage()" />
-                  <img id="preview" src="" alt="Preview" style="display: none; max-width: 300px; max-height: 300px;">
+                <div class="field">
+                  <label class="label">Headshot</label>
+                  <div class="control">
+                    <input class="input" type="file" accept="image/*" id="editProfilePic" onchange="previewImage()" />
+                    <img id="preview" src="" alt="Preview" style="display: none; max-width: 300px; max-height: 300px;">
+                  </div>
                 </div>
-              </div>
 
-              <div class="field">
-                <div class="control">
-                  <button type="submit" class="button is-link">Update Info</button>
-                  <button type="button" class="button is-light"
-                    onclick="toggleSection('studentHomepage')">Cancel</button>
+                <div class="field">
+                  <div class="control">
+                    <button type="submit" class="button is-link">Update Info</button>
+                    <button type="button" class="button is-light"
+                      onclick="toggleSection('studentHomepage')">Cancel</button>
+                  </div>
                 </div>
-              </div>
 
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Business Home Page Section -->
-  <section id="businessHomepage" class="hero is-info is-fullheight-with-navbar section">
-    <div class="hero-body">
+    <!-- Business Home Page Section -->
+    <section id="businessHomepage" class="hero is-info is-fullheight-with-navbar section">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns">
+
+            <!-- Active Posts Column -->
+            <div class="column is-two-thirds">
+              <div class="box">
+                <h2 class="title has-text-centered has-text-black ">Active Posts</h2>
+                <!-- Job listings -->
+                <div class="columns is-multiline">
+                  <!-- Job listing card 1 -->
+                  <div id="active_posts" class="column is-full">
+                    <!-- dynamic entered here -->
+
+                  </div>
+                </div>
+              </div>
+              <div class="has-text-right">
+                <button class="button is-link" onclick="toggleSection('jobpostForm')">Add Post</button>
+
+              </div>
+            </div>
+            <!-- Company Information Column -->
+            <div class="column is-one-third">
+              <div class="box" id="userInfoBox2">
+                <h2 class="title has-text-centered has-text-black">Company Information</h2>
+                <figure class="image is-fullwidth has-text-centered">
+                  <img id="displayLogo" src="" alt="Headshot" class="is-centered">
+                </figure>
+                <p><strong>Company Name:</strong> <span id="companyName"></span></p>
+                <p><strong>Email:</strong> <span id="email"></span></p>
+                <p><strong>Industry:</strong> <span id="industry"></span></p>
+                <p><strong>Size:</strong> <span id="size"></span></p>
+                <p><strong>Address:</strong> <span id="address"></span></p>
+                <p><strong>Phone Number:</strong> <span id="phonenumber2"></span></p>
+                <button id="editEmployer" class="button is-link" onclick="toggleSection('employerUpdateInfo')">Edit
+                  Information</button>
+              </div>
+            </div>
+          </div>
+    </section>
+
+    <!-- Employer update info page -->
+    <section id="employerUpdateInfo" class="hero is-info is-fullheight-with-navbar section" ;>
+      <div class="title has-text-centered has-text-black">Update your Information</div>
+      <div class="hero-body">
+        <div class="container">
+          <form id="editProfileForm2" class="box">
+            <div class="field">
+              <label class="label">Company Name</label>
+              <div class="control">
+                <input class="input" id="editCname" type="text" placeholder="Your company name" required />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Company Email</label>
+              <div class="control">
+                <input class="input" id="editCemail" type="email" placeholder="name@company.com" required />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Industry</label>
+              <div class="control">
+                <input class="input" id="editCindustry" type="text" placeholder="Sector" required />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Size</label>
+              <div class="control">
+                <input class="input" id="editCsize" type="text" placeholder="100-500 Employees" required />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Address</label>
+              <div class="control">
+                <input class="input" id="editCaddress" type="text" placeholder="100 State St" required />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Phone Number</label>
+              <div class="control">
+                <input class="input" id="editCphone" type="text" placeholder="000-000-000" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Logo</label>
+              <div class="control">
+                <input class="input" type="file" accept="image/*" id="editLogoPic" onchange="previewImage()" />
+                <img id="preview2" src="" alt="Preview" style="display: none; max-width: 300px; max-height: 300px;">
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <button type="submit" class="button is-link">Update Info</button>
+                <button type="button" class="button is-light"
+                  onclick="toggleSection('businessHomepage')">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form to create a job posting -->
+    <section id="jobpostForm" class="section">
       <div class="container">
+        <h1 class="title">Employer Form</h1>
+        <div class="container">
+          <form id="employerForm" class="box">
+            <div class="field">
+              <label class="label" for="company">Company Name:</label>
+              <div class="control">
+                <input class="input" type="text" id="company" name="company" placeholder="Enter company name">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="job_title">Job Title:</label>
+              <div class="control">
+                <input class="input" type="text" id="job_title" name="job_title" placeholder="Enter job title">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Required Days:</label>
+              <div class="control">
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Monday">
+                  Monday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Tuesday">
+                  Tuesday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Wednesday">
+                  Wednesday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Thursday">
+                  Thursday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Friday">
+                  Friday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Saturday">
+                  Saturday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Sunday">
+                  Sunday
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="description">Description:</label>
+              <div class="control">
+                <textarea class="textarea" id="description" name="description"
+                  placeholder="Enter job description"></textarea>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="experience">Experience:</label>
+              <div class="control">
+                <input class="input" type="text" id="experience" name="experience"
+                  placeholder="Enter required experience">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="hours">Hours:</label>
+              <div class="control">
+                <input class="input" type="number" id="totalhours" name="totalhours" placeholder="Enter working hours">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="img_link">Image Link:</label>
+              <div class="control">
+                <input class="input" type="text" id="img_link" name="img_link" placeholder="Enter image link">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="location">Location:</label>
+              <div class="control">
+                <input class="input" type="text" id="location" name="location" placeholder="Enter job location">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="posted_date">Posted Date:</label>
+              <div class="control">
+                <input class="input" type="text" id="posted_date" name="posted_date" placeholder="Enter posted date">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="wage">Wage:</label>
+              <div class="control">
+                <input class="input" type="number" id="wage" name="wage" placeholder="Enter wage">
+              </div>
+            </div>
+
+            <div class="field is-grouped">
+              <div class="control">
+                <input class="button is-primary" type="submit" value="Submit">
+              </div>
+              <div class="control">
+                <input class="button is-link" type="button" value="Cancel" onclick="toggleSection('businessHomepage')">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form to edit a job posting -->
+    <section id="jobposteditForm" class="section">
+      <div class="container">
+        <h1 class="title">Employer Form</h1>
+        <div class="container">
+          <form id="employerForm" class="box">
+            <div class="field">
+              <label class="label" for="company">Company Name:</label>
+              <div class="control">
+                <input class="input" type="text" id="editcompany" name="company" placeholder="Enter company name">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="job_title">Job Title:</label>
+              <div class="control">
+                <input class="input" type="text" id="editjob_title" name="job_title" placeholder="Enter job title">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Required Days:</label>
+              <div class="control">
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Monday">
+                  Monday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Tuesday">
+                  Tuesday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Wednesday">
+                  Wednesday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Thursday">
+                  Thursday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Friday">
+                  Friday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Saturday">
+                  Saturday
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="days[]" value="Sunday">
+                  Sunday
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="description">Description:</label>
+              <div class="control">
+                <textarea class="textarea" id="description" name="description"
+                  placeholder="Enter job description"></textarea>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="experience">Experience:</label>
+              <div class="control">
+                <input class="input" type="text" id="experience" name="experience"
+                  placeholder="Enter required experience">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="hours">Hours:</label>
+              <div class="control">
+                <input class="input" type="number" id="totalhours" name="totalhours" placeholder="Enter working hours">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="img_link">Image Link:</label>
+              <div class="control">
+                <input class="input" type="text" id="img_link" name="img_link" placeholder="Enter image link">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="location">Location:</label>
+              <div class="control">
+                <input class="input" type="text" id="location" name="location" placeholder="Enter job location">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="posted_date">Posted Date:</label>
+              <div class="control">
+                <input class="input" type="text" id="posted_date" name="posted_date" placeholder="Enter posted date">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="wage">Wage:</label>
+              <div class="control">
+                <input class="input" type="number" id="wage" name="wage" placeholder="Enter wage">
+              </div>
+            </div>
+
+            <div class="field is-grouped">
+              <div class="control">
+                <input class="button is-primary" type="submit" value="Update">
+              </div>
+              <div class="control">
+                <input class="button is-link" type="button" value="Cancel" onclick="toggleSection('businessHomepage')">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section for Admin  -->
+    <section id="admin" class="hero is-primary is-fullheight-with-navbar section">
+      <div class="container">
+        <h1 class="title has-text-centered has-text-black is-1">Sideshift</h1>
+
+        <!-- Main Content organized in columns -->
         <div class="columns">
-
-          <!-- Active Posts Column -->
-          <div class="column is-two-thirds">
+          <!-- Filter column -->
+          <div class="column is-one-quarter">
             <div class="box">
-              <h2 class="title has-text-centered has-text-black ">Active Posts</h2>
-              <!-- Job listings -->
+              <h2 class="title has-text-centered has-text-black">Filters</h2>
+              <form id="filter_form">
+                <!-- Filters detail -->
+                <div class="field">
+                  <label class="label">Search by Company or Job Title</label>
+                  <div class="control">
+                    <input id="search_query" class="input" type="text" placeholder="Enter a company or job title">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Wage per hour</label>
+                  <div class="control">
+                    <input id="wage_filter" class="input" type="number" placeholder="Enter a dollar amount i.e. 10">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Availability</label>
+                  <div class="control">
+                    <!-- List of checkboxes for days -->
+                    <label class="checkbox"><input type="checkbox"> Monday</label>
+                    <br>
+                    <label class="checkbox"><input type="checkbox"> Tuesday</label>
+                    <br>
+                    <label class="checkbox"><input type="checkbox"> Wednesday</label>
+                    <br>
+                    <label class="checkbox"><input type="checkbox"> Thursday</label>
+                    <br>
+                    <label class="checkbox"><input type="checkbox"> Friday</label>
+                    <br>
+                    <label class="checkbox"><input type="checkbox"> Saturday</label>
+                    <br>
+                    <label class="checkbox"><input type="checkbox"> Sunday</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Expected Hours per Week</label>
+                  <div class="control">
+                    <input id="hours_filter" class="input" type="number" placeholder="Enter a number">
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <button type="submit" class="button is-link">Filter</button>
+                    <button id="reset_filters" type="button" class="button">Reset filters</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Job Posting column -->
+          <div class="column">
+            <div class="box">
+              <h2 class="title has-text-centered has-text-black">Job Listings</h2>
               <div class="columns is-multiline">
-                <!-- Job listing card 1 -->
-                <div id="active_posts" class="column is-full">
-                  <!-- dynamic entered here -->
-
+                <div id="admin_postings" class="container">
+                  <!-- Job postings will be dynamically added here -->
                 </div>
               </div>
             </div>
-            <div class="has-text-right">
-              <button class="button is-link" onclick="toggleSection('jobpostForm')">Add Post</button>
-
-            </div>
-          </div>
-          <!-- Company Information Column -->
-          <div class="column is-one-third">
-            <div class="box" id="userInfoBox2">
-              <h2 class="title has-text-centered has-text-black">Company Information</h2>
-              <figure class="image is-fullwidth has-text-centered">
-                <img id="displayLogo" src="" alt="Headshot" class="is-centered">
-              </figure>
-              <p><strong>Company Name:</strong> <span id="companyName"></span></p>
-              <p><strong>Email:</strong> <span id="email"></span></p>
-              <p><strong>Industry:</strong> <span id="industry"></span></p>
-              <p><strong>Size:</strong> <span id="size"></span></p>
-              <p><strong>Address:</strong> <span id="address"></span></p>
-              <p><strong>Phone Number:</strong> <span id="phonenumber2"></span></p>
-              <button id="editEmployer" class="button is-link" onclick="toggleSection('employerUpdateInfo')">Edit
-                Information</button>
-            </div>
-          </div>
-        </div>
-  </section>
-
-  <!-- Employer update info page -->
-  <section id="employerUpdateInfo" class="hero is-info is-fullheight-with-navbar section" ;>
-    <div class="title has-text-centered has-text-black">Update your Information</div>
-    <div class="hero-body">
-      <div class="container">
-        <form id="editProfileForm2" class="box">
-          <div class="field">
-            <label class="label">Company Name</label>
-            <div class="control">
-              <input class="input" id="editCname" type="text" placeholder="Your company name" required />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Company Email</label>
-            <div class="control">
-              <input class="input" id="editCemail" type="email" placeholder="name@company.com" required />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Industry</label>
-            <div class="control">
-              <input class="input" id="editCindustry" type="text" placeholder="Sector" required />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Size</label>
-            <div class="control">
-              <input class="input" id="editCsize" type="text" placeholder="100-500 Employees" required />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Address</label>
-            <div class="control">
-              <input class="input" id="editCaddress" type="text" placeholder="100 State St" required />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Phone Number</label>
-            <div class="control">
-              <input class="input" id="editCphone" type="text" placeholder="000-000-000" required />
-            </div>
           </div>
 
-          <div class="field">
-            <label class="label">Logo</label>
-            <div class="control">
-              <input class="input" type="file" accept="image/*" id="editLogoPic" onchange="previewImage()" />
-              <img id="preview2" src="" alt="Preview" style="display: none; max-width: 300px; max-height: 300px;">
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <button type="submit" class="button is-link">Update Info</button>
-              <button type="button" class="button is-light" onclick="toggleSection('businessHomepage')">Cancel</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Form to create a job posting -->
-  <section id="jobpostForm" class="section">
-    <div class="container">
-      <h1 class="title">Employer Form</h1>
-      <div class="container">
-        <form id="employerForm" class="box">
-          <div class="field">
-            <label class="label" for="company">Company Name:</label>
-            <div class="control">
-              <input class="input" type="text" id="company" name="company" placeholder="Enter company name">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label" for="job_title">Job Title:</label>
-            <div class="control">
-              <input class="input" type="text" id="job_title" name="job_title" placeholder="Enter job title">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Required Days:</label>
-            <div class="control">
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Monday">
-                Monday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Tuesday">
-                Tuesday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Wednesday">
-                Wednesday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Thursday">
-                Thursday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Friday">
-                Friday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Saturday">
-                Saturday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Sunday">
-                Sunday
-              </label>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="description">Description:</label>
-            <div class="control">
-              <textarea class="textarea" id="description" name="description"
-                placeholder="Enter job description"></textarea>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="experience">Experience:</label>
-            <div class="control">
-              <input class="input" type="text" id="experience" name="experience"
-                placeholder="Enter required experience">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="hours">Hours:</label>
-            <div class="control">
-              <input class="input" type="number" id="totalhours" name="totalhours" placeholder="Enter working hours">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="img_link">Image Link:</label>
-            <div class="control">
-              <input class="input" type="text" id="img_link" name="img_link" placeholder="Enter image link">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="location">Location:</label>
-            <div class="control">
-              <input class="input" type="text" id="location" name="location" placeholder="Enter job location">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="posted_date">Posted Date:</label>
-            <div class="control">
-              <input class="input" type="text" id="posted_date" name="posted_date" placeholder="Enter posted date">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="wage">Wage:</label>
-            <div class="control">
-              <input class="input" type="number" id="wage" name="wage" placeholder="Enter wage">
-            </div>
-          </div>
-
-          <div class="field is-grouped">
-            <div class="control">
-              <input class="button is-primary" type="submit" value="Submit">
-            </div>
-            <div class="control">
-              <input class="button is-link" type="button" value="Cancel" onclick="toggleSection('businessHomepage')">
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Form to edit a job posting -->
-  <section id="jobposteditForm" class="section">
-    <div class="container">
-      <h1 class="title">Employer Form</h1>
-      <div class="container">
-        <form id="employerForm" class="box">
-          <div class="field">
-            <label class="label" for="company">Company Name:</label>
-            <div class="control">
-              <input class="input" type="text" id="editcompany" name="company" placeholder="Enter company name">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label" for="job_title">Job Title:</label>
-            <div class="control">
-              <input class="input" type="text" id="editjob_title" name="job_title" placeholder="Enter job title">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Required Days:</label>
-            <div class="control">
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Monday">
-                Monday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Tuesday">
-                Tuesday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Wednesday">
-                Wednesday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Thursday">
-                Thursday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Friday">
-                Friday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Saturday">
-                Saturday
-              </label>
-              <label class="checkbox">
-                <input type="checkbox" name="days[]" value="Sunday">
-                Sunday
-              </label>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="description">Description:</label>
-            <div class="control">
-              <textarea class="textarea" id="description" name="description"
-                placeholder="Enter job description"></textarea>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="experience">Experience:</label>
-            <div class="control">
-              <input class="input" type="text" id="experience" name="experience"
-                placeholder="Enter required experience">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="hours">Hours:</label>
-            <div class="control">
-              <input class="input" type="number" id="totalhours" name="totalhours" placeholder="Enter working hours">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="img_link">Image Link:</label>
-            <div class="control">
-              <input class="input" type="text" id="img_link" name="img_link" placeholder="Enter image link">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="location">Location:</label>
-            <div class="control">
-              <input class="input" type="text" id="location" name="location" placeholder="Enter job location">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="posted_date">Posted Date:</label>
-            <div class="control">
-              <input class="input" type="text" id="posted_date" name="posted_date" placeholder="Enter posted date">
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label" for="wage">Wage:</label>
-            <div class="control">
-              <input class="input" type="number" id="wage" name="wage" placeholder="Enter wage">
-            </div>
-          </div>
-
-          <div class="field is-grouped">
-            <div class="control">
-              <input class="button is-primary" type="submit" value="Update">
-            </div>
-            <div class="control">
-              <input class="button is-link" type="button" value="Cancel" onclick="toggleSection('businessHomepage')">
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section for Admin  -->
-  <section id="admin" class="hero is-primary is-fullheight-with-navbar section">
-    <div class="container">
-      <h1 class="title has-text-centered has-text-black is-1">Sideshift</h1>
-
-      <!-- Main Content organized in columns -->
-      <div class="columns">
-        <!-- Filter column -->
-        <div class="column is-one-quarter">
-          <div class="box">
-            <h2 class="title has-text-centered has-text-black">Filters</h2>
-            <form id="filter_form">
-              <!-- Filters detail -->
-              <div class="field">
-                <label class="label">Search by Company or Job Title</label>
-                <div class="control">
-                  <input id="search_query" class="input" type="text" placeholder="Enter a company or job title">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Wage per hour</label>
-                <div class="control">
-                  <input id="wage_filter" class="input" type="number" placeholder="Enter a dollar amount i.e. 10">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Availability</label>
-                <div class="control">
-                  <!-- List of checkboxes for days -->
-                  <label class="checkbox"><input type="checkbox"> Monday</label>
-                  <br>
-                  <label class="checkbox"><input type="checkbox"> Tuesday</label>
-                  <br>
-                  <label class="checkbox"><input type="checkbox"> Wednesday</label>
-                  <br>
-                  <label class="checkbox"><input type="checkbox"> Thursday</label>
-                  <br>
-                  <label class="checkbox"><input type="checkbox"> Friday</label>
-                  <br>
-                  <label class="checkbox"><input type="checkbox"> Saturday</label>
-                  <br>
-                  <label class="checkbox"><input type="checkbox"> Sunday</label>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Expected Hours per Week</label>
-                <div class="control">
-                  <input id="hours_filter" class="input" type="number" placeholder="Enter a number">
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <button type="submit" class="button is-link">Filter</button>
-                  <button id="reset_filters" type="button" class="button">Reset filters</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- Job Posting column -->
-        <div class="column">
-          <div class="box">
-            <h2 class="title has-text-centered has-text-black">Job Listings</h2>
-            <div class="columns is-multiline">
-              <div id="admin_postings" class="container">
-                <!-- Job postings will be dynamically added here -->
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- User Information column -->
-        <!-- <div class="column is-one-quarter">
+          <!-- User Information column -->
+          <!-- <div class="column is-one-quarter">
           <div class="box" id="userInfoBox">
             <h2 class="title has-text-centered has-text-black">Your Information</h2>
             <figure class="image is-fullwidth">
@@ -934,60 +951,60 @@
             <button class="button is-link" onclick="toggleSection('studentUpdateInfo')">Edit Information</button>
           </div>
         </div> -->
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <!-- View applicants Display -->
-    <!-- Applicants Display Area -->
-    <div id="applicantsDisplay" class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        <!-- Applicant profiles will be inserted here -->
-        <div id="applicantsList" class="content"></div>
+    <section>
+      <!-- View applicants Display -->
+      <!-- Applicants Display Area -->
+      <div id="applicantsDisplay" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <!-- Applicant profiles will be inserted here -->
+          <div id="applicantsList" class="content"></div>
+        </div>
+        <button class="modal-close is-large" onclick="toggleModal('applicantsDisplay', false)"
+          aria-label="close"></button>
       </div>
-      <button class="modal-close is-large" onclick="toggleModal('applicantsDisplay', false)"
-        aria-label="close"></button>
-    </div>
 
-  </section>
+    </section>
 
-  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
-  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
 
-  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
 
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
 
-  <script>
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyDCJ0j8y9XNRgclIKAKFNhvqxUTuVw7JkY",
-      authDomain: "sideshift-36e2b.firebaseapp.com",
-      projectId: "sideshift-36e2b",
-      storageBucket: "sideshift-36e2b.appspot.com",
-      messagingSenderId: "387661945350",
-      appId: "1:387661945350:web:b27f4b30255e9da53d4187",
-      measurementId: "G-23LVVJ37E6"
-    };
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDCJ0j8y9XNRgclIKAKFNhvqxUTuVw7JkY",
+        authDomain: "sideshift-36e2b.firebaseapp.com",
+        projectId: "sideshift-36e2b",
+        storageBucket: "sideshift-36e2b.appspot.com",
+        messagingSenderId: "387661945350",
+        appId: "1:387661945350:web:b27f4b30255e9da53d4187",
+        measurementId: "G-23LVVJ37E6"
+      };
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    // define authentication variable
-    let auth = firebase.auth();
-    let db = firebase.firestore();
-  </script>
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      // define authentication variable
+      let auth = firebase.auth();
+      let db = firebase.firestore();
+    </script>
 
-  <!-- Custom Script -->
-  <script src="app.js"></script>
+    <!-- Custom Script -->
+    <script src="app.js"></script>
 </body>
 
 </html>
