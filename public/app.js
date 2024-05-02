@@ -358,10 +358,38 @@ function fetchJobPostings() {
   // Get a reference to the job_post collection
   const jobPostCollection = db.collection("job_post");
 
+  // Get references to filter form inputs
+  const searchQuery = document.getElementById("search_query").value.trim().toLowerCase();
+  const wageFilter = parseFloat(document.getElementById("wage_filter").value) || 0;
+  const daysFilter = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.nextSibling.textContent.trim());
+  const noExperienceRequired = document.getElementById("no_experience_required").checked;
+  const hoursFilter = parseFloat(document.getElementById("hours_filter").value) || 0;
+
+  // Construct the query based on filter values
+  let query = jobPostCollection;
+  if (searchQuery) {
+    query = query.where("company", "<=", searchQuery).where("company", "<=", searchQuery + "\uf8ff");
+  }
+  if (wageFilter) {
+    query = query.where("wage", "<=", wageFilter);
+  }
+  if (daysFilter.length > 0) {
+    query = query.where("days", "array-contains-any", daysFilter);
+  }
+  if (noExperienceRequired) {
+    query = query.where("experience", "==", "None");
+  }
+  if (hoursFilter) {
+    query = query.where("hours", "<=", hoursFilter);
+  }
+
   // Fetch documents from job_post collection
-  jobPostCollection
+  query
     .get()
     .then((querySnapshot) => {
+
+      jobPostingsContainer.innerHTML = "";
+
       querySnapshot.forEach((doc) => {
         // Extract data from each document
         const data = doc.data();
@@ -679,6 +707,20 @@ document
       configure_message_bar(`No user logged in!`);
     }
   });
+
+// filter
+document.getElementById("filter_form").addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent default form submission
+  fetchJobPostings(); // Call the filtering function
+});
+
+document.getElementById("reset_filters").addEventListener("click", function () {
+  // Clear filter form
+  document.getElementById("filter_form").reset();
+
+  // Fetch all job postings again
+  fetchJobPostings();
+});
 
 // Sign in user
 r_e("signin_form").addEventListener("submit", (e) => {
