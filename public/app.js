@@ -327,7 +327,7 @@ function fetchActivePosts() {
             </div>
                 <footer class="card-footer">
                 <a href="#" id="edit_post" class="card-footer-item button is-link" onclick="toggleSection('jobposteditForm')">Edit Information</a>
-                <a id="view_applicants" class="card-footer-item">View Applicants</a> 
+                <a href="#" class="card-footer-item button is-link" onclick="viewApplicants('${doc.id}')">View Applicants</a>
                 </footer>
           </div>`;
 
@@ -426,7 +426,7 @@ function fetchJobPostings() {
               </div>
           </div>
           <footer class="card-footer">
-              <a id="apply" class="card-footer-item">Apply</a>
+          <a href="#" class="card-footer-item button is-link" onclick="applyJob('${doc.id}')">Apply</a>
           </footer>
       </div>`;
 
@@ -438,6 +438,118 @@ function fetchJobPostings() {
       console.log("Error getting documents: ", error);
     });
 }
+
+function applyJob(jobId) {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    db.collection("applications")
+      .add({
+        jobID: jobId,
+        userID: user.uid,
+        status: "applied",
+      })
+      .then(() => {
+        alert("Application submitted!");
+      })
+      .catch((error) => {
+        console.error("Error applying to job:", error);
+        alert("Failed to apply.");
+      });
+  }
+}
+
+// View applicants for employers
+function viewApplicants(jobId) {
+  const applicantsContainer = document.getElementById("applicantsList");
+  applicantsContainer.innerHTML = ""; // Clear previous content
+
+  db.collection("applications")
+    .where("jobID", "==", jobId)
+    .get()
+    .then((querySnapshot) => {
+      if (querySnapshot.empty) {
+        applicantsContainer.innerHTML = "<p>No applicants yet.</p>";
+        return;
+      }
+
+      querySnapshot.forEach((doc) => {
+        db.collection("users")
+          .doc(doc.data().userID)
+          .get()
+          .then((userDoc) => {
+            if (userDoc.exists) {
+              const userData = userDoc.data();
+              const applicantDiv = document.createElement("div");
+              applicantDiv.className = "box";
+              applicantDiv.innerHTML = `
+              <article class="media">
+                <figure class="media-left">
+                  <p class="image is-128x128">
+                    <img src="${
+                      userData.profilePicUrl || "default-profile.png"
+                    }" alt="Profile Image">
+                  </p>
+                </figure>
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>Name:</strong> ${userData.name || "N/A"}
+                      <br>
+                      <strong>Email:</strong> ${userData.email || "N/A"}
+                      <br>
+                      <strong>Phone Number:</strong> ${userData.phone || "N/A"}
+                      <br>
+                      <strong>Year in School:</strong> ${userData.year || "N/A"}
+                      <br>
+                      <strong>Major(s):</strong> ${userData.majors || "N/A"}
+                      <br>
+                      <strong>Hometown:</strong> ${userData.hometown || "N/A"}
+                      <br>
+                      <strong>Fun Fact:</strong> ${userData.funFact || "N/A"}
+                      <br>
+                      <strong>Job Experience (1):</strong> ${
+                        userData.jobExp1 || "N/A"
+                      } - ${userData.jobRole1 || "N/A"}
+                      <br>
+                      <strong>Job Experience (2):</strong> ${
+                        userData.jobExp2 || "N/A"
+                      } - ${userData.jobRole2 || "N/A"}
+                    </p>
+                  </div>
+                </div>
+                <div class="media-right">
+                    <button class="button is-success" onclick="confirmApplicant('${
+                      doc.id
+                    }')">Confirm</button>
+                    <button class="button is-danger" onclick="denyApplicant('${
+                      doc.id
+                    }')">Deny</button>
+                  </div>
+              </article>
+            `;
+              applicantsContainer.appendChild(applicantDiv);
+            }
+          });
+      });
+      toggleModal("applicantsDisplay", true); // Show the modal with applicants
+    })
+    .catch((error) => {
+      console.error("Error getting applicants:", error);
+      applicantsContainer.innerHTML = "<p>Error loading applicants.</p>";
+    });
+}
+
+function toggleModal(modalId, show) {
+  const modal = document.getElementById(modalId);
+  if (show) {
+    modal.classList.add("is-active");
+  } else {
+    modal.classList.remove("is-active");
+  }
+}
+
+
+
 
 // Function to clear innerHTML of jobPosts container
 function clearActivePosts() {
