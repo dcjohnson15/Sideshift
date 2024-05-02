@@ -518,6 +518,68 @@ function applyJob(jobId) {
   }
 }
 
+// Function to fetch job applications for the current student
+function fetchJobApplications() {
+  const jobAppContainer = r_e('my_app_posts')
+  const studentId = auth.currentUser.uid // Function to get the current student's ID
+
+  // Query Firestore to fetch job applications for the current student
+  db.collection("applications")
+    .where("userID", "==", studentId)
+    .get()
+    .then((querySnapshot) => {
+      // Process query results and display job applications
+      querySnapshot.forEach((doc) => {
+        const applicationData = doc.data();
+        const jobId = applicationData.jobID;
+
+        // Fetch job details using jobId from the 'job_post' collection
+        db.collection("job_post")
+          .doc(jobId)
+          .get()
+          .then((jobDoc) => {
+            const jobData = jobDoc.data();
+
+            // Create card element
+            const card = document.createElement("div");
+            card.classList.add("card");
+
+            // Populate card with data from Firestore
+            card.innerHTML = `
+            <div class="column is-full">
+              <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-4 has-text-black">${jobData.company}: ${jobData.title}</p>
+                            <p class="content">Expected hours/week: ${jobData.hours}</p>
+                            <p class="content">Required Experience: ${jobData.experience}</p>
+                            <p class="content">Wage: $${jobData.wage}/hour </p>
+                            <p class="content">Days of Week: ${jobData.days} </p>
+                            <p class="content">Description: ${jobData.description} </p>
+                        </div>
+                        <div class="media-right">
+                            <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
+                                <img src="${jobData.img_link}" alt="Job Image">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>`
+
+            jobAppContainer.appendChild(card);
+          })
+          .catch((error) => {
+            console.error("Error fetching job details:", error);
+          });
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching job applications:", error);
+    });
+}
+
 // View applicants for employers
 function viewApplicants(jobId) {
   const applicantsContainer = document.getElementById("applicantsList");
@@ -935,11 +997,6 @@ firebase.auth().onAuthStateChanged((user) => {
           configure_navbar(user);
           fetchActivePosts();
           r_e("user_email").innerHTML = auth.currentUser.email;
-        } else if (userData.role === "admin") {
-          toggleSection("admin");
-          configure_navbar(user);
-          fetchAdminPostings();
-          r_e("user_email").innerHTML = auth.currentUser.email;
         }
       })
       .catch((error) => {
@@ -1047,6 +1104,14 @@ r_e("signout_nav").addEventListener("click", () => {
 //   }
 // });
 
+document.getElementById("viewApps").addEventListener("click", function () {
+  // Change the section to "My Applications"
+  toggleSection('my_apps')
+
+  // Call the fetchJobApplications function
+  fetchJobApplications();
+});
+
 // add job post from the form to db
 document
   .getElementById("employerForm")
@@ -1135,3 +1200,130 @@ firebase.auth().onAuthStateChanged(function (user) {
       });
   }
 });
+
+// Establishing if user is admin
+function isAdminUser() {
+  // Implement admin checking logic
+  const user = firebase.auth().currentUser;
+  if (!user) return false;
+  return firebase
+    .firestore()
+    .collection("users")
+    .doc(user.uid)
+    .get()
+    .then((doc) => doc.exists && doc.data().role === "admin");
+}
+
+// Populate Admin Dashboard with data from Firebase
+function populateDashboard() {
+  if (!isAdminUser()) {
+    alert("Unauthorized access.");
+    return;
+  }
+
+  const db = firebase.firestore();
+
+  // Fetch Students
+  db.collection("users")
+    .where("role", "==", "student")
+    .get()
+    .then((snapshot) => populateList("adminStudentsList", snapshot, "users"))
+    .catch((error) => console.error("Failed to fetch students:", error));
+
+  // Fetch Businesses
+  db.collection("users")
+    .where("role", "==", "business")
+    .get()
+    .then((snapshot) => populateList("adminBusinessesList", snapshot, "users"))
+    .catch((error) => console.error("Failed to fetch businesses:", error));
+
+  // Fetch Job Listings
+  db.collection("job_post")
+    .get()
+    .then((snapshot) => populateList("adminJobListings", snapshot, "job_post"))
+    .catch((error) => console.error("Failed to fetch job listings:", error));
+}
+// showing data in modal
+function populateList(elementId, snapshot, collection) {
+  const element = r_e(elementId);
+  element.innerHTML = "";
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    let contentHtml = "";
+
+    // deterime if student or business and which data to display
+    if (data.role === "student") {
+      contentHtml = `
+        <p>Phone: ${data.phone || "N/A"}</p>
+        <p>Year: ${data.year || "N/A"}</p>
+        <p>Major: ${data.majors || "N/A"}</p>
+        <p>Hometown: ${data.hometown || "N/A"}</p>
+        <p>Fun Fact: ${data.funfact || "N/A"}</p>
+        <img src="${
+          data.profilePicUrl || "placeholder-image-url.jpg"
+        }" alt="Profile Picture" style="width:100px; height:100px;">
+      `;
+    } else if (data.role === "business") {
+      contentHtml = `
+        <p>Phone: ${data.phone || "N/A"}</p>
+        <p>Industry: ${data.industry || "N/A"}</p>
+        <p>Size: ${data.size || "N/A"}</p>
+        <p>Address: ${data.address || "N/A"}</p>
+        <img src="${
+          data.logoUrl || "placeholder-image-url.jpg"
+        }" alt="Company Logo" style="width:100px; height:100px;">
+      `;
+    } else if (collection === "job_post") {
+      // Adjust this as needed based on your collection names
+      contentHtml = `
+        <p>Company: ${data.company || "N/A"}</p>
+        <p>Description: ${data.description || "N/A"}</p>
+        <p>Experience Required: ${data.experience || "N/A"}</p>
+        <p>Hours: ${data.hours || "N/A"} per week</p>
+        <p>Wage: $${data.wage || "N/A"} per hour</p>
+        <p>Location: ${data.location || "N/A"}</p>
+        <p>Days: ${data.days.join(", ") || "N/A"}</p>
+        <img src="${
+          data.imgLink || "placeholder-image-url.jpg"
+        }" alt="Job Image" style="width:100px; height:100px;">
+      `;
+    }
+    element.innerHTML += `
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">${
+            data.name || data.companyName || data.title || "Undefined"
+          } - ${data.email || data.company || ""}</p>
+          <button class="delete" aria-label="delete" onclick="confirmDelete('${collection}', '${
+      doc.id
+    }')"></button>
+        </header>
+        <div class="card-content">
+          <div class="content">${contentHtml}</div>
+        </div>
+      </div>`;
+  });
+}
+
+// delete capabilities
+function confirmDelete(collection, docId) {
+  if (confirm("Are you sure you want to delete this item?")) {
+    firebase
+      .firestore()
+      .collection(collection)
+      .doc(docId)
+      .delete()
+      .then(() => {
+        alert("Item successfully deleted.");
+        populateDashboard(); // Refresh lists after deletion
+      })
+      .catch((error) => alert("Error removing document: " + error));
+  }
+}
+
+// Function for Close admin page
+function closeAdminDashboard() {
+  r_e("adminDashboard").classList.remove("is-active"); // Remove the 'is-active' class from the modal
+  // Redirect to the landing page section within index2.html
+  window.location.href = "index2.html#landing"; // Replace with the ID of your landing page section
+}
