@@ -371,7 +371,8 @@ function fetchJobPostings() {
     query = query.where("company", "<=", searchQuery).where("company", "<=", searchQuery + "\uf8ff");
   }
   if (wageFilter) {
-    query = query.where("wage", "<=", wageFilter);
+    const wageFilterInt = parseInt(wageFilter);
+    query = query.where("wage", "<=", wageFilterInt);
   }
   if (daysFilter.length > 0) {
     query = query.where("days", "array-contains-any", daysFilter);
@@ -380,7 +381,8 @@ function fetchJobPostings() {
     query = query.where("experience", "==", "None");
   }
   if (hoursFilter) {
-    query = query.where("hours", "<=", hoursFilter);
+    const hoursFilterInt = parseInt(hoursFilter);
+    query = query.where("hours", "<=", hoursFilterInt);
   }
 
   // Fetch documents from job_post collection
@@ -786,11 +788,11 @@ document
     ).map((day) => day.value);
     const description = document.getElementById("description").value;
     const experience = document.getElementById("experience").value;
-    const totalhours = document.getElementById("totalhours").value;
+    const totalhours = parseFloat(document.getElementById("totalhours").value);
     const img_link = document.getElementById("img_link").value;
     const location = document.getElementById("location").value;
     const posted_date = document.getElementById("posted_date").value;
-    const wage = document.getElementById("wage").value;
+    const wage = parseFloat(document.getElementById("wage").value);
 
     // Add job application data to Firestore
     db.collection("job_post")
