@@ -557,6 +557,102 @@ function clearActivePosts() {
   jobPostingsContainer.innerHTML = ""; // Clear innerHTML
 }
 
+// Function to fetch job postings from Firestore FOR ADMIN
+function fetchAdminPostings() {
+  const jobPostingsContainer = document.getElementById("admin_postings");
+
+  // Get a reference to the job_post collection
+  const jobPostCollection = db.collection("job_post");
+
+  // Get references to filter form inputs
+  const searchQuery = document
+    .getElementById("search_query")
+    .value.trim()
+    .toLowerCase();
+  const wageFilter =
+    parseFloat(document.getElementById("wage_filter").value) || 0;
+  const daysFilter = Array.from(
+    document.querySelectorAll('input[type="checkbox"]:checked')
+  ).map((input) => input.nextSibling.textContent.trim());
+  const hoursFilter =
+    parseFloat(document.getElementById("hours_filter").value) || 0;
+
+  // Construct the query based on filter values
+  let query = jobPostCollection;
+  if (searchQuery) {
+    query = query
+      .where("company", "<=", searchQuery)
+      .where("company", "<=", searchQuery + "\uf8ff");
+  }
+  if (wageFilter) {
+    const wageFilterInt = parseInt(wageFilter);
+    query = query.where("wage", "<=", wageFilterInt);
+  }
+  if (daysFilter.length > 0) {
+    query = query.where("days", "array-contains-any", daysFilter);
+  }
+  if (hoursFilter) {
+    const hoursFilterInt = parseInt(hoursFilter);
+    query = query.where("hours", "<=", hoursFilterInt);
+  }
+
+  // Fetch documents from job_post collection
+  query
+    .get()
+    .then((querySnapshot) => {
+      jobPostingsContainer.innerHTML = "";
+
+      querySnapshot.forEach((doc) => {
+        // Extract data from each document
+        const data = doc.data();
+
+        // Create card element
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        // Populate card with data from Firestore
+        card.innerHTML = `
+      <div class="column is-full">
+        <div class="card">
+          <div class="card-content">
+              <div class="media">
+                  <div class="media-content">
+                      <p class="title is-4 has-text-black">${data.company}: ${data.title}</p>
+                      <p class="content">Expected hours/week: ${data.hours}</p>
+                      <p class="content">Required Experience: ${data.experience}</p>
+                      <p class="content">Wage: $${data.wage}/hour </p>
+                      <p class="content">Days of Week: ${data.days} </p>
+                      <p class="content">Description: ${data.description} </p>
+                  </div>
+                  <div class="media-right">
+                      <figure class="image is-96x96 is rounded"> <!-- Adjust size as needed -->
+                          <img src="${data.img_link}" alt="Job Image">
+                      </figure>
+                  </div>
+              </div>
+          </div>
+          <!-- Add a delete button inside the footer of each job posting card -->
+            <footer class="card-footer">
+                <a class="card-footer-item delete-post is-red">Delete</a> <!-- New delete button -->
+            </footer>
+        </div>`;
+
+        // Append card to container
+        jobPostingsContainer.appendChild(card);
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+}
+
+// Add event listener to handle delete button clicks
+document.querySelectorAll(".delete-post").forEach((item) => {
+  item.addEventListener("click", () => {
+    console.log("Clicked!");
+  });
+});
+
 // function to update student user profile
 function updateUserProfile(user) {
   const updatedData = {
@@ -781,6 +877,11 @@ firebase.auth().onAuthStateChanged((user) => {
           toggleSection("businessHomepage");
           configure_navbar(user);
           fetchActivePosts();
+          r_e("user_email").innerHTML = auth.currentUser.email;
+        } else if (userData.role === "admin") {
+          toggleSection("admin");
+          configure_navbar(user);
+          fetchAdminPostings();
           r_e("user_email").innerHTML = auth.currentUser.email;
         }
       })
