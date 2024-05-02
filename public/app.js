@@ -99,6 +99,28 @@ function updateUserInfoDisplay2(data) {
   }
 }
 
+// Function to autofill populate Update Job App
+function populateJobUpdate(docId) {
+  db.collection("job_post")
+    .doc(docId)
+    .get()
+    .then((doc) => {
+      const data = doc.data();
+      document.getElementById("editcompany").value = data.company || "";
+      document.getElementById("editjob_title").value = data.title || "";
+      document.getElementById("editdescription").value = data.description || "";
+      document.getElementById("editexperience").value = data.experience || "";
+      document.getElementById("edittotalhours").value = data.hours || "";
+      document.getElementById("editimg_link").value = data.img_link || "";
+      document.getElementById("editlocation").value = data.location || "";
+      document.getElementById("editposted_date").value = data.posted_date || "";
+      document.getElementById("editwage").value = data.wage || "";
+    })
+    .catch((error) => {
+      console.error("Error getting document:", error);
+    });
+}
+
 // Function to populate form fields with user data
 function populateFormFields(data) {
   document.getElementById("editCname").value = data.companyName || "";
@@ -359,7 +381,7 @@ function fetchActivePosts() {
                   </div>
             </div>
                 <footer class="card-footer">
-                <a href="#" id="edit_post" class="card-footer-item button is-link" onclick="toggleSection('jobposteditForm')">Edit Information</a>
+                <a href="#" id="edit_post" class="card-footer-item button is-link" onclick="toggleSection('jobposteditForm'); populateJobUpdate('${doc.id}')">Edit Information</a>
                 <a href="#" class="card-footer-item button is-link" onclick="viewApplicants('${doc.id}')">View Applicants</a>
                 </footer>
           </div>`;
@@ -485,9 +507,9 @@ function applyJob(jobId) {
         status: "applied",
       })
       .then(() => {
-        r_e('app_modal').classList.remove("is-active")
+        r_e("app_modal").classList.remove("is-active");
         configure_message_bar("Application submitted!");
-        toggleSection("studentHomepage")
+        toggleSection("studentHomepage");
       })
       .catch((error) => {
         console.error("Error applying to job:", error);
@@ -523,8 +545,9 @@ function viewApplicants(jobId) {
               <article class="media">
                 <figure class="media-left">
                   <p class="image is-128x128">
-                    <img src="${userData.profilePicUrl || "default-profile.png"
-                }" alt="Profile Image">
+                    <img src="${
+                      userData.profilePicUrl || "default-profile.png"
+                    }" alt="Profile Image">
                   </p>
                 </figure>
                 <div class="media-content">
@@ -544,19 +567,23 @@ function viewApplicants(jobId) {
                       <br>
                       <strong>Fun Fact:</strong> ${userData.funFact || "N/A"}
                       <br>
-                      <strong>Job Experience (1):</strong> ${userData.jobExp1 || "N/A"
-                } - ${userData.jobRole1 || "N/A"}
+                      <strong>Job Experience (1):</strong> ${
+                        userData.jobExp1 || "N/A"
+                      } - ${userData.jobRole1 || "N/A"}
                       <br>
-                      <strong>Job Experience (2):</strong> ${userData.jobExp2 || "N/A"
-                } - ${userData.jobRole2 || "N/A"}
+                      <strong>Job Experience (2):</strong> ${
+                        userData.jobExp2 || "N/A"
+                      } - ${userData.jobRole2 || "N/A"}
                     </p>
                   </div>
                 </div>
                 <div class="media-right">
-                    <button class="button is-success" onclick="confirmApplicant('${doc.id
-                }')">Confirm</button>
-                    <button class="button is-danger" onclick="denyApplicant('${doc.id
-                }')">Deny</button>
+                    <button class="button is-success" onclick="confirmApplicant('${
+                      doc.id
+                    }')">Confirm</button>
+                    <button class="button is-danger" onclick="denyApplicant('${
+                      doc.id
+                    }')">Deny</button>
                   </div>
               </article>
             `;
