@@ -359,10 +359,6 @@ function fetchJobPostings() {
   const jobPostCollection = db.collection("job_post");
 
   // Get references to filter form inputs
-  const searchQuery = document
-    .getElementById("search_query")
-    .value.trim()
-    .toLowerCase();
   const wageFilter =
     parseFloat(document.getElementById("wage_filter").value) || 0;
   const daysFilter = Array.from(
@@ -373,14 +369,9 @@ function fetchJobPostings() {
 
   // Construct the query based on filter values
   let query = jobPostCollection;
-  if (searchQuery) {
-    query = query
-      .where("company", "<=", searchQuery)
-      .where("company", "<=", searchQuery + "\uf8ff");
-  }
   if (wageFilter) {
     const wageFilterInt = parseInt(wageFilter);
-    query = query.where("wage", "<=", wageFilterInt);
+    query = query.where("wage", ">=", wageFilterInt);
   }
   if (daysFilter.length > 0) {
     query = query.where("days", "array-contains-any", daysFilter);
@@ -426,8 +417,20 @@ function fetchJobPostings() {
               </div>
           </div>
           <footer class="card-footer">
-          <a href="#" class="card-footer-item button is-link" onclick="applyJob('${doc.id}')">Apply</a>
+          <a href="#" class="card-footer-item button is-link" onclick="toggleModal('app_modal', true)">Apply</a>
           </footer>
+      </div>
+      <div id="app_modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="box">
+            <p class="subtitle has-text-black has-text-centered">Have you input all of your information?</p>
+            <div class="buttons">
+              <button id="submitApplication" class="button is-success" onclick="applyJob('${doc.id}')">Yes, submitapplication</button>
+              <button id="cancel_app" class="button is-danger" onclick="toggleModal('app_modal', false)">Cancel</button>
+            </div>
+          </div>
+        </div>
       </div>`;
 
         // Append card to container
@@ -449,11 +452,13 @@ function applyJob(jobId) {
         status: "applied",
       })
       .then(() => {
-        alert("Application submitted!");
+        r_e('app_modal').classList.remove("is-active")
+        configure_message_bar("Application submitted!");
+        toggleSection("studentHomepage")
       })
       .catch((error) => {
         console.error("Error applying to job:", error);
-        alert("Failed to apply.");
+        configure_message_bar("Failed to apply.");
       });
   }
 }
@@ -485,9 +490,8 @@ function viewApplicants(jobId) {
               <article class="media">
                 <figure class="media-left">
                   <p class="image is-128x128">
-                    <img src="${
-                      userData.profilePicUrl || "default-profile.png"
-                    }" alt="Profile Image">
+                    <img src="${userData.profilePicUrl || "default-profile.png"
+                }" alt="Profile Image">
                   </p>
                 </figure>
                 <div class="media-content">
@@ -507,23 +511,19 @@ function viewApplicants(jobId) {
                       <br>
                       <strong>Fun Fact:</strong> ${userData.funFact || "N/A"}
                       <br>
-                      <strong>Job Experience (1):</strong> ${
-                        userData.jobExp1 || "N/A"
-                      } - ${userData.jobRole1 || "N/A"}
+                      <strong>Job Experience (1):</strong> ${userData.jobExp1 || "N/A"
+                } - ${userData.jobRole1 || "N/A"}
                       <br>
-                      <strong>Job Experience (2):</strong> ${
-                        userData.jobExp2 || "N/A"
-                      } - ${userData.jobRole2 || "N/A"}
+                      <strong>Job Experience (2):</strong> ${userData.jobExp2 || "N/A"
+                } - ${userData.jobRole2 || "N/A"}
                     </p>
                   </div>
                 </div>
                 <div class="media-right">
-                    <button class="button is-success" onclick="confirmApplicant('${
-                      doc.id
-                    }')">Confirm</button>
-                    <button class="button is-danger" onclick="denyApplicant('${
-                      doc.id
-                    }')">Deny</button>
+                    <button class="button is-success" onclick="confirmApplicant('${doc.id
+                }')">Confirm</button>
+                    <button class="button is-danger" onclick="denyApplicant('${doc.id
+                }')">Deny</button>
                   </div>
               </article>
             `;
@@ -547,9 +547,6 @@ function toggleModal(modalId, show) {
     modal.classList.remove("is-active");
   }
 }
-
-
-
 
 // Function to clear innerHTML of jobPosts container
 function clearActivePosts() {
