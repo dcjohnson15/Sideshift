@@ -67,7 +67,7 @@ function fetchUserData() {
 }
 
 function updateUserInfoDisplay(data) {
-  document.getElementById("displayName").textContent = data.name || "";
+  document.getElementById("displayName").textContent = data.fullName || "";
   document.getElementById("phonenumber").textContent = data.phone || "";
   document.getElementById("eduEmail").textContent = data.email || "";
   document.getElementById("year").textContent = data.year || "";
@@ -118,12 +118,45 @@ function populateFormFields(data) {
   }
 }
 
+// function to populate forms with student data
+function populateStudentForm(data) {
+  document.getElementById("editName").value = data.fullName || "";
+  document.getElementById("editEmail").value = data.email || "";
+  document.getElementById("editPhone").value = data.phone || "";
+  document.getElementById("editMajors").value = data.majors || "";
+  document.getElementById("editHometown").value = data.hometown || "";
+  document.getElementById("editFunFact").value = data.funfact || "";
+  document.getElementById("jobExp1_title").value = data.jobExp1 || "";
+  document.getElementById("jobExp1_desc").value = data.jobRole1 || "";
+  document.getElementById("jobExp2_title").value = data.jobRole2 || "";
+  document.getElementById("jobExp2_desc").value = data.jobExp2 || "";
+  document.getElementById("editYearInSchool").value = data.year || "";
+  document.getElementById("editHours").value = data.hours || "";
+
+  if (data.profilePicUrl) {
+    document.getElementById("preview").src = data.profilePicUrl;
+    document.getElementById("preview").style.display = "block"; // Show the image element
+  }
+}
+
 // Add click event listener to the "editEmployer" element
 document.getElementById("editEmployer").addEventListener("click", () => {
   // Call fetchUserData to get user data and then populate form fields
   fetchUserData()
     .then((userData) => {
       populateFormFields(userData);
+    })
+    .catch((error) => {
+      console.error("Error fetching user data:", error);
+    });
+});
+
+// Add click event listener to the "editStudent" element
+document.getElementById("editStudent").addEventListener("click", () => {
+  // Call fetchUserData to get user data and then populate form fields
+  fetchUserData()
+    .then((userData) => {
+      populateStudentForm(userData);
     })
     .catch((error) => {
       console.error("Error fetching user data:", error);
@@ -548,9 +581,6 @@ function toggleModal(modalId, show) {
   }
 }
 
-
-
-
 // Function to clear innerHTML of jobPosts container
 function clearActivePosts() {
   const jobPostingsContainer = document.getElementById("job_postings");
@@ -656,7 +686,7 @@ document.querySelectorAll(".delete-post").forEach((item) => {
 // function to update student user profile
 function updateUserProfile(user) {
   const updatedData = {
-    name: document.getElementById("editName").value,
+    fullName: document.getElementById("editName").value,
     email: document.getElementById("editEmail").value,
     phone: document.getElementById("editPhone").value,
     majors: document.getElementById("editMajors").value,
