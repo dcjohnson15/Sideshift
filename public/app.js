@@ -39,14 +39,6 @@ function configure_message_bar(msg) {
   }, 3000);
 }
 
-function resetFilters() {
-  // Reset filter form fields to their default values
-  document.getElementById("filter_form").reset();
-
-  // Fetch all job postings again
-  fetchJobPostings();
-}
-
 // fetchuserdata DEBUG
 function fetchUserData() {
   const user = firebase.auth().currentUser;
