@@ -842,6 +842,103 @@
     </div>
   </section>
 
+  <!-- Section for Admin  -->
+  <section id="admin" class="hero is-primary is-fullheight-with-navbar section">
+    <div class="container">
+      <h1 class="title has-text-centered has-text-black is-1">Sideshift</h1>
+
+      <!-- Main Content organized in columns -->
+      <div class="columns">
+        <!-- Filter column -->
+        <div class="column is-one-quarter">
+          <div class="box">
+            <h2 class="title has-text-centered has-text-black">Filters</h2>
+            <form id="filter_form">
+              <!-- Filters detail -->
+              <div class="field">
+                <label class="label">Search by Company or Job Title</label>
+                <div class="control">
+                  <input id="search_query" class="input" type="text" placeholder="Enter a company or job title">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Wage per hour</label>
+                <div class="control">
+                  <input id="wage_filter" class="input" type="number" placeholder="Enter a dollar amount i.e. 10">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Availability</label>
+                <div class="control">
+                  <!-- List of checkboxes for days -->
+                  <label class="checkbox"><input type="checkbox"> Monday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Tuesday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Wednesday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Thursday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Friday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Saturday</label>
+                  <br>
+                  <label class="checkbox"><input type="checkbox"> Sunday</label>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Expected Hours per Week</label>
+                <div class="control">
+                  <input id="hours_filter" class="input" type="number" placeholder="Enter a number">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <button type="submit" class="button is-link">Filter</button>
+                  <button id="reset_filters" type="button" class="button">Reset filters</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Job Posting column -->
+        <div class="column">
+          <div class="box">
+            <h2 class="title has-text-centered has-text-black">Job Listings</h2>
+            <div class="columns is-multiline">
+              <div id="job_postings" class="container">
+                <!-- Job postings will be dynamically added here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Information column -->
+        <!-- <div class="column is-one-quarter">
+          <div class="box" id="userInfoBox">
+            <h2 class="title has-text-centered has-text-black">Your Information</h2>
+            <figure class="image is-fullwidth">
+              <img id="displayHeadshot" src="" alt="Headshot">
+            </figure>
+            <p><strong>Name:</strong> <span id="displayName"></span></p>
+            <p><strong>Email:</strong> <span id="eduEmail"></span></p>
+            <p><strong>Phone number:</strong> <span id="phonenumber"></span></p>
+            <p><strong>Year in school:</strong> <span id="year"></span></p>
+            <p><strong>Major(s):</strong> <span id="major"></span></p>
+            <p><strong>Hometown:</strong> <span id="hometown"></span></p>
+            <p><strong>Fun Fact:</strong> <span id="funFact"></span></p>
+            <p><strong>Job Experience (1):</strong> <span id="jobExp1"></span></p>
+            <p><strong>Job Role (1):</strong> <span id="jobRole1"></span></p>
+            <p><strong>Job Experience (2):</strong> <span id="jobExp2"></span></p>
+            <p><strong>Job Role (2):</strong> <span id="jobRole2"></span></p>
+            <button class="button is-link" onclick="toggleSection('studentUpdateInfo')">Edit Information</button>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
