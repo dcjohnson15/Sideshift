@@ -99,6 +99,28 @@ function updateUserInfoDisplay2(data) {
   }
 }
 
+// Function to autofill populate Update Job App
+function populateJobUpdate(docId) {
+  db.collection("job_post")
+    .doc(docId)
+    .get()
+    .then((doc) => {
+      const data = doc.data();
+      document.getElementById("editcompany").value = data.company || "";
+      document.getElementById("editjob_title").value = data.title || "";
+      document.getElementById("editdescription").value = data.description || "";
+      document.getElementById("editexperience").value = data.experience || "";
+      document.getElementById("edittotalhours").value = data.hours || "";
+      document.getElementById("editimg_link").value = data.img_link || "";
+      document.getElementById("editlocation").value = data.location || "";
+      document.getElementById("editposted_date").value = data.posted_date || "";
+      document.getElementById("editwage").value = data.wage || "";
+    })
+    .catch((error) => {
+      console.error("Error getting document:", error);
+    });
+}
+
 // Function to populate form fields with user data
 function populateFormFields(data) {
   document.getElementById("editCname").value = data.companyName || "";
@@ -359,7 +381,7 @@ function fetchActivePosts() {
                   </div>
             </div>
                 <footer class="card-footer">
-                <a href="#" id="edit_post" class="card-footer-item button is-link" onclick="toggleSection('jobposteditForm')">Edit Information</a>
+                <a href="#" id="edit_post" class="card-footer-item button is-link" onclick="toggleSection('jobposteditForm'); populateJobUpdate('${doc.id}')">Edit Information</a>
                 <a href="#" class="card-footer-item button is-link" onclick="viewApplicants('${doc.id}')">View Applicants</a>
                 </footer>
           </div>`;
@@ -485,9 +507,9 @@ function applyJob(jobId) {
         status: "applied",
       })
       .then(() => {
-        r_e('app_modal').classList.remove("is-active")
+        r_e("app_modal").classList.remove("is-active");
         configure_message_bar("Application submitted!");
-        toggleSection("studentHomepage")
+        toggleSection("studentHomepage");
       })
       .catch((error) => {
         console.error("Error applying to job:", error);
@@ -585,8 +607,9 @@ function viewApplicants(jobId) {
               <article class="media">
                 <figure class="media-left">
                   <p class="image is-128x128">
-                    <img src="${userData.profilePicUrl || "default-profile.png"
-                }" alt="Profile Image">
+                    <img src="${
+                      userData.profilePicUrl || "default-profile.png"
+                    }" alt="Profile Image">
                   </p>
                 </figure>
                 <div class="media-content">
@@ -606,19 +629,23 @@ function viewApplicants(jobId) {
                       <br>
                       <strong>Fun Fact:</strong> ${userData.funFact || "N/A"}
                       <br>
-                      <strong>Job Experience (1):</strong> ${userData.jobExp1 || "N/A"
-                } - ${userData.jobRole1 || "N/A"}
+                      <strong>Job Experience (1):</strong> ${
+                        userData.jobExp1 || "N/A"
+                      } - ${userData.jobRole1 || "N/A"}
                       <br>
-                      <strong>Job Experience (2):</strong> ${userData.jobExp2 || "N/A"
-                } - ${userData.jobRole2 || "N/A"}
+                      <strong>Job Experience (2):</strong> ${
+                        userData.jobExp2 || "N/A"
+                      } - ${userData.jobRole2 || "N/A"}
                     </p>
                   </div>
                 </div>
                 <div class="media-right">
-                    <button class="button is-success" onclick="confirmApplicant('${doc.id
-                }')">Confirm</button>
-                    <button class="button is-danger" onclick="denyApplicant('${doc.id
-                }')">Deny</button>
+                    <button class="button is-success" onclick="confirmApplicant('${
+                      doc.id
+                    }')">Confirm</button>
+                    <button class="button is-danger" onclick="denyApplicant('${
+                      doc.id
+                    }')">Deny</button>
                   </div>
               </article>
             `;
@@ -970,11 +997,6 @@ firebase.auth().onAuthStateChanged((user) => {
           configure_navbar(user);
           fetchActivePosts();
           r_e("user_email").innerHTML = auth.currentUser.email;
-        } else if (userData.role === "admin") {
-          toggleSection("admin");
-          configure_navbar(user);
-          fetchAdminPostings();
-          r_e("user_email").innerHTML = auth.currentUser.email;
         }
       })
       .catch((error) => {
@@ -1178,3 +1200,130 @@ firebase.auth().onAuthStateChanged(function (user) {
       });
   }
 });
+
+// Establishing if user is admin
+function isAdminUser() {
+  // Implement admin checking logic
+  const user = firebase.auth().currentUser;
+  if (!user) return false;
+  return firebase
+    .firestore()
+    .collection("users")
+    .doc(user.uid)
+    .get()
+    .then((doc) => doc.exists && doc.data().role === "admin");
+}
+
+// Populate Admin Dashboard with data from Firebase
+function populateDashboard() {
+  if (!isAdminUser()) {
+    alert("Unauthorized access.");
+    return;
+  }
+
+  const db = firebase.firestore();
+
+  // Fetch Students
+  db.collection("users")
+    .where("role", "==", "student")
+    .get()
+    .then((snapshot) => populateList("adminStudentsList", snapshot, "users"))
+    .catch((error) => console.error("Failed to fetch students:", error));
+
+  // Fetch Businesses
+  db.collection("users")
+    .where("role", "==", "business")
+    .get()
+    .then((snapshot) => populateList("adminBusinessesList", snapshot, "users"))
+    .catch((error) => console.error("Failed to fetch businesses:", error));
+
+  // Fetch Job Listings
+  db.collection("job_post")
+    .get()
+    .then((snapshot) => populateList("adminJobListings", snapshot, "job_post"))
+    .catch((error) => console.error("Failed to fetch job listings:", error));
+}
+// showing data in modal
+function populateList(elementId, snapshot, collection) {
+  const element = r_e(elementId);
+  element.innerHTML = "";
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    let contentHtml = "";
+
+    // deterime if student or business and which data to display
+    if (data.role === "student") {
+      contentHtml = `
+        <p>Phone: ${data.phone || "N/A"}</p>
+        <p>Year: ${data.year || "N/A"}</p>
+        <p>Major: ${data.majors || "N/A"}</p>
+        <p>Hometown: ${data.hometown || "N/A"}</p>
+        <p>Fun Fact: ${data.funfact || "N/A"}</p>
+        <img src="${
+          data.profilePicUrl || "placeholder-image-url.jpg"
+        }" alt="Profile Picture" style="width:100px; height:100px;">
+      `;
+    } else if (data.role === "business") {
+      contentHtml = `
+        <p>Phone: ${data.phone || "N/A"}</p>
+        <p>Industry: ${data.industry || "N/A"}</p>
+        <p>Size: ${data.size || "N/A"}</p>
+        <p>Address: ${data.address || "N/A"}</p>
+        <img src="${
+          data.logoUrl || "placeholder-image-url.jpg"
+        }" alt="Company Logo" style="width:100px; height:100px;">
+      `;
+    } else if (collection === "job_post") {
+      // Adjust this as needed based on your collection names
+      contentHtml = `
+        <p>Company: ${data.company || "N/A"}</p>
+        <p>Description: ${data.description || "N/A"}</p>
+        <p>Experience Required: ${data.experience || "N/A"}</p>
+        <p>Hours: ${data.hours || "N/A"} per week</p>
+        <p>Wage: $${data.wage || "N/A"} per hour</p>
+        <p>Location: ${data.location || "N/A"}</p>
+        <p>Days: ${data.days.join(", ") || "N/A"}</p>
+        <img src="${
+          data.imgLink || "placeholder-image-url.jpg"
+        }" alt="Job Image" style="width:100px; height:100px;">
+      `;
+    }
+    element.innerHTML += `
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">${
+            data.name || data.companyName || data.title || "Undefined"
+          } - ${data.email || data.company || ""}</p>
+          <button class="delete" aria-label="delete" onclick="confirmDelete('${collection}', '${
+      doc.id
+    }')"></button>
+        </header>
+        <div class="card-content">
+          <div class="content">${contentHtml}</div>
+        </div>
+      </div>`;
+  });
+}
+
+// delete capabilities
+function confirmDelete(collection, docId) {
+  if (confirm("Are you sure you want to delete this item?")) {
+    firebase
+      .firestore()
+      .collection(collection)
+      .doc(docId)
+      .delete()
+      .then(() => {
+        alert("Item successfully deleted.");
+        populateDashboard(); // Refresh lists after deletion
+      })
+      .catch((error) => alert("Error removing document: " + error));
+  }
+}
+
+// Function for Close admin page
+function closeAdminDashboard() {
+  r_e("adminDashboard").classList.remove("is-active"); // Remove the 'is-active' class from the modal
+  // Redirect to the landing page section within index2.html
+  window.location.href = "index2.html#landing"; // Replace with the ID of your landing page section
+}

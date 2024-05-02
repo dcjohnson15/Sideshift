@@ -95,6 +95,17 @@
 
     }
 
+    .modal-content {
+      width: 90%;
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+
+
+
+
+
+
     /* Define hover effects for the delete button */
     .is-red:hover {
       background-color: #a82d2d;
@@ -792,7 +803,7 @@
           <div class="field">
             <label class="label" for="description">Description:</label>
             <div class="control">
-              <textarea class="textarea" id="description" name="description"
+              <textarea class="textarea" id="editdescription" name="description"
                 placeholder="Enter job description"></textarea>
             </div>
           </div>
@@ -800,7 +811,7 @@
           <div class="field">
             <label class="label" for="experience">Experience:</label>
             <div class="control">
-              <input class="input" type="text" id="experience" name="experience"
+              <input class="input" type="text" id="editexperience" name="experience"
                 placeholder="Enter required experience">
             </div>
           </div>
@@ -808,35 +819,36 @@
           <div class="field">
             <label class="label" for="hours">Hours:</label>
             <div class="control">
-              <input class="input" type="number" id="totalhours" name="totalhours" placeholder="Enter working hours">
+              <input class="input" type="number" id="edittotalhours" name="totalhours"
+                placeholder="Enter working hours">
             </div>
           </div>
 
           <div class="field">
             <label class="label" for="img_link">Image Link:</label>
             <div class="control">
-              <input class="input" type="text" id="img_link" name="img_link" placeholder="Enter image link">
+              <input class="input" type="text" id="editimg_link" name="img_link" placeholder="Enter image link">
             </div>
           </div>
 
           <div class="field">
             <label class="label" for="location">Location:</label>
             <div class="control">
-              <input class="input" type="text" id="location" name="location" placeholder="Enter job location">
+              <input class="input" type="text" id="editlocation" name="location" placeholder="Enter job location">
             </div>
           </div>
 
           <div class="field">
             <label class="label" for="posted_date">Posted Date:</label>
             <div class="control">
-              <input class="input" type="text" id="posted_date" name="posted_date" placeholder="Enter posted date">
+              <input class="input" type="text" id="editposted_date" name="posted_date" placeholder="Enter posted date">
             </div>
           </div>
 
           <div class="field">
             <label class="label" for="wage">Wage:</label>
             <div class="control">
-              <input class="input" type="number" id="wage" name="wage" placeholder="Enter wage">
+              <input class="input" type="number" id="editwage" name="wage" placeholder="Enter wage">
             </div>
           </div>
 
