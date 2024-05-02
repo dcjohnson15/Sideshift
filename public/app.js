@@ -359,15 +359,24 @@ function fetchJobPostings() {
   const jobPostCollection = db.collection("job_post");
 
   // Get references to filter form inputs
-  const searchQuery = document.getElementById("search_query").value.trim().toLowerCase();
-  const wageFilter = parseFloat(document.getElementById("wage_filter").value) || 0;
-  const daysFilter = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.nextSibling.textContent.trim());
-  const hoursFilter = parseFloat(document.getElementById("hours_filter").value) || 0;
+  const searchQuery = document
+    .getElementById("search_query")
+    .value.trim()
+    .toLowerCase();
+  const wageFilter =
+    parseFloat(document.getElementById("wage_filter").value) || 0;
+  const daysFilter = Array.from(
+    document.querySelectorAll('input[type="checkbox"]:checked')
+  ).map((input) => input.nextSibling.textContent.trim());
+  const hoursFilter =
+    parseFloat(document.getElementById("hours_filter").value) || 0;
 
   // Construct the query based on filter values
   let query = jobPostCollection;
   if (searchQuery) {
-    query = query.where("company", "<=", searchQuery).where("company", "<=", searchQuery + "\uf8ff");
+    query = query
+      .where("company", "<=", searchQuery)
+      .where("company", "<=", searchQuery + "\uf8ff");
   }
   if (wageFilter) {
     const wageFilterInt = parseInt(wageFilter);
@@ -385,7 +394,6 @@ function fetchJobPostings() {
   query
     .get()
     .then((querySnapshot) => {
-
       jobPostingsContainer.innerHTML = "";
 
       querySnapshot.forEach((doc) => {
@@ -707,10 +715,12 @@ document
   });
 
 // filter
-document.getElementById("filter_form").addEventListener("submit", function (event) {
-  event.preventDefault(); // Prevent default form submission
-  fetchJobPostings(); // Call the filtering function
-});
+document
+  .getElementById("filter_form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    fetchJobPostings(); // Call the filtering function
+  });
 
 document.getElementById("reset_filters").addEventListener("click", function () {
   // Clear filter form
