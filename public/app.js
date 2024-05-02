@@ -359,15 +359,24 @@ function fetchJobPostings() {
   const jobPostCollection = db.collection("job_post");
 
   // Get references to filter form inputs
-  const searchQuery = document.getElementById("search_query").value.trim().toLowerCase();
-  const wageFilter = parseFloat(document.getElementById("wage_filter").value) || 0;
-  const daysFilter = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.nextSibling.textContent.trim());
-  const hoursFilter = parseFloat(document.getElementById("hours_filter").value) || 0;
+  const searchQuery = document
+    .getElementById("search_query")
+    .value.trim()
+    .toLowerCase();
+  const wageFilter =
+    parseFloat(document.getElementById("wage_filter").value) || 0;
+  const daysFilter = Array.from(
+    document.querySelectorAll('input[type="checkbox"]:checked')
+  ).map((input) => input.nextSibling.textContent.trim());
+  const hoursFilter =
+    parseFloat(document.getElementById("hours_filter").value) || 0;
 
   // Construct the query based on filter values
   let query = jobPostCollection;
   if (searchQuery) {
-    query = query.where("company", "<=", searchQuery).where("company", "<=", searchQuery + "\uf8ff");
+    query = query
+      .where("company", "<=", searchQuery)
+      .where("company", "<=", searchQuery + "\uf8ff");
   }
   if (wageFilter) {
     const wageFilterInt = parseInt(wageFilter);
@@ -385,7 +394,6 @@ function fetchJobPostings() {
   query
     .get()
     .then((querySnapshot) => {
-
       jobPostingsContainer.innerHTML = "";
 
       querySnapshot.forEach((doc) => {
@@ -418,7 +426,7 @@ function fetchJobPostings() {
               </div>
           </div>
           <footer class="card-footer">
-              <a id="apply" class="card-footer-item">Apply</a>
+              <a id="apply" class="card-footer-item" onclick="applyButton()" data-target="apply_modal">Apply</a>
           </footer>
       </div>`;
 
@@ -630,6 +638,46 @@ function updateJobPost(user) {
   }
 }
 
+// Submits student application
+
+function applyButton(company) {
+  // Confirmation modal
+  r_e("apply_modal").innerHTML = `<div class="modal-background"></div>
+  <div class="modal-content">
+    <div id="apply_modal_box" class="box">
+      <p>Student Email: ${firebase.auth().currentUser.email}</p>
+      <p>Student Phone Number: ${firebase.auth().currentUser.phone}</p>
+      <p>Student Age: ${firebase.auth().currentUser.age}</p>
+      <p>Student Major(s): ${firebase.auth().currentUser.majors}</p>
+      <p>Student Hometown: ${firebase.auth().currentUser.hometown}</p>
+      <p>Student Fun Fact: ${firebase.auth().currentUser.funfact}</p>
+      <p>Student Job Experience (1): ${firebase.auth().currentUser.jobExp1}</p>
+      <p>Student Job Role (1): ${firebase.auth().currentUser.jobRole1}</p>
+      <p>Student Job Experience (2): ${firebase.auth().currentUser.jobExp2}</p>
+      <p>Student Job Role (2): ${firebase.auth().currentUser.jobRole2}</p>
+      <br></br>
+      <p>Apply to ${company} using this information?</p>
+      <button class="button is-link" onclick="submitApplication()">Yes</button>
+      <button class="button is-danger" onclick="closeApplyModal()">No</button>
+    </div>
+  </div>
+  <button class="modal-close" aria-label="close" onclick="closeApplyModal()"></button>`;
+  r_e("apply_modal").classList.add("is-active");
+}
+
+// Closes modal if student chooses not to apply
+
+function closeApplyModal() {
+  r_e("apply_modal").classList.remove("is-active");
+}
+
+// Creates application in collection
+
+function submitApplication() {
+  alert("applied!");
+  r_e("apply_modal").classList.remove("is-active");
+}
+
 // Call this function when the content is loaded to show active section
 document.addEventListener("DOMContentLoaded", (event) => {
   // Initially show only show the landing page
@@ -707,10 +755,12 @@ document
   });
 
 // filter
-document.getElementById("filter_form").addEventListener("submit", function (event) {
-  event.preventDefault(); // Prevent default form submission
-  fetchJobPostings(); // Call the filtering function
-});
+document
+  .getElementById("filter_form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    fetchJobPostings(); // Call the filtering function
+  });
 
 document.getElementById("reset_filters").addEventListener("click", function () {
   // Clear filter form
