@@ -481,7 +481,7 @@ function fetchJobPostings() {
           <div class="box">
             <p class="subtitle has-text-black has-text-centered">Have you input all of your information?</p>
             <div class="buttons">
-              <button id="submitApplication" class="button is-success" onclick="applyJob('${doc.id}')">Yes, submitapplication</button>
+              <button id="submitApplication" class="button is-success" onclick="applyJob('${doc.id}')">Yes, submit application</button>
               <button id="cancel_app" class="button is-danger" onclick="toggleModal('app_modal', false)">Cancel</button>
             </div>
           </div>
@@ -520,8 +520,8 @@ function applyJob(jobId) {
 
 // Function to fetch job applications for the current student
 function fetchJobApplications() {
-  const jobAppContainer = r_e('my_app_posts')
-  const studentId = auth.currentUser.uid // Function to get the current student's ID
+  const jobAppContainer = r_e("my_app_posts");
+  const studentId = auth.currentUser.uid; // Function to get the current student's ID
 
   // Query Firestore to fetch job applications for the current student
   db.collection("applications")
@@ -566,7 +566,7 @@ function fetchJobApplications() {
                     </div>
                 </div>
               </div>
-            </div>`
+            </div>`;
 
             jobAppContainer.appendChild(card);
           })
@@ -1106,7 +1106,7 @@ r_e("signout_nav").addEventListener("click", () => {
 
 document.getElementById("viewApps").addEventListener("click", function () {
   // Change the section to "My Applications"
-  toggleSection('my_apps')
+  toggleSection("my_apps");
 
   // Call the fetchJobApplications function
   fetchJobApplications();
