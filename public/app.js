@@ -362,7 +362,6 @@ function fetchJobPostings() {
   const searchQuery = document.getElementById("search_query").value.trim().toLowerCase();
   const wageFilter = parseFloat(document.getElementById("wage_filter").value) || 0;
   const daysFilter = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.nextSibling.textContent.trim());
-  const noExperienceRequired = document.getElementById("no_experience_required").checked;
   const hoursFilter = parseFloat(document.getElementById("hours_filter").value) || 0;
 
   // Construct the query based on filter values
@@ -376,9 +375,6 @@ function fetchJobPostings() {
   }
   if (daysFilter.length > 0) {
     query = query.where("days", "array-contains-any", daysFilter);
-  }
-  if (noExperienceRequired) {
-    query = query.where("experience", "==", "None");
   }
   if (hoursFilter) {
     const hoursFilterInt = parseInt(hoursFilter);
